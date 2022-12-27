@@ -18,7 +18,7 @@ signal hit_wall(position)
 func _ready():
 	timer = 0
 	set_as_top_level(true)
-	apply_impulse(transform.basis.z * speed * 30000, transform.basis.z)
+	apply_impulse(transform.basis.z * speed, transform.basis.z)
 	
 
 func _process(delta):

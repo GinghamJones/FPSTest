@@ -1,3 +1,6 @@
+Timer
+DirectionalLight3D
+WorldEnvironment
 Node3D
 Marker3D
 NavigationRegion3D

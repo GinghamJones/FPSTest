@@ -1,9 +1,11 @@
-res://Levels/level_2.tscn
-res://Materials/rust_floor.tres
 res://Menu/main_menu.tscn
+res://Materials/rust_floor.tres
+res://enemy.gd
+res://Levels/level_2.tscn
 res://Levels/door.tscn
 res://Player/player.tscn
 res://Weapons/Shotgun/shotgun_pickup.tscn
 res://enemy.tscn
-res://enemy.gd
-res://Levels/level_2.gd
+res://Weapons/Shotgun/shotgun_2.tscn
+res://Weapons/bullet.tscn
+res://Weapons/bullet.gd

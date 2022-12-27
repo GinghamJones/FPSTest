@@ -4,21 +4,29 @@ extends CharacterBody3D
 @onready var h_text = $HealthText
 @onready var timer = $RespawnTimer
 @onready var idle_timer = $IdleTimer
+@onready var fire_timer = $FireTimer
 @onready var raycast = $BitchFinder
 @onready var nav_agent = $NavigationAgent3D
 @onready var eyes : Node3D = $Eyes
+@onready var nipple1 : MeshInstance3D = $Woman/Nipple1
+@onready var nipple2 : MeshInstance3D = $Woman/Nipple2
+@onready var bullet = preload("res://Weapons/bullet.tscn")
 
 var current_nav_point : int = 0
 var nav_points : Array = []
 var target
 
-const SPEED = 2.0
+const SEARCH_SPEED = 2.0
+const FOLLOW_SPEED = 3.0
 const JUMP_VELOCITY = 4.5
 const TURN_SPEED = 2
 
 var health : int = 100
 var max_health : int = 100
 var start_pos 
+var random_spread = RandomNumberGenerator.new()
+var bullet_speed = 2
+var bullet_damage = 1
 
 enum EnemyState {
 	IDLE,
@@ -66,6 +74,10 @@ func is_player_spotted() -> bool:
 func set_movement_target(movement_target : Vector3):
 	nav_agent.set_target_location(movement_target)
 	
+func look_somewhere(pos : Vector3):
+		eyes.look_at(pos, Vector3.UP)
+		rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
+	
 func target_reached() -> bool:
 	if nav_agent.is_target_reached():
 		current_nav_point += 1
@@ -95,20 +107,52 @@ func _physics_process(delta):
 			set_movement_target(nav_points[current_nav_point].global_transform.origin)
 			var current_agent_position: Vector3 = global_transform.origin
 			var next_path_position : Vector3 = nav_agent.get_next_location()
-			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * SPEED
-			#look_at(next_path_position, Vector3.UP)
-			#new_velocity = new_velocity.normalized()
-			#new_velocity = new_velocity * SPEED
+			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * SEARCH_SPEED
 			set_velocity(new_velocity)
-			eyes.look_at(nav_points[current_nav_point].global_transform.origin, Vector3.UP)
-			rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
 			
+			# Make enemy look at current direction
+			look_somewhere(nav_points[current_nav_point].global_transform.origin)
 			
 		EnemyState.FOLLOWING:
-			pass
+			var current_agent_position: Vector3 = global_transform.origin
+			if current_agent_position.distance_to(player.global_transform.origin) > 10:
+				enemy_state = EnemyState.SEARCHING
+			elif current_agent_position.distance_to(player.global_transform.origin) < 3:
+				enemy_state = EnemyState.ATTACKING
+			
+			print(current_agent_position.distance_to(player.global_transform.origin))
+			set_movement_target(player.global_transform.origin)
+			var next_path_position: Vector3 = nav_agent.get_next_location()
+			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * FOLLOW_SPEED
+			set_velocity(new_velocity)
+			#print(nav_agent.get_final_location())
+			
+			eyes.look_at(player.global_transform.origin, Vector3.UP)
+			rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
 			
 		EnemyState.ATTACKING:
-			pass
+			if global_transform.origin.distance_to(player.global_transform.origin) > 3:
+				enemy_state = EnemyState.SEARCHING
+			velocity = Vector3.ZERO
+			
+			look_somewhere(player.global_transform.origin)
+			print(rad_to_deg(nipple1.rotation.y))
+			print(rad_to_deg(global_rotation.y))
+			random_spread.randomize()
+			var randomy_angle = random_spread.randf_range(-0.1, 0.1)
+			var randomx_angle = random_spread.randf_range(-0.1, 0.1)
+			
+		
+			if fire_timer.is_stopped() == true:
+				fire_timer.start()
+				var b = bullet.instantiate()
+				b.speed = bullet_speed
+				b.bullet_damage = bullet_damage
+				b.transform.basis = eyes.transform.basis 
+				#b.global_rotation.y = $Woman.global_rotation.y 
+				b.rotation.x += randomx_angle
+				b.rotation.y += randomy_angle
+				nipple1.add_child(b)
 	
 	# Add the gravity.
 	if not is_on_floor():
