@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://qdrnlv4bk14u"]
+
+[ext_resource type="Texture2D" uid="uid://bl6ewcy1ykgo5" path="res://Weapons/bulletHole.png" id="1_3tar3"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_d2tvj"]
+transparency = 1
+albedo_color = Color(0.192157, 0.192157, 0.192157, 1)
+albedo_texture = ExtResource("1_3tar3")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ilv0"]
+material = SubResource("StandardMaterial3D_d2tvj")
+
+[node name="BulletHole" type="Node3D"]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.0467296, 0, 0, 0, -2.04262e-09, 0.0467296, 0, -0.0467296, -2.04262e-09, 0, 0, -0.02)
+mesh = SubResource("PlaneMesh_7ilv0")

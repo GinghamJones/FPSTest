@@ -1,0 +1,17 @@
+Node3D
+Marker3D
+NavigationRegion3D
+NavigationObstacle3D
+NavigationLink3D
+NavigationAgent3D
+MeshInstance3D
+RigidBody3D
+CollisionShape3D
+Area3D
+AnimationPlayer
+RayCast3D
+SpotLight3D
+OmniLight3D
+AudioStreamPlayer3D
+VoxelGI
+OccluderInstance3D

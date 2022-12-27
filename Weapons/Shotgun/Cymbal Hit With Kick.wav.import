@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://b4amoy2qhrixy"
+path="res://.godot/imported/Cymbal Hit With Kick.wav-c0000f94b83f406f679f8f5153a4644e.sample"
+
+[deps]
+
+source_file="res://Weapons/Shotgun/Cymbal Hit With Kick.wav"
+dest_files=["res://.godot/imported/Cymbal Hit With Kick.wav-c0000f94b83f406f679f8f5153a4644e.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=0

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://dvu6qfpx2kiaj"]
+
+[ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_knfav"]
+[ext_resource type="ArrayMesh" uid="uid://dbkrkehiq4lkt" path="res://Weapons/Shotgun/Resources/shotgun_model.res" id="2_5qr37"]
+[ext_resource type="Script" path="res://Weapons/Shotgun/shotgun.gd" id="2_au1rb"]
+[ext_resource type="AudioStream" uid="uid://b4amoy2qhrixy" path="res://Weapons/Shotgun/Cymbal Hit With Kick.wav" id="2_eis5o"]
+[ext_resource type="PackedScene" uid="uid://c2u2eednrp0li" path="res://Weapons/Shotgun/Shotgun_WorldModel.glb" id="5_2liqp"]
+[ext_resource type="PackedScene" uid="uid://bfww4u2cbcq13" path="res://Weapons/Shotgun/Shotgunrig.glb" id="6_58n1a"]
+
+[node name="Shotgun" node_paths=PackedStringArray("reload_time", "fire_rate") instance=ExtResource("1_knfav")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.04, 0.108, -0.049)
+script = ExtResource("2_au1rb")
+gun_name = "shotgun"
+mag_size = 2
+reload_time = NodePath("ReloadTimer")
+fire_rate = NodePath("FireRate")
+damage = 5
+single_fire = true
+bullet_speed = 5.0
+
+[node name="FireSound" parent="." index="0"]
+stream = ExtResource("2_eis5o")
+volume_db = -3.926
+pitch_scale = 0.73
+
+[node name="ReloadTimer" parent="." index="1"]
+wait_time = 1.554
+
+[node name="FireRate" parent="." index="2"]
+wait_time = 0.559
+
+[node name="GunModel" parent="." index="3"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+visible = false
+mesh = ExtResource("2_5qr37")
+
+[node name="Shotgun_WorldModel" parent="." index="4" instance=ExtResource("5_2liqp")]
+transform = Transform3D(-0.49076, 0, -4.29036e-08, 0, 0.49076, 0, 4.29036e-08, 0, -0.49076, 0.0381773, -0.718555, 0.528799)
+
+[node name="Muzzle" parent="." index="5"]
+transform = Transform3D(0.0112924, 0, 0, 0, -4.93607e-10, 0.0112924, 0, -0.0112924, -4.93607e-10, 0.0431239, 0, -0.293552)
+
+[node name="Shotgunrig" parent="." index="6" instance=ExtResource("6_58n1a")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0.0512011, -1.47963, 0.990129)

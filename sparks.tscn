@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://d2lffsqbdweol"]
+
+[ext_resource type="Script" path="res://sparks.gd" id="2_p6hpl"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_35a7p"]
+direction = Vector3(0, -1, 0)
+spread = 11.8
+initial_velocity_min = 4.0
+initial_velocity_max = 4.0
+angle_min = 71.5
+angle_max = 90.0
+turbulence_noise_strength = 0.01
+turbulence_noise_scale = 10.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_846ug"]
+albedo_color = Color(0.764706, 0.627451, 0, 1)
+emission_enabled = true
+emission = Color(0.741176, 0.584314, 0, 1)
+emission_energy_multiplier = 3.1
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_obnwi"]
+material = SubResource("StandardMaterial3D_846ug")
+radius = 0.005
+height = 0.05
+
+[node name="Sparks" type="GPUParticles3D"]
+emitting = false
+amount = 10
+lifetime = 0.48
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_35a7p")
+draw_pass_1 = SubResource("CapsuleMesh_obnwi")
+script = ExtResource("2_p6hpl")

@@ -1,0 +1,15 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://b23tucnuoqcxr"]
+
+[ext_resource type="Texture2D" uid="uid://bnyut6nufi8gt" path="res://Textures/wooden_planks_diff_1k.jpg" id="1_i5nme"]
+[ext_resource type="Texture2D" uid="uid://dgl6tly7d1gw3" path="res://Textures/wooden_planks_rough_1k.jpg" id="3_rt366"]
+
+[resource]
+shading_mode = 2
+vertex_color_use_as_albedo = true
+vertex_color_is_srgb = true
+albedo_texture = ExtResource("1_i5nme")
+roughness_texture = ExtResource("3_rt366")
+uv1_scale = Vector3(0.289, 0.289, 0.289)
+uv1_triplanar = true
+uv1_triplanar_sharpness = 2.21913
+point_size = 0.1

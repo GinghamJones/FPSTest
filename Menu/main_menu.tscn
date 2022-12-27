@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://bx7jfydbyaxrt"]
+
+[ext_resource type="Script" path="res://Menu/main_menu.gd" id="1_bjc8d"]
+
+[node name="MainMenu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_bjc8d")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -158.0
+offset_top = 84.0
+offset_right = 160.0
+offset_bottom = 533.0
+grow_horizontal = 2
+
+[node name="StartButton" type="Button" parent="VBoxContainer"]
+offset_right = 318.0
+offset_bottom = 147.0
+size_flags_vertical = 3
+text = "Start"
+icon_alignment = 1
+
+[node name="SettingsButton" type="Button" parent="VBoxContainer"]
+offset_top = 151.0
+offset_right = 318.0
+offset_bottom = 298.0
+size_flags_vertical = 3
+text = "Settings"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer"]
+offset_top = 302.0
+offset_right = 318.0
+offset_bottom = 449.0
+size_flags_vertical = 3
+text = "Quit"
+
+[node name="Level1" type="Button" parent="."]
+visible = false
+offset_left = 1184.0
+offset_top = 86.0
+offset_right = 1514.0
+offset_bottom = 128.0
+text = "Level 1"
+
+[node name="Level2" type="Button" parent="."]
+visible = false
+offset_left = 1185.0
+offset_top = 154.0
+offset_right = 1509.0
+offset_bottom = 188.0
+text = "Level 2
+"
+
+[connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="Level1" to="." method="_on_level_1_pressed"]
+[connection signal="pressed" from="Level2" to="." method="_on_level_2_pressed"]

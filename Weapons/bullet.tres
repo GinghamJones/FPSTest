@@ -1,0 +1,59 @@
+[gd_resource type="VisualShader" load_steps=5 format=3 uid="uid://d321vh8f0ccdt"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_4vshs"]
+constant = Color(0.753862, 0.622256, 0, 1)
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_jh8uo"]
+constant = Color(0.753862, 0.622256, 0, 1)
+
+[sub_resource type="VisualShaderNodeFloatConstant" id="VisualShaderNodeFloatConstant_5cffa"]
+constant = 2.0
+
+[sub_resource type="VisualShaderNodeVectorOp" id="VisualShaderNodeVectorOp_3woq8"]
+default_input_values = [0, Quaternion(0, 0, 0, 0), 1, Quaternion(0, 0, 0, 0)]
+op_type = 2
+operator = 2
+
+[resource]
+resource_local_to_scene = true
+code = "shader_type spatial;
+render_mode depth_draw_always;
+
+
+
+
+void fragment() {
+// ColorConstant:2
+	vec4 n_out2p0 = vec4(0.753862, 0.622256, 0.000000, 1.000000);
+
+
+// ColorConstant:3
+	vec4 n_out3p0 = vec4(0.753862, 0.622256, 0.000000, 1.000000);
+
+
+// FloatConstant:4
+	float n_out4p0 = 2.000000;
+
+
+// VectorOp:5
+	vec4 n_out5p0 = n_out3p0 * vec4(n_out4p0);
+
+
+// Output:0
+	ALBEDO = vec3(n_out2p0.xyz);
+	EMISSION = vec3(n_out5p0.xyz);
+
+
+}
+"
+graph_offset = Vector2(-617.25, 55.25)
+modes/depth_draw = 1
+nodes/fragment/2/node = SubResource("VisualShaderNodeColorConstant_4vshs")
+nodes/fragment/2/position = Vector2(0, 140)
+nodes/fragment/3/node = SubResource("VisualShaderNodeColorConstant_jh8uo")
+nodes/fragment/3/position = Vector2(-40, 300)
+nodes/fragment/4/node = SubResource("VisualShaderNodeFloatConstant_5cffa")
+nodes/fragment/4/position = Vector2(-40, 400)
+nodes/fragment/5/node = SubResource("VisualShaderNodeVectorOp_3woq8")
+nodes/fragment/5/position = Vector2(160, 280)
+nodes/fragment/connections = PackedInt32Array(3, 0, 5, 0, 4, 0, 5, 1, 5, 0, 0, 5, 2, 0, 0, 0)

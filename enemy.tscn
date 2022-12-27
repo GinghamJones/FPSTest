@@ -1,0 +1,63 @@
+[gd_scene load_steps=6 format=3 uid="uid://dngs351q5gt2u"]
+
+[ext_resource type="PackedScene" uid="uid://hakf5dq52iug" path="res://Woman.glb" id="1_xmpm8"]
+[ext_resource type="Script" path="res://enemy.gd" id="1_ye7w4"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydxww"]
+albedo_color = Color(0.694118, 0.337255, 0.294118, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_rannj"]
+material = SubResource("StandardMaterial3D_ydxww")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5rgs0"]
+radius = 0.353212
+
+[node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
+collision_layer = 16
+collision_mask = 5
+script = ExtResource("1_ye7w4")
+
+[node name="Woman" parent="." instance=ExtResource("1_xmpm8")]
+transform = Transform3D(-1.09443e-08, 0, 0.250377, 0, 0.250377, 0, -0.250377, 0, -1.09443e-08, 0, 0, 0)
+
+[node name="Nipple1" type="MeshInstance3D" parent="Woman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.454878, 5.38481, 0.430126)
+mesh = SubResource("CapsuleMesh_rannj")
+
+[node name="Nipple2" type="MeshInstance3D" parent="Woman"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.454878, 5.38481, -0.445903)
+mesh = SubResource("CapsuleMesh_rannj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.897254, 0)
+shape = SubResource("CapsuleShape3D_5rgs0")
+
+[node name="BitchFinder" type="RayCast3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.35054, 0)
+target_position = Vector3(5, 0, 0)
+collision_mask = 3
+
+[node name="HealthText" type="Label3D" parent="."]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 6.72536e-09, 1.99263, 0.153858)
+text = "Health: "
+
+[node name="RespawnTimer" type="Timer" parent="."]
+wait_time = 6.476
+one_shot = true
+
+[node name="IdleTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 5.0
+one_shot = true
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+target_desired_distance = 0.5
+
+[node name="Eyes" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.109213, 1.69819, 0.00175811)
+
+[connection signal="timeout" from="RespawnTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="path_changed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_path_changed"]

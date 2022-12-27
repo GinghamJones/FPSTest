@@ -1,0 +1,404 @@
+[gd_scene load_steps=23 format=3 uid="uid://lknibfyx8b28"]
+
+[ext_resource type="Script" path="res://Player/player.gd" id="1_7shlp"]
+[ext_resource type="Script" path="res://Player/WeaponManager.gd" id="2_n7ocy"]
+[ext_resource type="Script" path="res://Player/HUD.gd" id="2_yeypr"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0mabo"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_84mmo"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_t7g18"]
+font_size = 24
+
+[sub_resource type="LabelSettings" id="LabelSettings_vljyi"]
+font_size = 24
+
+[sub_resource type="Animation" id="Animation_067aj"]
+resource_name = "ADS"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.1)]
+}
+
+[sub_resource type="Animation" id="Animation_177kj"]
+resource_name = "Crouch"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCollision:shape:height")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [2.0, 1.5]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCollision:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.2316, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerCamera:position")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.0603297, 0.328489)]
+}
+
+[sub_resource type="Animation" id="Animation_rmftf"]
+resource_name = "LookDown"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.184, -0.288, -0.276)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCamera/WeaponManager:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.151844, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_oxns1"]
+resource_name = "LookLeft"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.139, -0.243, -0.276)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCamera/WeaponManager:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0.261799, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_sdluu"]
+resource_name = "LookRight"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.239, -0.243, -0.276)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCamera/WeaponManager:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.424115, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_lo3cj"]
+resource_name = "LookUp"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.184, -0.191, -0.302)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCamera/WeaponManager:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.174533, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_t06on"]
+resource_name = "NoADS"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, -0.15, -0.1), Vector3(0.184, -0.243, -0.276)]
+}
+
+[sub_resource type="Animation" id="Animation_l3dy2"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponManager:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0.184, -0.243, -0.276)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("PlayerCamera/WeaponManager:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("PlayerCollision:shape:height")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [2.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("PlayerCollision:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("PlayerCamera:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.6, 0.328489)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ti0qk"]
+_data = {
+"ADS": SubResource("Animation_067aj"),
+"Crouch": SubResource("Animation_177kj"),
+"LookDown": SubResource("Animation_rmftf"),
+"LookLeft": SubResource("Animation_oxns1"),
+"LookRight": SubResource("Animation_sdluu"),
+"LookUp": SubResource("Animation_lo3cj"),
+"NoADS": SubResource("Animation_t06on"),
+"RESET": SubResource("Animation_l3dy2")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k5j8r"]
+animation = &"LookUp"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfrr1"]
+animation = &"LookRight"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ry4np"]
+animation = &"LookDown"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_plwm1"]
+animation = &"LookUp"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_cr5tg"]
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_gqi2u"]
+blend_point_0/node = SubResource("AnimationNodeAnimation_k5j8r")
+blend_point_0/pos = Vector2(0, 1)
+blend_point_1/node = SubResource("AnimationNodeAnimation_cfrr1")
+blend_point_1/pos = Vector2(0.4, 0)
+blend_point_2/node = SubResource("AnimationNodeAnimation_ry4np")
+blend_point_2/pos = Vector2(0, -0.9)
+blend_point_3/node = SubResource("AnimationNodeAnimation_plwm1")
+blend_point_3/pos = Vector2(-0.4, 0)
+blend_point_4/node = SubResource("AnimationNodeBlendSpace2D_cr5tg")
+blend_point_4/pos = Vector2(0, 1)
+
+[node name="Player" type="CharacterBody3D" groups=["Player"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+collision_layer = 2
+collision_mask = 85
+script = ExtResource("1_7shlp")
+
+[node name="PlayerCollision" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_0mabo")
+
+[node name="PlayerCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.328489)
+current = true
+
+[node name="WeaponManager" type="Node3D" parent="PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184, -0.243, -0.276)
+script = ExtResource("2_n7ocy")
+
+[node name="Flashlight" type="SpotLight3D" parent="PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452764, -0.192701, -0.678287)
+
+[node name="InteractableFinder" type="RayCast3D" parent="PlayerCamera"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -0.0300001, -0.67909)
+target_position = Vector3(0, -2, 0)
+collision_mask = 65
+collide_with_areas = true
+
+[node name="HUD" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("2_yeypr")
+
+[node name="StatsContainer" type="VBoxContainer" parent="HUD"]
+anchors_preset = -1
+anchor_top = 26.875
+anchor_bottom = 26.875
+offset_left = 9.0
+offset_top = -1044.0
+offset_right = 223.0
+offset_bottom = -924.0
+
+[node name="Health" type="Label" parent="HUD/StatsContainer"]
+offset_right = 214.0
+offset_bottom = 58.0
+size_flags_vertical = 7
+text = "Health"
+label_settings = SubResource("LabelSettings_84mmo")
+
+[node name="Ammo" type="Label" parent="HUD/StatsContainer"]
+offset_top = 62.0
+offset_right = 214.0
+offset_bottom = 120.0
+size_flags_vertical = 7
+text = "Ammo"
+label_settings = SubResource("LabelSettings_84mmo")
+
+[node name="UsePrompt" type="Label" parent="HUD"]
+offset_left = 455.0
+offset_top = 272.0
+offset_right = 686.0
+offset_bottom = 320.0
+text = "Press E to pick up"
+
+[node name="WeaponContainer" type="HBoxContainer" parent="HUD"]
+anchors_preset = -1
+anchor_top = 26.825
+anchor_bottom = 26.825
+offset_left = 321.0
+offset_top = -93.0
+offset_right = 1582.0
+offset_bottom = -9.0
+
+[node name="PistolLabel" type="Label" parent="HUD/WeaponContainer"]
+offset_top = 23.0
+offset_right = 92.0
+offset_bottom = 60.0
+text = "1: Pistol"
+label_settings = SubResource("LabelSettings_t7g18")
+
+[node name="ShotgunLabel" type="Label" parent="HUD/WeaponContainer"]
+offset_left = 96.0
+offset_top = 23.0
+offset_right = 218.0
+offset_bottom = 60.0
+text = "2: Shotgun"
+label_settings = SubResource("LabelSettings_vljyi")
+
+[node name="PlayerAnims" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_ti0qk")
+}
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource("AnimationNodeBlendSpace2D_gqi2u")
+anim_player = NodePath("../PlayerAnims")
+parameters/blend_position = Vector2(-0.0022676, 0.0917031)
+parameters/4/blend_position = Vector2(0, 0)
+
+[connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]
+[connection signal="bullet_fired" from="PlayerCamera/WeaponManager" to="HUD" method="_on_weapon_manager_bullet_fired"]
+[connection signal="weapon_changed" from="PlayerCamera/WeaponManager" to="HUD" method="_on_weapon_manager_weapon_changed"]
