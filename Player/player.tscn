@@ -334,6 +334,7 @@ offset_bottom = 40.0
 script = ExtResource("2_yeypr")
 
 [node name="StatsContainer" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
 anchors_preset = -1
 anchor_top = 26.875
 anchor_bottom = 26.875
@@ -343,21 +344,19 @@ offset_right = 223.0
 offset_bottom = -924.0
 
 [node name="Health" type="Label" parent="HUD/StatsContainer"]
-offset_right = 214.0
-offset_bottom = 58.0
+layout_mode = 2
 size_flags_vertical = 7
 text = "Health"
 label_settings = SubResource("LabelSettings_84mmo")
 
 [node name="Ammo" type="Label" parent="HUD/StatsContainer"]
-offset_top = 62.0
-offset_right = 214.0
-offset_bottom = 120.0
+layout_mode = 2
 size_flags_vertical = 7
 text = "Ammo"
 label_settings = SubResource("LabelSettings_84mmo")
 
 [node name="UsePrompt" type="Label" parent="HUD"]
+layout_mode = 0
 offset_left = 455.0
 offset_top = 272.0
 offset_right = 686.0
@@ -365,6 +364,7 @@ offset_bottom = 320.0
 text = "Press E to pick up"
 
 [node name="WeaponContainer" type="HBoxContainer" parent="HUD"]
+layout_mode = 1
 anchors_preset = -1
 anchor_top = 26.825
 anchor_bottom = 26.825
@@ -374,17 +374,12 @@ offset_right = 1582.0
 offset_bottom = -9.0
 
 [node name="PistolLabel" type="Label" parent="HUD/WeaponContainer"]
-offset_top = 23.0
-offset_right = 92.0
-offset_bottom = 60.0
+layout_mode = 2
 text = "1: Pistol"
 label_settings = SubResource("LabelSettings_t7g18")
 
 [node name="ShotgunLabel" type="Label" parent="HUD/WeaponContainer"]
-offset_left = 96.0
-offset_top = 23.0
-offset_right = 218.0
-offset_bottom = 60.0
+layout_mode = 2
 text = "2: Shotgun"
 label_settings = SubResource("LabelSettings_vljyi")
 

@@ -59,6 +59,7 @@ func _unhandled_input(event):
 	if Input.is_action_just_pressed("ADS"):
 		aim_down_sights = true
 		anims.play("ADS")
+		
 	if Input.is_action_just_released("ADS"):
 		aim_down_sights = false
 		anims.play("NoADS")
@@ -66,6 +67,7 @@ func _unhandled_input(event):
 	if event.is_action_pressed("crouch"):
 		anims.play("Crouch")
 		is_crouching = true
+		
 	if event.is_action_released("crouch"):
 		anims.play_backwards("Crouch")
 		is_crouching = false
@@ -138,6 +140,7 @@ func _physics_process(delta):
 	#Sprint when pressed
 	if Input.is_action_pressed("sprint"):
 		is_sprinting = true
+		weapon_manager.run()
 	else:
 		is_sprinting = false
 		
@@ -179,6 +182,11 @@ func _physics_process(delta):
 	hvel = hvel.lerp(target, accel * delta)
 	velocity.x = hvel.x
 	velocity.z = hvel.z
+	
+	if velocity > Vector3.ZERO and is_sprinting == false:
+		weapon_manager.walk()
+	else:
+		weapon_manager.idle()
 
 	move_and_slide()
 

@@ -2,7 +2,7 @@ extends weapon
 
 
 var randomizer = RandomNumberGenerator.new()
-@onready var anims = $Shotgunrig/AnimationPlayer
+@onready var anims = $Player_Shotgun/AnimationPlayer
 @onready var reload_sound = $Reload
 
 func fire():
@@ -13,7 +13,7 @@ func fire():
 		
 	if can_fire:
 		fire_sound.play()
-		anims.play("Shotgun_Fire")
+		anims.play("Player_Shotgun_Fire")
 
 		for i in 10:
 			randomizer.randomize()
@@ -34,10 +34,19 @@ func reload_weapon():
 	if bullets_in_mag == mag_size || can_fire == false:
 		pass
 	else:
-		anims.play("Shotgun_Reload")
+		anims.play("Player_Shotgun_Reload")
 		reload_sound.play()
 		while bullets_in_mag < mag_size:
 			bullets_in_mag += 1
 			if available_bullets == 0:
 				break
+				
+func idle():
+	anims.play("Player_Shotgun_Idle")
+	
+func walk():
+	anims.play("Player_Shotgun_Walk")
+	
+func run():
+	anims.play("Player_Shotgun_Run")
 

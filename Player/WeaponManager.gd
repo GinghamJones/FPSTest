@@ -13,7 +13,6 @@ var weapons: Array = []
 var current_weapon 
 
 func _ready():
-
 	pass
 	
 func switch_weapon(weapon):
@@ -44,8 +43,6 @@ func pickup_weapon(thing):
 		weapons.push_back(p)
 		switch_weapon(p)
 
-	
-		
 func _input(_event):
 	if weapon_equipped:
 		if current_weapon.single_fire and Input.is_action_just_pressed("fire"):
@@ -61,3 +58,21 @@ func _input(_event):
 	if Input.is_action_just_pressed("weapon_2"):
 		if weapons.size() > 1:
 			switch_weapon(weapons[1])
+
+func idle():
+	if weapon_equipped:
+		current_weapon.idle()
+	else:
+		pass
+		
+func walk():
+	if weapon_equipped:
+		current_weapon.walk()
+	else:
+		pass
+		
+func run():
+	if weapon_equipped:
+		current_weapon.run()
+	else:
+		pass
