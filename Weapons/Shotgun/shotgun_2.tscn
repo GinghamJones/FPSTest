@@ -1,0 +1,29 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4avw5r623lrx"]
+
+[ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_7wq7w"]
+[ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_2.gd" id="2_jv27o"]
+[ext_resource type="AudioStream" uid="uid://luvduyi2mf0f" path="res://Weapons/Shotgun/Shotgun_Blast-Jim_Rogers-1914772763.mp3" id="3_vojjl"]
+[ext_resource type="AudioStream" uid="uid://c2um3ugx3s646" path="res://Weapons/Shotgun/shotgun-reload-old_school-RA_The_Sun_God-580332022.mp3" id="5_gjx00"]
+[ext_resource type="PackedScene" uid="uid://dsga2805g5hvo" path="res://Weapons/Shotgun/Player_Shotgun.glb" id="5_jhu4t"]
+
+[node name="Shotgun 2" instance=ExtResource("1_7wq7w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.159551)
+script = ExtResource("2_jv27o")
+mag_size = 2
+damage = 5
+single_fire = true
+bullet_speed = 5.0
+
+[node name="FireSound" parent="." index="0"]
+stream = ExtResource("3_vojjl")
+volume_db = -15.304
+max_db = -0.13
+
+[node name="Muzzle" parent="." index="4"]
+transform = Transform3D(-0.0112924, 9.87213e-10, 4.31525e-17, 0, -4.93606e-10, 0.0112924, 9.87213e-10, 0.0112924, 4.93606e-10, -5.80362e-08, 0.0900966, 0.663856)
+
+[node name="Reload" type="AudioStreamPlayer3D" parent="." index="5"]
+stream = ExtResource("5_gjx00")
+
+[node name="Player_Shotgun" parent="." index="6" instance=ExtResource("5_jhu4t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0977339, -1.57996, -0.461817)
