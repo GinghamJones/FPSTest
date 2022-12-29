@@ -13,7 +13,7 @@ func _on_hd_pressed():
 	get_tree().get_root().position = Vector2i(20, 20)
 
 func _on_back_pressed():
-	get_tree().change_scene_to_file("res://main_menu.tscn")
+	get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
 	
 func _on_fs_pressed():
 	get_tree().get_root().mode = Window.MODE_FULLSCREEN

@@ -70,4 +70,3 @@ skeleton = NodePath("../Woman")
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
-[connection signal="path_changed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_path_changed"]

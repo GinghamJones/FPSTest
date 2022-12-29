@@ -10,3 +10,14 @@ res://Weapons/bullet.tscn
 res://Weapons/weapon.tscn
 res://Weapons/Shotgun/shotgun_pickup.tscn
 res://Player/player.gd
+res://Menu/settings.gd
+res://Weapons/Shotgun/shotgun_2.gd
+res://Weapons/Shotgun/Resources/shotgun_model.res
+res://Player/WeaponManager.gd
+res://blood_particle.tscn
+res://sparks.tscn
+res://Weapons/bullet.gd
+res://blood_decal.tscn
+res://Weapons/bullet_hole.tscn
+res://blood_particle.gd
+res://blood_decal.gd

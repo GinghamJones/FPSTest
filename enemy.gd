@@ -173,7 +173,7 @@ func fire_nipple1():
 	b.transform.basis = nipple1.transform.basis 
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle
-	b.add_collision_exception_with(self)
+	#b.add_collision_exception_with(self)
 	nipple1.add_child(b)
 
 func fire_nipple2():

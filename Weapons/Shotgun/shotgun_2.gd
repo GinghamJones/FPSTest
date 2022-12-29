@@ -41,6 +41,7 @@ func reload_weapon():
 			if available_bullets == 0:
 				break
 				
+
 func idle():
 	anims.play("Player_Shotgun_Idle")
 	
