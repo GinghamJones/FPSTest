@@ -9,7 +9,6 @@ var speed : float
 @onready var sparks : PackedScene = preload("res://sparks.tscn")
 @onready var blood : PackedScene = preload("res://blood_particle.tscn")
 @onready var bullet_hole : PackedScene = preload("res://Weapons/bullet_hole.tscn")
-@onready var blood_hole: PackedScene = preload("res://blood_decal.tscn")
 
 
 signal hit_enemy(position)
@@ -42,17 +41,12 @@ func _on_body_entered(body):
 		
 			# Do bull hole
 				var hole = bullet_hole.instantiate()
-				var blood = blood_hole.instantiate()
 				raycast.get_collider().add_child(hole)
-				raycast.get_collider().add_child(blood)
 				hole.global_transform.origin = raycast.get_collision_point()
-				blood.global_transform.origin = raycast.get_collision_point()
 				if raycast.get_collider().is_in_group("Wall"):
 					hole.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.UP)
-					blood.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.UP)
 				if raycast.get_collider().is_in_group("Floor"):
 					hole.rotation = Vector3(77, 0, 0)
-					blood.rotation = Vector3(77, 0, 0)
 	
 		if body.is_in_group("Enemy"):
 			body.owie(bullet_damage)

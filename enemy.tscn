@@ -1,33 +1,33 @@
-[gd_scene load_steps=6 format=3 uid="uid://dngs351q5gt2u"]
+[gd_scene load_steps=7 format=3 uid="uid://dngs351q5gt2u"]
 
-[ext_resource type="PackedScene" uid="uid://cc4chve1podhk" path="res://Woman.glb" id="1_xmpm8"]
 [ext_resource type="Script" path="res://enemy.gd" id="1_ye7w4"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5rgs0"]
 radius = 0.353212
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ydxww"]
-albedo_color = Color(0.694118, 0.337255, 0.294118, 1)
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6s1bo"]
+albedo_color = Color(0.294118, 0.294118, 0.294118, 1)
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_rannj"]
-material = SubResource("StandardMaterial3D_ydxww")
-radius = 0.05
-height = 0.1
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hup1q"]
+albedo_color = Color(0, 0.470588, 0.278431, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yry8c"]
+albedo_color = Color(0.47579, 0.00278138, 0.828233, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_muwxb"]
+albedo_color = Color(0.47451, 0.00392157, 0.827451, 1)
 
 [node name="Enemy" type="CharacterBody3D" groups=["Enemy"]]
 collision_layer = 16
 collision_mask = 5
 script = ExtResource("1_ye7w4")
 
-[node name="Woman" parent="." instance=ExtResource("1_xmpm8")]
-transform = Transform3D(-1.09443e-08, 0, 0.250377, 0, 0.250377, 0, -0.250377, 0, -1.09443e-08, 0, 0, 0)
-
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.897254, 0)
 shape = SubResource("CapsuleShape3D_5rgs0")
 
 [node name="BitchFinder" type="RayCast3D" parent="."]
-transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 1.35054, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.35054, 0)
 target_position = Vector3(10, 0, 0)
 collision_mask = 3
 
@@ -50,23 +50,60 @@ target_desired_distance = 0.5
 [node name="Eyes" type="Node3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0.192622, 1.69819, -0.00120971)
 
-[node name="FireTimer1" type="Timer" parent="."]
+[node name="FireTimer" type="Timer" parent="."]
 wait_time = 0.229
 one_shot = true
 
-[node name="FireTimer2" type="Timer" parent="."]
-wait_time = 0.229
-one_shot = true
+[node name="Body" type="Node3D" parent="."]
 
-[node name="Nipple1" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.09443e-08, 0, 0.250377, 0, 0.250377, 0, -0.250377, 0, -1.09443e-08, -0.11536, 1.34823, -0.10791)
-mesh = SubResource("CapsuleMesh_rannj")
-skeleton = NodePath("../Woman")
+[node name="Head" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.70016, 0)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.327945, 0.299335, 0.278658)
+material = SubResource("StandardMaterial3D_6s1bo")
 
-[node name="Nipple2" type="MeshInstance3D" parent="."]
-transform = Transform3D(-1.09443e-08, 0, 0.250377, 0, 0.250377, 0, -0.250377, 0, -1.09443e-08, 0.113891, 1.34823, -0.111644)
-mesh = SubResource("CapsuleMesh_rannj")
-skeleton = NodePath("../Woman")
+[node name="Body]" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.19839, 0)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.45467, 0.713252, 0.536548)
+material = SubResource("StandardMaterial3D_hup1q")
+
+[node name="Right Arm" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08056, 0.328501)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.0929522, 0.870042, 0.120528)
+material = SubResource("StandardMaterial3D_yry8c")
+
+[node name="Left Arm" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.08056, -0.336216)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.0929522, 0.870042, 0.120528)
+material = SubResource("StandardMaterial3D_muwxb")
+
+[node name="Left Arm2" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412522, -0.16734)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.0929522, 0.870042, 0.120528)
+material = SubResource("StandardMaterial3D_muwxb")
+
+[node name="Left Arm3" type="CSGBox3D" parent="Body"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.412522, 0.151285)
+use_collision = true
+collision_layer = 16
+collision_mask = 8
+size = Vector3(0.0929522, 0.870042, 0.120528)
+material = SubResource("StandardMaterial3D_muwxb")
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="IdleTimer" to="." method="_on_idle_timer_timeout"]
+[connection signal="path_changed" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_path_changed"]

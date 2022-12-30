@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://b4avw5r623lrx"]
+[gd_scene load_steps=6 format=3 uid="uid://drspc420wqrht"]
 
 [ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_7wq7w"]
 [ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_2.gd" id="2_jv27o"]
@@ -9,6 +9,8 @@
 [node name="Shotgun 2" instance=ExtResource("1_7wq7w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.159551)
 script = ExtResource("2_jv27o")
+gun_name = null
+gun_type = null
 mag_size = 2
 damage = 5
 single_fire = true
@@ -19,11 +21,11 @@ stream = ExtResource("3_vojjl")
 volume_db = -15.304
 max_db = -0.13
 
-[node name="Muzzle" parent="." index="4"]
-transform = Transform3D(-0.0112924, 9.87213e-10, 4.31525e-17, 0, -4.93606e-10, 0.0112924, 9.87213e-10, 0.0112924, 4.93606e-10, -5.80362e-08, 0.0900966, 0.663856)
-
-[node name="Reload" type="AudioStreamPlayer3D" parent="." index="5"]
+[node name="Reload" type="AudioStreamPlayer3D" parent="." index="1"]
 stream = ExtResource("5_gjx00")
+
+[node name="Muzzle" parent="." index="5"]
+transform = Transform3D(-0.0112924, 9.87213e-10, 4.31525e-17, 0, -4.93606e-10, 0.0112924, 9.87213e-10, 0.0112924, 4.93606e-10, -5.80362e-08, 0.0900966, 0.663856)
 
 [node name="Player_Shotgun" parent="." index="6" instance=ExtResource("5_jhu4t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0977339, -1.57996, -0.461817)

@@ -41,13 +41,6 @@ var max_health : int = 100
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
-enum {
-		IDLE,
-		WALKING,
-		RUNNING
-}
-var state = IDLE
-
 signal picked_up()
 signal health_changed(health)
 
@@ -63,11 +56,11 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.MOUSE_MODE_CAPTURED:
 		mouseDelta = event.relative
 	
-	if event.is_action_pressed("ADS"):
+	if Input.is_action_just_pressed("ADS"):
 		aim_down_sights = true
 		anims.play("ADS")
 		
-	if event.is_action_released("ADS"):
+	if Input.is_action_just_released("ADS"):
 		aim_down_sights = false
 		anims.play("NoADS")
 		
@@ -78,12 +71,6 @@ func _unhandled_input(event):
 	if event.is_action_released("crouch"):
 		anims.play_backwards("Crouch")
 		is_crouching = false
-		
-	if event.is_action_pressed("flashlight"):
-		if flashlight.is_visible_in_tree():
-			flashlight.hide()
-		else:
-			flashlight.show()
 	
 func toggle_cursor():
 	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
@@ -97,8 +84,6 @@ func _process(delta):
 	#Toggle mouse cursor
 	if Input.is_action_just_pressed("toggle_cursor"):
 		toggle_cursor()
-		
-
 	
 	#Rotate camera
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
@@ -155,20 +140,24 @@ func _physics_process(delta):
 	#Sprint when pressed
 	if Input.is_action_pressed("sprint"):
 		is_sprinting = true
+		weapon_manager.set_state("RUNNING")
 	else:
 		is_sprinting = false
 		
 	#Toggle flashlight
-
+	if Input.is_action_just_pressed("flashlight"):
+		if flashlight.is_visible_in_tree():
+			flashlight.hide()
+		else:
+			flashlight.show()
 			
 	# Get the input direction and handle the movement/deceleration.
 	var input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	
 	var direction = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+#	if direction:
 	var target = direction
 	
-	# Determine which weapon movement anim to play
-	# and set max speed
+	# Determine how fast to move
 	if is_sprinting:
 		target *= MAX_SPRINT_SPEED
 	elif aim_down_sights || is_crouching:
@@ -176,11 +165,10 @@ func _physics_process(delta):
 	else:	
 		target *= MAX_SPEED
 	
-	# Determine how fast to move
 	var hvel = velocity
 	hvel.y = 0
 	var accel
-		
+	
 	#Change accel based on sprint bool
 	if direction.dot(hvel) > 0:
 		if is_sprinting:
@@ -189,12 +177,16 @@ func _physics_process(delta):
 			accel = ACCEL
 	else:
 		accel = FRICTION
-		
-	# Weird vector shit
+	
+	
 	hvel = hvel.lerp(target, accel * delta)
 	velocity.x = hvel.x
-	velocity.z = hvel.z	
+	velocity.z = hvel.z
 	
+	if velocity > Vector3.ZERO and is_sprinting == false:
+		weapon_manager.set_state("WALKING")
+	elif velocity == Vector3.ZERO:
+		weapon_manager.set_state("IDLE")
 
 	move_and_slide()
 
@@ -215,7 +207,3 @@ func do_raycast():
 		if raycast.get_collider().is_in_group("Door"):
 			raycast.get_collider().choose_action()
 	
-
-
-func _on_weapon_manager_gimme_vel():
-	weapon_manager.vel = velocity

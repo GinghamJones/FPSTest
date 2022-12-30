@@ -400,4 +400,5 @@ parameters/blend_position = Vector2(-0.0022676, 0.0917031)
 parameters/4/blend_position = Vector2(0, 0)
 
 [connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]
-[connection signal="gimme_vel" from="PlayerCamera/WeaponManager" to="." method="_on_weapon_manager_gimme_vel"]
+[connection signal="bullet_fired" from="PlayerCamera/WeaponManager" to="HUD" method="_on_weapon_manager_bullet_fired"]
+[connection signal="weapon_changed" from="PlayerCamera/WeaponManager" to="HUD" method="_on_weapon_manager_weapon_changed"]

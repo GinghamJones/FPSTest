@@ -6,21 +6,21 @@ signal bullet_fired(ammo)
 @onready var shotgun : PackedScene = preload("res://Weapons/Shotgun/shotgun_2.tscn")
 @onready var pistol : PackedScene = preload("res://Weapons/Walther/pistol.tscn")
 
+
 var weapon_equipped : bool = false
 
 var weapons: Array = []
 var current_weapon 
-var vel : Vector3 = Vector3.ZERO
-
-signal gimme_vel
 
 enum {
+	IDLE,
+	WALKING,
+	RUNNING,
 	FIRING,
-	RELOADING,
-	MOVING
+	RELOADING
 }
 
-var state = MOVING
+var state = IDLE
 
 func _ready():
 	pass
@@ -56,48 +56,45 @@ func pickup_weapon(thing):
 func _input(_event):
 	if weapon_equipped:
 		if current_weapon.single_fire and Input.is_action_just_pressed("fire"):
-			current_weapon.fire()
-			emit_signal("bullet_fired", current_weapon)
+			state = FIRING
+			
 		if !current_weapon.single_fire and Input.is_action_pressed("fire"):
 			state = FIRING
-			current_weapon.fire()
-			emit_signal("bullet_fired", current_weapon)
+		
 		if Input.is_action_just_pressed("reload"):
 			state = RELOADING
-			current_weapon.reload_weapon()
+	
 	if Input.is_action_just_pressed("weapon_1"):
 		switch_weapon(weapons[0])
 	if Input.is_action_just_pressed("weapon_2"):
 		if weapons.size() > 1:
 			switch_weapon(weapons[1])
-			
-func set_animation():
-	
-	match(state):
-		MOVING:
-			emit_signal("gimme_vel")
-			if vel == Vector3.ZERO:
-				current_weapon.idle()
-			else:
-				current_weapon.walk()
-		FIRING:
-			pass
-		RELOADING:
-			pass
 
 func _physics_process(delta):
 	if weapon_equipped:
-		print(current_weapon.anims.get_current_animation())
-		if current_weapon.anims.get_current_animation() != "Player_Shotgun_Reload" or current_weapon.anims.get_current_animation() == "Player_Shotgun_Fire":
-			state = MOVING
+		match(state):
+			IDLE:
+				current_weapon.set_anim("Idle")
+			WALKING:
+				current_weapon.set_anim("Walk")
+			RUNNING:
+				current_weapon.set_anim("Run")
+			FIRING:
+				current_weapon.fire()
+				#emit_signal("bullet_fired", current_weapon)
+			RELOADING:
+				current_weapon.reload()
 		
-		set_animation()
 
-#		if current_weapon.anims.get_current_animation() == "Player_Shotgun_Reload" or current_weapon.anims.get_current_animation() == "Player_Shotgun_Fire":
-#			pass
-#		else:
-#			state = MOVING
-			
-			
+func firing_finished():
+	state = IDLE
+	
+func finished_reloading():
+	state = IDLE
 
-
+func set_state(new_state : String):
+	if state != RELOADING or state != FIRING:	
+		pass
+		#state = new_state
+	else:
+		pass
