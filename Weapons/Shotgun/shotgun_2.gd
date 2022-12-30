@@ -8,7 +8,7 @@ var current_anim : String = ""
 var does_anim_loop : bool = false
 
 func fire():
-	if bullets_in_mag <= 0 || fire_sound.playing == true:
+	if bullets_in_mag <= 0 || is_firing == true:
 		can_fire = false
 		#anims.connect("animation_finished")
 	else:

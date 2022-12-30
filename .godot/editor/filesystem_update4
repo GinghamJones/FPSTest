@@ -1,16 +1,4 @@
-res://enemy.tscn
+res://Weapons/Shotgun/shotgun_2.tscn
 res://Materials/rust_floor.tres
 res://Weapons/Shotgun/Resources/shotgun_model.res
-res://Weapons/bullet.gd
-res://enemy.gd
-res://Menu/main_menu.tscn
-res://Levels/level_2.tscn
-res://Levels/level_2.gd
-res://Form.gd
-res://Weapons/bullet.tscn
-res://Player/WeaponManager.gd
-res://Player/player.tscn
-res://Weapons/Shotgun/shotgun_2.tscn
-res://Weapons/weapon.tscn
-res://Player/HUD.gd
 res://Weapons/Shotgun/shotgun_2.gd
