@@ -10,13 +10,14 @@ var does_anim_loop : bool = false
 func fire():
 	if bullets_in_mag <= 0 || fire_sound.playing == true:
 		can_fire = false
-		anims.connect("animation_finished")
+		#anims.connect("animation_finished")
 	else:
 		can_fire = true
 		
 	if can_fire:
 		fire_sound.play()
-		set_anim("Fire")
+		is_firing = true
+		set_anim("Player_Shotgun_Fire")
 
 		for i in 10:
 			# Randomize angles of projectiles
@@ -39,28 +40,29 @@ func reload_weapon():
 	if bullets_in_mag == mag_size || can_fire == false:
 		pass
 	else:
-		anims.connect("animation_finished", get_parent().finished_reloading())
-		set_anim("Reload")
+		is_reloading = true
+		set_anim("Player_Shotgun_Reload")
 		reload_sound.play()
 		while bullets_in_mag < mag_size:
 			bullets_in_mag += 1
+			available_bullets -= 1
 			if available_bullets == 0:
 				break
-				
-func idle():
-	set_anim("Idle")
-	
-func walk():
-	set_anim("Walk")
-	
-func run():
-	set_anim("Run")
+
+func _physics_process(delta):
+	if anims.is_playing() == false:
+		is_reloading = false
+		is_firing = false
+
+func determine_move_anim(anim_name):
+	if not is_firing and not is_reloading:
+		set_anim(anim_name)
 	
 func set_anim(anim_name: String, anim_speed := 1.0, xfade_time := 0.2):
 	var last_anim : String = anims.current_animation
 	
 	if last_anim != anim_name:
-		if anims.has_animation(anim_name):
+		if anims.has_animation(anim_name) and current_anim != anim_name:
 			anims.play(anim_name)
 			current_anim = anim_name
 		else:

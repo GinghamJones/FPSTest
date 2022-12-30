@@ -1,6 +1,6 @@
-extends Node3D
+extends AnimatableBody3D
 
-@onready var anims : AnimationPlayer = $door/AnimationPlayer
+@onready var anims : AnimationPlayer = $AnimationPlayer
 var is_open : bool = false
 
 func choose_action():
@@ -16,5 +16,5 @@ func open():
 	
 func close():
 	if anims.is_playing() == false:
-		anims.play("Close")
+		anims.play_backwards("Open")
 		is_open = false

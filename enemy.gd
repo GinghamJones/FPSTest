@@ -5,11 +5,10 @@ extends CharacterBody3D
 @onready var timer = $RespawnTimer
 @onready var idle_timer = $IdleTimer
 @onready var fire_timer = $FireTimer
-@onready var raycast = $BitchFinder
+@onready var eye = $Form/Head/Eye
+@onready var bitch_finder = $Form/Head/BitchFinder
 @onready var nav_agent = $NavigationAgent3D
-@onready var eyes : Node3D = $Eyes
-@onready var nipple1 : MeshInstance3D = $Woman/Nipple1
-@onready var nipple2 : MeshInstance3D = $Woman/Nipple2
+
 @onready var bullet = preload("res://Weapons/bullet.tscn")
 
 var current_nav_point : int = 0
@@ -44,11 +43,17 @@ func _ready():
 	update_health(health)
 	start_pos = global_transform
 
-func owie(damage):
-	health -= damage
-	update_health(health)
-	if health <= 0:
-		die()
+
+#func owie(damage, body_part):
+#	print(body_part)
+#	if body_part == "Left Arm" or body_part == "Right Arm" or body_part == "Left Leg" or body_part == "Right Leg":
+#		damage *= 0.5
+#	elif body_part == "Head":
+#		damage *= 2
+#	health -= damage
+#	update_health(health)
+#	if health <= 0:
+#		die()
 
 func die():
 	timer.start()
@@ -66,8 +71,8 @@ func get_nav_points(new_nav_points : Array):
 #	return nav_points[current_nav_point]
 	
 func is_player_spotted() -> bool:
-	if raycast.is_colliding():
-		if raycast.get_collider().is_in_group("Player"):
+	if bitch_finder.is_colliding():
+		if bitch_finder.get_collider().is_in_group("Player"):
 			return true
 	return false
 	
@@ -75,8 +80,8 @@ func set_movement_target(movement_target : Vector3):
 	nav_agent.set_target_location(movement_target)
 	
 func look_somewhere(pos : Vector3):
-		eyes.look_at(pos, Vector3.UP)
-		rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
+		eye.look_at(pos, Vector3.UP)
+		rotate_y(deg_to_rad(eye.rotation.y * TURN_SPEED))
 	
 func target_reached() -> bool:
 	if nav_agent.is_target_reached():
@@ -120,15 +125,14 @@ func _physics_process(delta):
 			elif current_agent_position.distance_to(player.global_transform.origin) < 3:
 				enemy_state = EnemyState.ATTACKING
 			
-			print(current_agent_position.distance_to(player.global_transform.origin))
 			set_movement_target(player.global_transform.origin)
 			var next_path_position: Vector3 = nav_agent.get_next_location()
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * FOLLOW_SPEED
 			set_velocity(new_velocity)
 			#print(nav_agent.get_final_location())
 			
-			eyes.look_at(player.global_transform.origin, Vector3.UP)
-			rotate_y(deg_to_rad(eyes.rotation.y * TURN_SPEED))
+			eye.look_at(player.global_transform.origin, Vector3.UP)
+			rotate_y(deg_to_rad(eye.rotation.y * TURN_SPEED))
 			
 		EnemyState.ATTACKING:
 			if global_transform.origin.distance_to(player.global_transform.origin) > 3:
@@ -146,7 +150,7 @@ func _physics_process(delta):
 				var b = bullet.instantiate()
 				b.speed = bullet_speed
 				b.bullet_damage = bullet_damage
-				b.transform.basis = eyes.transform.basis 
+				b.transform.basis = eye.transform.basis 
 				#b.global_rotation.y = $Woman.global_rotation.y 
 				b.rotation.x += randomx_angle
 				b.rotation.y += randomy_angle
@@ -173,3 +177,11 @@ func _on_idle_timer_timeout():
 
 func _on_navigation_agent_3d_path_changed():
 	target = nav_points[current_nav_point]
+
+
+func _on_form_ow_fuck(damage):
+	print("i worked")
+	health -= damage
+	update_health(health)
+	if health <= 0:
+		die()

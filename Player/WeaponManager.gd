@@ -53,16 +53,33 @@ func pickup_weapon(thing):
 		weapons.push_back(p)
 		switch_weapon(p)
 
-func _input(_event):
+func _input(event):
 	if weapon_equipped:
 		if current_weapon.single_fire and Input.is_action_just_pressed("fire"):
-			state = FIRING
+			current_weapon.fire()
+			emit_signal("weapon_changed", current_weapon)
 			
 		if !current_weapon.single_fire and Input.is_action_pressed("fire"):
-			state = FIRING
+			current_weapon.fire()
 		
 		if Input.is_action_just_pressed("reload"):
-			state = RELOADING
+			current_weapon.reload_weapon()
+			emit_signal("weapon_changed", current_weapon)
+		
+		if event is InputEventKey:
+			var walk_or_idle = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+			var is_idle : bool = false
+			if walk_or_idle == Vector2(0,0):
+				is_idle = true
+			if Input.is_action_pressed("sprint") and is_idle == false:
+				current_weapon.determine_move_anim("Player_Shotgun_Run")
+			else:
+				if is_idle == true:
+					current_weapon.determine_move_anim("Player_Shotgun_Idle")
+				else:
+					current_weapon.determine_move_anim("Player_Shotgun_Walk")
+			
+			
 	
 	if Input.is_action_just_pressed("weapon_1"):
 		switch_weapon(weapons[0])
@@ -70,31 +87,3 @@ func _input(_event):
 		if weapons.size() > 1:
 			switch_weapon(weapons[1])
 
-func _physics_process(delta):
-	if weapon_equipped:
-		match(state):
-			IDLE:
-				current_weapon.set_anim("Idle")
-			WALKING:
-				current_weapon.set_anim("Walk")
-			RUNNING:
-				current_weapon.set_anim("Run")
-			FIRING:
-				current_weapon.fire()
-				#emit_signal("bullet_fired", current_weapon)
-			RELOADING:
-				current_weapon.reload()
-		
-
-func firing_finished():
-	state = IDLE
-	
-func finished_reloading():
-	state = IDLE
-
-func set_state(new_state : String):
-	if state != RELOADING or state != FIRING:	
-		pass
-		#state = new_state
-	else:
-		pass

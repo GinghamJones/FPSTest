@@ -7,7 +7,7 @@ var bullet_damage : int
 var speed : float
 @onready var raycast : RayCast3D = $RayCast3D
 @onready var sparks : PackedScene = preload("res://sparks.tscn")
-@onready var blood : PackedScene = preload("res://blood_particle.tscn")
+@onready var blood : PackedScene = preload("res://Blood/blood_particle.tscn")
 @onready var bullet_hole : PackedScene = preload("res://Weapons/bullet_hole.tscn")
 
 
@@ -49,11 +49,10 @@ func _on_body_entered(body):
 					hole.rotation = Vector3(77, 0, 0)
 	
 		if body.is_in_group("Enemy"):
-			body.owie(bullet_damage)
+			body.get_parent().owie(bullet_damage, raycast.get_collider())
 			var blood_instance = blood.instantiate()
 		
 			if raycast.get_collider() != null:
-				print(raycast.get_collider())
 				raycast.get_collider().add_child(blood_instance)
 				blood_instance.global_transform.origin = $SparkRotHelper.global_transform.origin
 				blood_instance.global_rotation = $SparkRotHelper.global_rotation

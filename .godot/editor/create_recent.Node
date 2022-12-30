@@ -1,6 +1,11 @@
-CSGBox3D
-MeshInstance3D
+Label
 Node3D
+AnimationPlayer
+CSGSphere3D
+CSGBox3D
+AnimatableBody3D
+Decal
+MeshInstance3D
 CSGPolygon3D
 PhysicalBone3D
 Marker3D
@@ -17,7 +22,6 @@ NavigationAgent3D
 RigidBody3D
 CollisionShape3D
 Area3D
-AnimationPlayer
 RayCast3D
 SpotLight3D
 OmniLight3D

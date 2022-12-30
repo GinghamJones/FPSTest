@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://bjpi61nf1hv1l"]
+[gd_scene load_steps=12 format=3 uid="uid://bjpi61nf1hv1l"]
 
 [ext_resource type="Script" path="res://Levels/level_2.gd" id="1_oulhv"]
 [ext_resource type="Material" uid="uid://spn450upsxcw" path="res://Materials/rust_floor.tres" id="1_ua7e5"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://cvrpkwosbla6e" path="res://Weapons/Shotgun/shotgun_pickup.tscn" id="5_6ngoq"]
 [ext_resource type="PackedScene" uid="uid://djyrn5r1frqbg" path="res://Weapons/Walther/pistol_pickup.tscn" id="6_cekp3"]
 [ext_resource type="PackedScene" uid="uid://qvbgllkrgub0" path="res://Levels/door.tscn" id="7_05uoy"]
+[ext_resource type="PackedScene" uid="uid://drkcix8oh2qie" path="res://frame.tscn" id="8_f3byx"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_t8lj3"]
 vertices = PackedVector3Array(-20.0137, 3.72718, 10.2779, -20.0137, 3.72718, 20.5279, -12.5137, 3.72718, 20.5279, 2.4863, 3.72718, 20.5279, 9.9863, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, -10.2221, 9.9863, 3.72718, -20.4721, 2.4863, 3.72718, -20.4721, -12.5137, 3.72718, -20.4721, -20.0137, 3.72718, -20.4721, -20.0137, 3.72718, -10.2221, -20.0137, 3.72718, 10.2779, -12.5137, 3.72718, 20.5279, -5.0137, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, 0.0278625, -5.0137, 3.72718, -20.4721, -20.0137, 3.72718, 0.0278625, -5.0137, 3.72718, 20.5279, 2.4863, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, -10.2221, 2.4863, 3.72718, -20.4721, -5.0137, 3.72718, -20.4721, 9.9863, 3.72718, 0.0278625, -5.0137, 3.72718, -20.4721, -12.5137, 3.72718, -20.4721, -20.0137, 3.72718, -10.2221, -20.0137, 3.72718, 0.0278625, -12.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -11.7221, -19.7637, -0.0228201, -3.22214, -6.2637, -0.0228201, -3.22214, -6.2637, -0.0228201, -5.22214, -19.7637, -0.0228201, -3.22214, -6.2637, -0.0228201, -5.22214, -5.5137, -0.0228201, -5.47214, -5.5137, -0.0228201, -20.2221, -12.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -11.7221, 9.7363, -0.0228201, -12.2221, 9.7363, -0.0228201, -20.2221, 1.9863, -0.0228201, -20.2221, -5.0137, -0.0228201, -5.22214, -5.0137, -0.0228201, -3.72214, 9.7363, -0.0228201, -3.97214, -5.5137, -0.0228201, -20.2221, -5.5137, -0.0228201, -5.47214, -5.0137, -0.0228201, -5.22214, 9.7363, -0.0228201, -3.97214, 9.7363, -0.0228201, -12.2221, 1.9863, -0.0228201, -20.2221, 3.9863, -0.0228201, 4.02786, 4.2363, -0.0228201, 4.77786, 4.7363, -0.0228201, 4.77786, 4.9863, -0.0228201, 4.02786, -5.0137, -0.0228201, -3.72214, -5.0137, -0.0228201, 4.02786, 3.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, 4.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, 3.9863, -0.0228201, 4.02786, 4.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, -19.7637, -0.0228201, 3.27786, -6.2637, -0.0228201, 3.27786, -6.2637, -0.0228201, -3.22214, -19.7637, -0.0228201, -3.22214, -19.7637, -0.0228201, 11.5279, -19.7637, -0.0228201, 20.0279, -12.0137, -0.0228201, 20.0279, -6.2637, -0.0228201, 5.27786, -6.2637, -0.0228201, 3.27786, -19.7637, -0.0228201, 3.27786, -19.7637, -0.0228201, 11.5279, -4.0137, -0.0228201, 20.0279, -4.0137, -0.0228201, 5.52786, -6.2637, -0.0228201, 5.27786, -19.7637, -0.0228201, 11.5279, -12.0137, -0.0228201, 20.0279, 4.9863, -0.0228201, 5.52786, 4.7363, -0.0228201, 4.77786, 4.2363, -0.0228201, 4.77786, 3.9863, -0.0228201, 5.52786, 2.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779, 3.9863, -0.0228201, 5.52786, -4.0137, -0.0228201, 5.52786, -4.0137, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779, 9.7363, -0.0228201, 5.52786, 4.9863, -0.0228201, 5.52786, 9.7363, -0.0228201, 12.7779, 4.9863, -0.0228201, 5.52786, 3.9863, -0.0228201, 5.52786, 2.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779)
@@ -17,6 +18,7 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Arr
 background_mode = 1
 background_color = Color(0.584314, 0.368627, 0.215686, 1)
 ambient_light_color = Color(0.72549, 0.54902, 0.447059, 1)
+ssil_enabled = true
 sdfgi_enabled = true
 volumetric_fog_enabled = true
 volumetric_fog_density = 0.01
@@ -35,9 +37,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7419, 4.06498, 2.60194)
 
 [node name="PistolPickup" parent="." instance=ExtResource("6_cekp3")]
 transform = Transform3D(0.523676, 0, 0, 0, 0.523676, 0, 0, 0, 0.523676, -11.1788, 3.80228, -3.05009)
-
-[node name="door" parent="." instance=ExtResource("7_05uoy")]
-transform = Transform3D(0.0653367, 0, -6.66134e-16, 0, 0.065794, 0, 8.70459e-16, 0, 0.05, -12.0743, 3.07858, 4.79735)
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.0759, 4.07162, 15.0987)
@@ -95,7 +94,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.2415, 5.09536, -0.0245776)
 use_collision = true
 collision_mask = 31
-size = Vector3(0.167274, 3.60178, 41.7991)
+size = Vector3(0.167274, 3.60178, 41.8859)
 material = ExtResource("2_1qgxq")
 metadata/_edit_lock_ = true
 
@@ -103,7 +102,7 @@ metadata/_edit_lock_ = true
 transform = Transform3D(0, 0, -1, 0, 1, 0, 1, 0, 0, -21.6414, 5.09536, -20.8885)
 use_collision = true
 collision_mask = 31
-size = Vector3(0.167274, 3.60178, 30.8567)
+size = Vector3(0.167274, 3.60178, 30.931)
 material = ExtResource("2_1qgxq")
 metadata/_edit_lock_ = true
 
@@ -124,12 +123,11 @@ material = ExtResource("2_1qgxq")
 metadata/_edit_lock_ = true
 
 [node name="Ceiling" type="CSGBox3D" parent="NavigationRegion3D/Room 1" groups=["Wall"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6312, 6.95687, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6281, 6.87243, 0.00201225)
 use_collision = true
 collision_mask = 31
-size = Vector3(30.813, 0.161, 41.907)
+size = Vector3(30.8673, 0.161, 41.8377)
 material = ExtResource("1_ua7e5")
-metadata/_edit_lock_ = true
 
 [node name="Floor" type="CSGBox3D" parent="NavigationRegion3D/Room 1" groups=["Wall", "navigation_mesh_source_group"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.7658, 3.29661, 0)
@@ -145,3 +143,10 @@ environment = SubResource("Environment_k71pm")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment"]
 transform = Transform3D(1, 0, 0, 0, 0.528261, 0.849082, 0, -0.849082, 0.528261, 0, 11.3275, 0)
 sky_mode = 1
+
+[node name="frame" parent="." instance=ExtResource("8_f3byx")]
+transform = Transform3D(0.0152847, 0, 0, 0, 0.0152847, 0, 0, 0, 0.0152847, -10.9427, 4.64851, 4.88571)
+
+[node name="door" parent="frame" instance=ExtResource("7_05uoy")]
+transform = Transform3D(4.89961, 0, 0, 0, 4.30458, 0, 0, 0, 3.27125, -24.7584, -102.713, -5.78067)
+collision_mask = 27

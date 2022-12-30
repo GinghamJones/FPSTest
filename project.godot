@@ -126,6 +126,7 @@ crouch={
 3d_physics/layer_4="Bullet"
 3d_physics/layer_5="Enemy"
 3d_physics/layer_7="Interactables"
+3d_physics/layer_8="EnemyBody"
 
 [rendering]
 

@@ -3,6 +3,7 @@ extends Control
 @onready var use_prompt : Label = $UsePrompt
 @onready var health : Label = $StatsContainer/Health
 @onready var ammo : Label = $StatsContainer/Ammo
+@onready var bullets_left : Label = $StatsContainer/BulletsLeft
 
 func _ready():
 	health.show()
@@ -21,6 +22,7 @@ func update_ammo():
 
 func _on_weapon_manager_weapon_changed(weapon_stats):
 	ammo.set_text("Ammo: " + str(weapon_stats.bullets_in_mag) + " / " + str(weapon_stats.mag_size))
+	bullets_left.set_text("Bullets Left: " + str(weapon_stats.available_bullets))
 
 
 func _on_weapon_manager_bullet_fired(weapon_stats):

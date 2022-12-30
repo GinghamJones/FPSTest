@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcurmpw1hxgxb"]
+
+[ext_resource type="Script" path="res://Blood/blood_decal.gd" id="1_astg2"]
+[ext_resource type="Texture2D" uid="uid://b1j50cmppj4ba" path="res://Blood/Blood_Decal_A.png" id="2_8dxb8"]
+[ext_resource type="Texture2D" uid="uid://ce15lf4sndfc8" path="res://Blood/Blood_Decal_N.png" id="3_hto2i"]
+[ext_resource type="Texture2D" uid="uid://dbsxlja41a4rw" path="res://Blood/Blood_Decal_R.png" id="4_djvw5"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p7edd"]
+transparency = 1
+albedo_texture = ExtResource("2_8dxb8")
+roughness_texture = ExtResource("4_djvw5")
+normal_enabled = true
+normal_texture = ExtResource("3_hto2i")
+
+[sub_resource type="QuadMesh" id="QuadMesh_xklop"]
+material = SubResource("StandardMaterial3D_p7edd")
+
+[node name="BloodDecal" type="Node3D"]
+script = ExtResource("1_astg2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.2, 0, 0)
+mesh = SubResource("QuadMesh_xklop")
+
+[node name="Decal" type="Decal" parent="."]
+texture_albedo = ExtResource("2_8dxb8")
+texture_normal = ExtResource("3_hto2i")
+texture_orm = ExtResource("4_djvw5")
