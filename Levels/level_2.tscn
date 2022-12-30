@@ -25,7 +25,7 @@ volumetric_fog_density = 0.01
 script = ExtResource("1_oulhv")
 
 [node name="Player" parent="." instance=ExtResource("3_fwl2p")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -21.5426, 4.36111, 9.1386)
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20.8666, 4.36111, 1.61756)
 
 [node name="Enemy" parent="." instance=ExtResource("4_xfudl")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.9308, 3.5738, 0)
@@ -125,7 +125,6 @@ metadata/_edit_lock_ = true
 
 [node name="Ceiling" type="CSGBox3D" parent="NavigationRegion3D/Room 1" groups=["Wall"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21.6312, 6.95687, 0)
-visible = false
 use_collision = true
 collision_mask = 31
 size = Vector3(30.813, 0.161, 41.907)

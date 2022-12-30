@@ -136,8 +136,6 @@ func _physics_process(delta):
 			velocity = Vector3.ZERO
 			
 			look_somewhere(player.global_transform.origin)
-			print(rad_to_deg(nipple1.rotation.y))
-			print(rad_to_deg(global_rotation.y))
 			random_spread.randomize()
 			var randomy_angle = random_spread.randf_range(-0.1, 0.1)
 			var randomx_angle = random_spread.randf_range(-0.1, 0.1)
@@ -152,7 +150,7 @@ func _physics_process(delta):
 				#b.global_rotation.y = $Woman.global_rotation.y 
 				b.rotation.x += randomx_angle
 				b.rotation.y += randomy_angle
-				nipple1.add_child(b)
+				
 	
 	# Add the gravity.
 	if not is_on_floor():

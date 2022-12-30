@@ -140,7 +140,7 @@ func _physics_process(delta):
 	#Sprint when pressed
 	if Input.is_action_pressed("sprint"):
 		is_sprinting = true
-		weapon_manager.run()
+		weapon_manager.set_state("RUNNING")
 	else:
 		is_sprinting = false
 		
@@ -184,9 +184,9 @@ func _physics_process(delta):
 	velocity.z = hvel.z
 	
 	if velocity > Vector3.ZERO and is_sprinting == false:
-		weapon_manager.walk()
-	else:
-		weapon_manager.idle()
+		weapon_manager.set_state("WALKING")
+	elif velocity == Vector3.ZERO:
+		weapon_manager.set_state("IDLE")
 
 	move_and_slide()
 
