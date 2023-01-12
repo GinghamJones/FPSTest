@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bhbh0ipk37w1b"
+path="res://.godot/imported/fps song - 01 Start.mp3-e843e5d9e1bc5a4e2e10bd9962504125.mp3str"
+
+[deps]
+
+source_file="res://fps song - 01 Start.mp3"
+dest_files=["res://.godot/imported/fps song - 01 Start.mp3-e843e5d9e1bc5a4e2e10bd9962504125.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

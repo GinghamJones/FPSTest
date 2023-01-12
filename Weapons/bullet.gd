@@ -5,6 +5,7 @@ var timer: float = 0
 var hit_something: bool = false
 var bullet_damage : int
 var speed : float
+
 @onready var raycast : RayCast3D = $RayCast3D
 @onready var sparks : PackedScene = preload("res://sparks.tscn")
 @onready var blood : PackedScene = preload("res://Blood/blood_particle.tscn")
@@ -17,6 +18,7 @@ signal hit_wall(position)
 
 func _ready():
 	timer = 0
+	
 	set_as_top_level(true)
 	apply_impulse(transform.basis.z * speed, transform.basis.z)
 	
@@ -30,7 +32,7 @@ func _process(delta):
 
 func _on_body_entered(body):
 	if hit_something == false:
-		if body.is_in_group("Wall") || body.is_in_group("Floor"):
+		if body.is_in_group("Wall") or body.is_in_group("Floor"):
 			# Do spark stuff
 			var s = sparks.instantiate()
 			if raycast.get_collider() != null:
@@ -49,7 +51,7 @@ func _on_body_entered(body):
 					hole.rotation = Vector3(77, 0, 0)
 	
 		if body.is_in_group("Enemy"):
-			body.get_parent().owie(bullet_damage, raycast.get_collider())
+			body.owie(bullet_damage)
 			var blood_instance = blood.instantiate()
 		
 			if raycast.get_collider() != null:

@@ -1,0 +1,33 @@
+[gd_resource type="AudioBusLayout" load_steps=4 format=3 uid="uid://uf220avi72j7"]
+
+[sub_resource type="AudioEffectLimiter" id="AudioEffectLimiter_5g1jc"]
+resource_name = "Limiter"
+
+[sub_resource type="AudioEffectReverb" id="AudioEffectReverb_vw1no"]
+resource_name = "Reverb"
+predelay_msec = 41.0
+predelay_feedback = 0.25
+room_size = 0.06
+damping = 1.0
+hipass = 0.23
+
+[sub_resource type="AudioEffectHighShelfFilter" id="AudioEffectHighShelfFilter_nva3q"]
+resource_name = "HighShelfFilter"
+cutoff_hz = 8206.0
+resonance = 0.22
+gain = 0.77
+db = 2
+
+[resource]
+bus/0/effect/0/effect = SubResource("AudioEffectLimiter_5g1jc")
+bus/0/effect/0/enabled = true
+bus/1/name = &"Room"
+bus/1/solo = false
+bus/1/mute = false
+bus/1/bypass_fx = false
+bus/1/volume_db = -0.725993
+bus/1/send = &"Master"
+bus/1/effect/0/effect = SubResource("AudioEffectReverb_vw1no")
+bus/1/effect/0/enabled = true
+bus/1/effect/1/effect = SubResource("AudioEffectHighShelfFilter_nva3q")
+bus/1/effect/1/enabled = true

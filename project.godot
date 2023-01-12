@@ -10,12 +10,12 @@ config_version=5
 
 _global_script_classes=[{
 "base": "Node3D",
-"class": &"weapon",
+"class": &"Weapon",
 "language": &"GDScript",
 "path": "res://Weapons/weapon.gd"
 }]
 _global_script_class_icons={
-"weapon": ""
+"Weapon": ""
 }
 
 [application]

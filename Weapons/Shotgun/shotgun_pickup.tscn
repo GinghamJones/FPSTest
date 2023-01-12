@@ -3,10 +3,13 @@
 [ext_resource type="PackedScene" uid="uid://bm28fmgygk7n2" path="res://Weapons/weapon_pickup.tscn" id="1_73noo"]
 [ext_resource type="ArrayMesh" uid="uid://dbkrkehiq4lkt" path="res://Weapons/Shotgun/Resources/shotgun_model.res" id="2_2xwe4"]
 
-[node name="ShotgunPickup" instance=ExtResource("1_73noo")]
-weapon_name = "shotgun"
+[node name="ShotgunPickup" groups=["Pickup"] instance=ExtResource("1_73noo")]
+weapon_name = "Shotgun"
 ammo = 6
 
 [node name="GunMesh" parent="." index="0"]
 transform = Transform3D(-1.77848e-08, 0, -0.406869, 0, 0.406869, 0, 0.406869, 0, -1.77848e-08, 0.174732, 0, 0)
 mesh = ExtResource("2_2xwe4")
+
+[node name="Area3D" parent="." index="1" groups=["pickup"]]
+collision_mask = 19

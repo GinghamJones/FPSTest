@@ -1,29 +1,40 @@
-[gd_scene load_steps=5 format=3]
+[gd_scene load_steps=6 format=3 uid="uid://csyrlk2cg85f6"]
 
+[ext_resource type="Texture2D" uid="uid://07stxv4tp0mt" path="res://Blood/Blood_drip.png" id="1_n7arb"]
 [ext_resource type="Script" path="res://Blood/blood_particle.gd" id="1_y85ya"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_cw7la"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_b2raa"]
 direction = Vector3(0, 0, -1)
-spread = 11.8
-initial_velocity_min = 2.0
-initial_velocity_max = 2.0
+spread = 44.28
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+attractor_interaction_enabled = false
+collision_mode = 2
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mjsn6"]
-albedo_color = Color(0.584314, 0, 0.0588235, 1)
-metallic = 0.42
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yfjsr"]
+transparency = 1
+cull_mode = 2
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("1_n7arb")
 
-[sub_resource type="SphereMesh" id="SphereMesh_1fqi1"]
-material = SubResource("StandardMaterial3D_mjsn6")
-radius = 0.015
-height = 0.03
+[sub_resource type="QuadMesh" id="QuadMesh_cqk0u"]
+lightmap_size_hint = Vector2i(7, 7)
+material = SubResource("StandardMaterial3D_yfjsr")
+orientation = 1
 
-[node name="GPUParticles3D" type="GPUParticles3D"]
+[node name="Blood" type="GPUParticles3D"]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, 0)
 emitting = false
-amount = 15
+amount = 10
 one_shot = true
 speed_scale = 1.1
-explosiveness = 1.0
-process_material = SubResource("ParticleProcessMaterial_cw7la")
-draw_pass_1 = SubResource("SphereMesh_1fqi1")
+explosiveness = 0.85
+randomness = 1.0
+process_material = SubResource("ParticleProcessMaterial_b2raa")
+draw_pass_1 = SubResource("QuadMesh_cqk0u")
 script = ExtResource("1_y85ya")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 10.565
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

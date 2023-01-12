@@ -1,7 +1,14 @@
-extends Node3D
+extends GPUParticles3D
 
 
-func _process(delta):
-	if !self.emitting:
+func _physics_process(_delta):
+	if emitting == false:
+		print("i'm free (blood)")
 		queue_free()
-		
+		$Timer.start()
+
+
+
+
+func _on_timer_timeout():
+	print("I'm here!")

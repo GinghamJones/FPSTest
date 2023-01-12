@@ -1,5 +1,5 @@
 extends Node3D
-class_name weapon
+class_name Weapon
 
 
 @export var gun_name : String = "gun"
@@ -16,6 +16,7 @@ var available_bullets : int
 @onready var muzzle: MeshInstance3D = $Muzzle
 @onready var fire_sound : AudioStreamPlayer3D = $FireSound
 var can_fire : bool = true
+var outta_bullets : bool = false
 var is_firing : bool = false
 var is_reloading : bool = false
 

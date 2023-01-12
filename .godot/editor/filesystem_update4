@@ -1,4 +1,7 @@
-res://Weapons/Shotgun/shotgun_2.tscn
+res://default_bus_layout.tres
+res://Blood/blood_particle.tscn
+res://Player/Footsteps.gd
 res://Materials/rust_floor.tres
 res://Weapons/Shotgun/Resources/shotgun_model.res
-res://Weapons/Shotgun/shotgun_2.gd
+res://Player/player.tscn
+res://Levels/level_2.tscn

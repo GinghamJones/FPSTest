@@ -21,8 +21,3 @@ script = ExtResource("1_astg2")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0.2, 0, 0)
 mesh = SubResource("QuadMesh_xklop")
-
-[node name="Decal" type="Decal" parent="."]
-texture_albedo = ExtResource("2_8dxb8")
-texture_normal = ExtResource("3_hto2i")
-texture_orm = ExtResource("4_djvw5")
