@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://lknibfyx8b28"]
+[gd_scene load_steps=30 format=3 uid="uid://lknibfyx8b28"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7shlp"]
 [ext_resource type="Script" path="res://Player/WeaponHolder.gd" id="2_ia431"]
@@ -10,6 +10,10 @@
 [ext_resource type="AudioStream" uid="uid://cah4uwbpf67do" path="res://Sounds/- 01 Start - _walking_(5).mp3" id="7_nyjot"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0mabo"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_a5bjf"]
+radius = 0.014
+height = 0.03
 
 [sub_resource type="LabelSettings" id="LabelSettings_84mmo"]
 font_size = 30
@@ -269,7 +273,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_ojqmw"]
 resource_name = "Walk"
-length = 1.2
+length = 0.6
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -277,7 +281,7 @@ tracks/0/path = NodePath("PlayerCamera:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.6, 1.2),
+"times": PackedFloat32Array(0, 0.4, 0.6),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.499, 0.328), Vector3(0, 0.6, 0.328)]
@@ -289,7 +293,7 @@ tracks/1/path = NodePath("Footsteps")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.6),
+"times": PackedFloat32Array(0.4),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"play_random_sound"],
@@ -352,6 +356,10 @@ current = true
 [node name="WeaponHolder" type="Node3D" parent="PlayerCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184, -0.243, -0.276)
 script = ExtResource("2_ia431")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerCamera/WeaponHolder"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185456, 0.244941, -1.11273)
+mesh = SubResource("SphereMesh_a5bjf")
 
 [node name="Flashlight" type="SpotLight3D" parent="PlayerCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452764, -0.192701, -0.678287)

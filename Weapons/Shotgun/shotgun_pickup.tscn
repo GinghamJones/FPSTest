@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://cvrpkwosbla6e"]
+[gd_scene load_steps=5 format=3 uid="uid://cvrpkwosbla6e"]
 
 [ext_resource type="PackedScene" uid="uid://bm28fmgygk7n2" path="res://Weapons/weapon_pickup.tscn" id="1_73noo"]
 [ext_resource type="ArrayMesh" uid="uid://dbkrkehiq4lkt" path="res://Weapons/Shotgun/Resources/shotgun_model.res" id="2_2xwe4"]
+[ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_pickup.gd" id="2_nnxt8"]
+[ext_resource type="PackedScene" uid="uid://b7i1nkr4pbspi" path="res://Weapons/Shotgun/shotgun_2.tscn" id="3_3wjlr"]
 
 [node name="ShotgunPickup" groups=["Pickup"] instance=ExtResource("1_73noo")]
+script = ExtResource("2_nnxt8")
 weapon_name = "Shotgun"
-ammo = 6
+weapon = ExtResource("3_3wjlr")
 
 [node name="GunMesh" parent="." index="0"]
 transform = Transform3D(-1.77848e-08, 0, -0.406869, 0, 0.406869, 0, 0.406869, 0, -1.77848e-08, 0.174732, 0, 0)
@@ -13,3 +16,6 @@ mesh = ExtResource("2_2xwe4")
 
 [node name="Area3D" parent="." index="1" groups=["pickup"]]
 collision_mask = 19
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

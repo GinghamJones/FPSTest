@@ -1,0 +1,21 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bmhbfy7upt0dv"
+path="res://.godot/imported/knifeRound_smooth.obj-6fe410a1f0ae72a79136a744289cdba3.mesh"
+
+[deps]
+
+files=["res://.godot/imported/knifeRound_smooth.obj-6fe410a1f0ae72a79136a744289cdba3.mesh"]
+
+source_file="res://Weapons/Models/knifeRound_smooth.obj"
+dest_files=["res://.godot/imported/knifeRound_smooth.obj-6fe410a1f0ae72a79136a744289cdba3.mesh", "res://.godot/imported/knifeRound_smooth.obj-6fe410a1f0ae72a79136a744289cdba3.mesh"]
+
+[params]
+
+generate_tangents=true
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+optimize_mesh=true

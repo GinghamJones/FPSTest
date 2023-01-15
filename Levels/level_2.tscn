@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ww04qrb7pcwl"]
+[gd_scene load_steps=13 format=3 uid="uid://ww04qrb7pcwl"]
 
 [ext_resource type="Script" path="res://Levels/level_2.gd" id="1_oulhv"]
 [ext_resource type="Material" uid="uid://spn450upsxcw" path="res://Materials/rust_floor.tres" id="1_ua7e5"]
@@ -8,8 +8,8 @@
 [ext_resource type="Material" uid="uid://dgnf4bf86c4hd" path="res://Textures/wood_planks.tres" id="6_0a5hh"]
 [ext_resource type="PackedScene" uid="uid://qvbgllkrgub0" path="res://Levels/door.tscn" id="7_05uoy"]
 [ext_resource type="PackedScene" uid="uid://drkcix8oh2qie" path="res://frame.tscn" id="8_f3byx"]
+[ext_resource type="PackedScene" uid="uid://btto5ix4n7wen" path="res://Weapons/ar_pickup.tscn" id="11_321dn"]
 [ext_resource type="AudioStream" uid="uid://bhbh0ipk37w1b" path="res://fps song - 01 Start.mp3" id="11_i0bcp"]
-[ext_resource type="PackedScene" uid="uid://c5dlwpbdc8ng5" path="res://Enemy/enemy.tscn" id="11_konry"]
 
 [sub_resource type="Environment" id="Environment_k71pm"]
 background_mode = 1
@@ -20,28 +20,22 @@ sdfgi_enabled = true
 sdfgi_use_occlusion = true
 volumetric_fog_density = 0.01
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q0xfr"]
-cull_mode = 2
-albedo_color = Color(0.356863, 0.356863, 0.356863, 1)
-roughness = 0.25
-
-[sub_resource type="PlaneMesh" id="PlaneMesh_6f6km"]
-material = SubResource("StandardMaterial3D_q0xfr")
-subdivide_width = 10
-subdivide_depth = 10
-
 [sub_resource type="NavigationMesh" id="NavigationMesh_t8lj3"]
 vertices = PackedVector3Array(-20.0137, 3.72718, 10.2779, -20.0137, 3.72718, 20.5279, -12.5137, 3.72718, 20.5279, 2.4863, 3.72718, 20.5279, 9.9863, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, -10.2221, 9.9863, 3.72718, -20.4721, 2.4863, 3.72718, -20.4721, -12.5137, 3.72718, -20.4721, -20.0137, 3.72718, -20.4721, -20.0137, 3.72718, -10.2221, -20.0137, 3.72718, 10.2779, -12.5137, 3.72718, 20.5279, -5.0137, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, 0.0278625, -5.0137, 3.72718, -20.4721, -20.0137, 3.72718, 0.0278625, -5.0137, 3.72718, 20.5279, 2.4863, 3.72718, 20.5279, 9.9863, 3.72718, 10.2779, 9.9863, 3.72718, -10.2221, 2.4863, 3.72718, -20.4721, -5.0137, 3.72718, -20.4721, 9.9863, 3.72718, 0.0278625, -5.0137, 3.72718, -20.4721, -12.5137, 3.72718, -20.4721, -20.0137, 3.72718, -10.2221, -20.0137, 3.72718, 0.0278625, -12.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -11.7221, -19.7637, -0.0228201, -3.22214, -6.2637, -0.0228201, -3.22214, -6.2637, -0.0228201, -5.22214, -19.7637, -0.0228201, -3.22214, -6.2637, -0.0228201, -5.22214, -5.5137, -0.0228201, -5.47214, -5.5137, -0.0228201, -20.2221, -12.7637, -0.0228201, -20.2221, -19.7637, -0.0228201, -11.7221, 9.7363, -0.0228201, -12.2221, 9.7363, -0.0228201, -20.2221, 1.9863, -0.0228201, -20.2221, -5.0137, -0.0228201, -5.22214, -5.0137, -0.0228201, -3.72214, 9.7363, -0.0228201, -3.97214, -5.5137, -0.0228201, -20.2221, -5.5137, -0.0228201, -5.47214, -5.0137, -0.0228201, -5.22214, 9.7363, -0.0228201, -3.97214, 9.7363, -0.0228201, -12.2221, 1.9863, -0.0228201, -20.2221, 3.9863, -0.0228201, 4.02786, 4.2363, -0.0228201, 4.77786, 4.7363, -0.0228201, 4.77786, 4.9863, -0.0228201, 4.02786, -5.0137, -0.0228201, -3.72214, -5.0137, -0.0228201, 4.02786, 3.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, 4.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, 3.9863, -0.0228201, 4.02786, 4.9863, -0.0228201, 4.02786, 9.7363, -0.0228201, -3.97214, -19.7637, -0.0228201, 3.27786, -6.2637, -0.0228201, 3.27786, -6.2637, -0.0228201, -3.22214, -19.7637, -0.0228201, -3.22214, -19.7637, -0.0228201, 11.5279, -19.7637, -0.0228201, 20.0279, -12.0137, -0.0228201, 20.0279, -6.2637, -0.0228201, 5.27786, -6.2637, -0.0228201, 3.27786, -19.7637, -0.0228201, 3.27786, -19.7637, -0.0228201, 11.5279, -4.0137, -0.0228201, 20.0279, -4.0137, -0.0228201, 5.52786, -6.2637, -0.0228201, 5.27786, -19.7637, -0.0228201, 11.5279, -12.0137, -0.0228201, 20.0279, 4.9863, -0.0228201, 5.52786, 4.7363, -0.0228201, 4.77786, 4.2363, -0.0228201, 4.77786, 3.9863, -0.0228201, 5.52786, 2.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779, 3.9863, -0.0228201, 5.52786, -4.0137, -0.0228201, 5.52786, -4.0137, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779, 9.7363, -0.0228201, 5.52786, 4.9863, -0.0228201, 5.52786, 9.7363, -0.0228201, 12.7779, 4.9863, -0.0228201, 5.52786, 3.9863, -0.0228201, 5.52786, 2.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 20.0279, 9.7363, -0.0228201, 12.7779)
 polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(5, 4, 3), PackedInt32Array(8, 7, 6), PackedInt32Array(11, 10, 9), PackedInt32Array(13, 12, 14), PackedInt32Array(14, 12, 18), PackedInt32Array(14, 18, 15), PackedInt32Array(15, 18, 16), PackedInt32Array(16, 18, 17), PackedInt32Array(21, 20, 19), PackedInt32Array(23, 22, 24), PackedInt32Array(24, 22, 25), PackedInt32Array(27, 26, 28), PackedInt32Array(28, 26, 29), PackedInt32Array(32, 31, 30), PackedInt32Array(35, 34, 33), PackedInt32Array(37, 36, 38), PackedInt32Array(38, 36, 41), PackedInt32Array(38, 41, 40), PackedInt32Array(38, 40, 39), PackedInt32Array(44, 43, 42), PackedInt32Array(47, 46, 45), PackedInt32Array(49, 48, 50), PackedInt32Array(50, 48, 53), PackedInt32Array(50, 53, 52), PackedInt32Array(50, 52, 51), PackedInt32Array(55, 54, 56), PackedInt32Array(56, 54, 57), PackedInt32Array(59, 58, 60), PackedInt32Array(60, 58, 61), PackedInt32Array(64, 63, 62), PackedInt32Array(67, 66, 65), PackedInt32Array(71, 70, 68), PackedInt32Array(68, 70, 69), PackedInt32Array(74, 73, 72), PackedInt32Array(76, 75, 77), PackedInt32Array(77, 75, 78), PackedInt32Array(80, 79, 81), PackedInt32Array(81, 79, 83), PackedInt32Array(81, 83, 82), PackedInt32Array(85, 84, 86), PackedInt32Array(86, 84, 87), PackedInt32Array(88, 92, 89), PackedInt32Array(89, 92, 90), PackedInt32Array(90, 92, 91), PackedInt32Array(95, 94, 93), PackedInt32Array(98, 97, 96), PackedInt32Array(101, 100, 99)]
 
-[node name="Level 2" type="Node3D"]
+[node name="Level2" type="Node3D"]
 script = ExtResource("1_oulhv")
 
-[node name="Player" parent="." instance=ExtResource("3_fwl2p")]
-transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20.8666, 4.36111, 1.61756)
+[node name="Timer" type="Timer" parent="."]
+wait_time = 12.858
+autostart = true
 
 [node name="ShotgunPickup" parent="." instance=ExtResource("5_6ngoq")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.7419, 4.06498, 2.60194)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -29.1959, 4.06498, 9.01286)
+
+[node name="ARPickup" parent="." instance=ExtResource("11_321dn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -18.7558, 3.67151, 2.11581)
 
 [node name="Marker3D" type="Marker3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -15.0759, 4.07162, 15.0987)
@@ -65,19 +59,10 @@ transform = Transform3D(0.0152847, 0, 0, 0, 0.0152847, 0, 0, 0, 0.0152847, -10.9
 transform = Transform3D(4.89961, 0, 0, 0, 4.30458, 0, 0, 0, 3.27125, -24.7584, -102.713, -5.78067)
 collision_mask = 27
 
-[node name="Timer" type="Timer" parent="."]
-wait_time = 12.858
-autostart = true
-
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.189455, -0.518694, -0.833705, 0.981889, 0.100082, 0.160863, 0, -0.849082, 0.528261, 0, 11.3275, 0)
 shadow_enabled = true
 sky_mode = 1
-
-[node name="SoftBody3D" type="SoftBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.3974, 4.90533, -4.82526)
-extra_cull_margin = 1000.0
-mesh = SubResource("PlaneMesh_6f6km")
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.6176, 3.75099, 0)
@@ -253,9 +238,23 @@ spot_angle = 71.26
 [node name="L2Song" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("11_i0bcp")
 
-[node name="Enemy" parent="." instance=ExtResource("11_konry")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.5926, 3.29505, -5.44466)
+[node name="Player" parent="." instance=ExtResource("3_fwl2p")]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -20.8666, 4.36111, 1.61756)
 
-[connection signal="picked_up" from="Player" to="ShotgunPickup" method="_on_player_picked_up"]
+[node name="StartPositions" type="Node3D" parent="."]
+
+[node name="Position1" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(3.51391, 0, 0, 0, 3.51391, 0, 0, 0, 3.51391, -12.7301, 3.31338, 0)
+
+[node name="Position2" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(3.51391, 0, 0, 0, 3.51391, 0, 0, 0, 3.51391, -22.0742, 3.31338, -10.6961)
+
+[node name="Position3" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(3.51391, 0, 0, 0, 3.51391, 0, 0, 0, 3.51391, -24.8559, 3.31338, 8.78808)
+
+[node name="Position4" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(3.51391, 0, 0, 0, 3.51391, 0, 0, 0, 3.51391, -13.5548, 3.31338, 14.8431)
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="finished" from="L2Song" to="." method="_on_l_2_song_finished"]
+[connection signal="picked_up" from="Player" to="ShotgunPickup" method="_on_player_picked_up"]

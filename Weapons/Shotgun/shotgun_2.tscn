@@ -1,14 +1,55 @@
-[gd_scene load_steps=6 format=3 uid="uid://b7i1nkr4pbspi"]
+[gd_scene load_steps=14 format=3 uid="uid://b7i1nkr4pbspi"]
 
 [ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_7wq7w"]
 [ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_2.gd" id="2_jv27o"]
 [ext_resource type="AudioStream" uid="uid://luvduyi2mf0f" path="res://Weapons/Shotgun/Shotgun_Blast-Jim_Rogers-1914772763.mp3" id="3_vojjl"]
 [ext_resource type="AudioStream" uid="uid://c2um3ugx3s646" path="res://Weapons/Shotgun/shotgun-reload-old_school-RA_The_Sun_God-580332022.mp3" id="5_gjx00"]
 [ext_resource type="PackedScene" uid="uid://b1fgv5kw5nj3t" path="res://Weapons/Shotgun/Player_Shotgun.glb" id="5_jhu4t"]
+[ext_resource type="Texture2D" uid="uid://1bgf8g8ew8he" path="res://Weapons/MuzzleFlashes/muzzle_01.png" id="6_n6kke"]
+[ext_resource type="Texture2D" uid="uid://cjwpg0oogjald" path="res://Weapons/Smoke/smoke_03.png" id="7_sg50k"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_5csgv"]
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p03s2"]
+transparency = 3
+alpha_hash_scale = 1.0
+alpha_antialiasing_mode = 0
+cull_mode = 2
+albedo_color = Color(0.541176, 0.45098, 0.0470588, 1)
+albedo_texture = ExtResource("6_n6kke")
+emission_enabled = true
+emission = Color(0.772549, 0.619608, 0, 1)
+emission_energy_multiplier = 3.48
+
+[sub_resource type="QuadMesh" id="QuadMesh_ta3vq"]
+material = SubResource("StandardMaterial3D_p03s2")
+orientation = 0
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_l3vq1"]
+direction = Vector3(0.1, 1, 0)
+spread = 74.08
+flatness = 0.56
+gravity = Vector3(0, 1, 0)
+initial_velocity_min = 0.1
+initial_velocity_max = 0.1
+turbulence_noise_scale = 0.5
+turbulence_noise_speed = Vector3(0.117, 0.102, 0.07)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3jrws"]
+transparency = 1
+cull_mode = 2
+albedo_color = Color(0.694118, 0.694118, 0.694118, 1)
+albedo_texture = ExtResource("7_sg50k")
+
+[sub_resource type="QuadMesh" id="QuadMesh_vm7n1"]
+material = SubResource("StandardMaterial3D_3jrws")
+size = Vector2(0.1, 0.1)
 
 [node name="Shotgun 2" node_paths=PackedStringArray("reload_time", "fire_rate") instance=ExtResource("1_7wq7w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.159551)
 script = ExtResource("2_jv27o")
+gun_name = "Shotgun"
 mag_size = 2
 reload_time = NodePath("ReloadTimer")
 fire_rate = NodePath("FireRate")
@@ -40,6 +81,28 @@ transform = Transform3D(-0.0112924, 9.87213e-10, 4.31525e-17, 0, -4.93606e-10, 0
 
 [node name="Player_Shotgun" parent="." index="6" instance=ExtResource("5_jhu4t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0977339, -1.57996, -0.461817)
+
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="7"]
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, -4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -9.16434e-08, 0.0598458, 1.04828)
+cast_shadow = 0
+emitting = false
+amount = 1
+lifetime = 0.07
+one_shot = true
+visibility_aabb = AABB(-4.04688, -4, -4, 8, 8, 8)
+trail_lifetime = 1.21
+process_material = SubResource("ParticleProcessMaterial_5csgv")
+draw_pass_1 = SubResource("QuadMesh_ta3vq")
+
+[node name="Smoke" type="GPUParticles3D" parent="." index="8"]
+transform = Transform3D(1, -7.10543e-15, -7.10543e-15, -7.10543e-15, 1, 0, -7.10543e-15, -6.21176e-22, 1, -6.2021e-08, 0.0936333, 0.709437)
+emitting = false
+amount = 100
+lifetime = 1.07
+one_shot = true
+transform_align = 1
+process_material = SubResource("ParticleProcessMaterial_l3vq1")
+draw_pass_1 = SubResource("QuadMesh_vm7n1")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

@@ -13,18 +13,27 @@ const MIN_LOOK_ANGLE : int = -90
 const MAX_LOOK_ANGLE : int = 90
 var look_anim_pos : Vector2 = Vector2()
 
+var kills: int = 0 :
+	get:
+		return kills
+	set(amount):
+		if amount != 0:
+			kills += amount
+		else:
+			kills = amount
+var xp : int = 0
 
-var current_weapon = null
-var changing_weapon = false
+#var pickup_instance
 var can_pickup = false
-var what_to_pickup : Weapon
-var aim_down_sights : bool = false
+#var what_to_pickup : PackedScene
+var gun_instance : Weapon
+var aiming : bool = false
 var is_crouching : bool = false
 @onready var weapon_holder = $PlayerCamera/WeaponHolder
 
 # Vars for physics
 @export var speed : float = 3.0
-@export var ads_speed : float = 2
+@export var reduced_speed : float = 2
 @export var max_speed: float = 4.5
 @export var jump_velocity: float = 4.5
 @export var friction: float = 10
@@ -75,15 +84,17 @@ func _unhandled_input(event):
 			flashlight.hide()
 		else:
 			flashlight.show()
-	
-func toggle_cursor():
-	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
-		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	else:
-		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-	
+			
+	if Input.is_action_just_pressed("quit"):
+		get_tree().quit()
 		
-	
+	if event.is_action_pressed("use"):
+		if can_pickup:
+			weapon_holder.pickup_weapon(gun_instance)
+			#emit_signal("picked_up", self)
+		do_raycast()
+
+
 func _process(delta):
 	#Toggle mouse cursor
 	if Input.is_action_just_pressed("toggle_cursor"):
@@ -94,53 +105,14 @@ func _process(delta):
 		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * LOOK_SENS * delta
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
 		rotation -= Vector3(0, mouseDelta.x, 0) * LOOK_SENS * delta
-	
-	#------------------------------------------------------------------------
-	
-	#Handle mouse rotation anim
-	if mouseDelta.x > 0:
-#		look_anim_pos.x = lerp(look_anim_pos.x, 1.0, 0.009)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(-15.0), 0.009)
-		#clamp(weapon_manager.rotation.y, 0, deg_to_rad(10.0))
-	
-	elif mouseDelta.x < 0:
-		#look_anim_pos.x = lerp(look_anim_pos.x, -1.0, 0.009)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(15.0), 0.009)
-	
-	if mouseDelta.y > 0:
-		#look_anim_pos.y = lerp(look_anim_pos.y, -1.0, 0.009)
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(-5.0), 0.009)
-	
-	elif mouseDelta.y < 0:
-		#look_anim_pos.y = lerp(look_anim_pos.y, 1.0, 0.009)
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(5.0), 0.009)
-
-	if mouseDelta == Vector2(0,0):
-		#look_anim_pos.x = lerp(look_anim_pos.x, 0.0, 0.05)
-		#look_anim_pos.y = lerp(look_anim_pos.y, 0.0, 0.05)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, 0.0, 0.1)
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, 0.0, 0.1)
 		
-
-	#look_anim.set("parameters/blend_position", look_anim_pos)
-	
-	#-------------------------------------------------------------------------
+	gun_rotation_anim()
 	
 	mouseDelta = Vector2()
 
-	#Quit game
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
-		
-	if Input.is_action_just_pressed("use"):
-		if can_pickup:
-			weapon_holder.pickup_weapon(what_to_pickup)
-			#emit_signal("picked_up", self)
-		do_raycast()
-
 
 func _physics_process(delta):
-	var old_velocity = velocity
+	#var old_velocity = velocity
 	
 	# Add the gravity.
 	if not is_on_floor():
@@ -159,8 +131,8 @@ func _physics_process(delta):
 	# Determine how fast to move
 	if is_sprinting:
 		target *= max_sprint_speed
-	elif aim_down_sights or is_crouching:
-		target *= ads_speed
+	elif aiming or is_crouching:
+		target *= reduced_speed
 	else:	
 		target *= max_speed
 	
@@ -185,8 +157,8 @@ func _physics_process(delta):
 	velocity.x = hvel.x
 	velocity.z = hvel.z
 	
-	if velocity != old_velocity:
-		set_anims()
+	#if velocity != old_velocity:
+	set_anims(input_dir)
 		
 #	if input_dir != Vector2.ZERO:
 #		anims.play("Walk")
@@ -198,33 +170,78 @@ func _physics_process(delta):
 	move_and_slide()
 
 
-func set_anims():
-	if velocity != Vector3.ZERO:
+
+func mouse_look(delta):
+	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
+		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * LOOK_SENS * delta
+		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
+		rotation -= Vector3(0, mouseDelta.x, 0) * LOOK_SENS * delta
+
+
+func gun_rotation_anim():
+	#Handle mouse rotation anim
+	if mouseDelta.x > 0:
+#		look_anim_pos.x = lerp(look_anim_pos.x, 1.0, 0.009)
+		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(-15.0), 0.009)
+		#clamp(weapon_manager.rotation.y, 0, deg_to_rad(10.0))
+	
+	elif mouseDelta.x < 0:
+		#look_anim_pos.x = lerp(look_anim_pos.x, -1.0, 0.009)
+		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(15.0), 0.009)
+	
+	if mouseDelta.y > 0:
+		#look_anim_pos.y = lerp(look_anim_pos.y, -1.0, 0.009)
+		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(-5.0), 0.009)
+	
+	elif mouseDelta.y < 0:
+		#look_anim_pos.y = lerp(look_anim_pos.y, 1.0, 0.009)
+		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(5.0), 0.009)
+
+	if mouseDelta == Vector2(0,0):
+		#look_anim_pos.x = lerp(look_anim_pos.x, 0.0, 0.05)
+		#look_anim_pos.y = lerp(look_anim_pos.y, 0.0, 0.05)
+		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, 0.0, 0.1)
+		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, 0.0, 0.1)
+
+
+func set_anims(am_i_moving):
+	if am_i_moving != Vector2.ZERO:
 		anims.play("Walk")
 		var anim_speed = velocity.length() * animation_speed_modifier
+		if is_sprinting:
+			anims.playback_speed = 1.5
+		else:
+			anims.playback_speed = 1.0
 		#print(anim_speed)
-		anims.playback_speed = anim_speed
-		weapon_holder.anim_speed = anim_speed
-		# 2 corresponds to enum value "MOVING" in weapon_holder
-		weapon_holder.change_state(2)
-		#weapon_holder.animate_weapon(anim_speed)
+		if not weapon_holder.is_holstered:
+			#anims.playback_speed = anim_speed
+			weapon_holder.anim_speed = anim_speed
 	else:
-		anims.play("RESET")
+		anims.stop()
 
 
-func pickup_available(weapon : Weapon):
-	use_text.text = "Press E to pick up " + weapon.gun_name
+func toggle_cursor():
+	if Input.mouse_mode == Input.MOUSE_MODE_VISIBLE:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	else:
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+
+
+func pickup_available(weapon : PackedScene):
+	gun_instance = weapon.instantiate()
+	use_text.text = "Press E to pick up " + gun_instance.gun_name
 	use_text.show()
 	print(weapon)
 	can_pickup = true
-	what_to_pickup = weapon
+	#what_to_pickup = gun_instance
 
 
 func pickup_not_available():
 	use_text.text = ""
 	use_text.hide()
 	can_pickup = false
-	what_to_pickup = null
+	#what_to_pickup = null
+	gun_instance = null
 
 
 func do_raycast():

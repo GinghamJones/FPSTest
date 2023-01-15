@@ -1,7 +1,11 @@
-res://default_bus_layout.tres
-res://Blood/blood_particle.tscn
+res://Levels/level_2.tscn
 res://Player/Footsteps.gd
 res://Materials/rust_floor.tres
 res://Weapons/Shotgun/Resources/shotgun_model.res
+res://Enemy/enemy.tscn
+res://Weapons/ar.tscn
+res://Weapons/ar_pickup.tscn
 res://Player/player.tscn
-res://Levels/level_2.tscn
+res://Weapons/Shotgun/shotgun_2.tscn
+res://Weapons/Shotgun/shotgun_pickup.tscn
+res://Weapons/weapon_pickup.tscn

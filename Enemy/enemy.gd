@@ -48,9 +48,12 @@ var enemy_state = EnemyState.SEARCHING
 # Get the gravity from the project settings to be synced with RigidBody nodes.
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
+signal im_dead_af
+
 func _ready():
 	update_health(health)
 	start_pos = global_transform
+	#im_dead_af.connect(get_tree().root.get_node("Level2").enemy_death())
 	
 
 func _physics_process(delta):
@@ -121,32 +124,34 @@ func _physics_process(delta):
 		
 		EnemyState.DEAD:
 			die()
-				
-	# Add the gravity.
-	if not is_on_floor():
-		velocity.y -= gravity * delta
-
-	# Handle Jump.
-	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-		velocity.y = jump_velocity
-
-	if velocity != Vector3.ZERO:
-		if not weapon_equipped:
-			anims.play("walk")
-		else:
-			anims.play("walk_equipped")
-	else:
-		anims.play("RESET")
 	
-	move_and_slide()
+	if enemy_state != EnemyState.DEAD:
+		# Add the gravity.
+		if not is_on_floor():
+			velocity.y -= gravity * delta
+
+		# Handle Jump.
+		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+			velocity.y = jump_velocity
+
+		if velocity != Vector3.ZERO:
+			if not weapon_equipped:
+				anims.play("walk")
+			else:
+				anims.play("walk_equipped")
+		else:
+			anims.play("RESET")
+		
+		move_and_slide()
 
 
 func die():
-	timer.start()
-	anims.stop(true)
-	velocity = Vector3(-200, 30, 0)
-	for parts in $Form.get_children():
-		parts.set_as_top_level(true)
+#	timer.start()
+	anims.play("Die")
+	set_physics_process(false)
+	set_collision_layer_value(5, false)
+	await anims.animation_finished
+	emit_signal("im_dead_af")
 	
 
 
@@ -185,19 +190,14 @@ func pickup_available(weapon):
 func get_nav_points(new_nav_points : Array):
 	nav_points = new_nav_points
 
-func _on_timer_timeout():
-	global_transform = start_pos
-	health = 100
-	update_health(health)
-	enemy_state = EnemyState.SEARCHING
-
 
 func _on_idle_timer_timeout():
 	enemy_state = EnemyState.SEARCHING
 
 
 func _on_navigation_agent_3d_path_changed():
-	target = nav_points[current_nav_point]
+	if enemy_state != EnemyState.DEAD:
+		target = nav_points[current_nav_point]
 
 
 func _on_form_ow_fuck(damage):
@@ -229,3 +229,7 @@ func _on_detection_cone_area_entered(area):
 func _on_head_ow_fuck(damage):
 	health -= damage
 	update_health(health)
+
+
+func _on_animation_player_animation_finished(_anim_name):
+	pass # Replace with function body.

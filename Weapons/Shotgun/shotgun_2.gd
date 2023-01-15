@@ -4,6 +4,8 @@ extends Weapon
 var randomizer = RandomNumberGenerator.new()
 @onready var anims = $Player_Shotgun/AnimationPlayer
 @onready var reload_sound = $Reload
+@onready var muzzle_flash : GPUParticles3D = $MuzzleFlash
+@onready var smoke : GPUParticles3D = $Smoke
 var current_anim : String = ""
 var does_anim_loop : bool = false
 
@@ -29,6 +31,9 @@ func fire():
 	if can_fire:
 		is_firing = true
 		anims.play("Player_Shotgun_Fire", 0, 1.0)
+		muzzle_flash.emitting = true
+		smoke.emitting = true
+		
 		#set_anim(FIRING, 1.0)
 		fire_sound.play()
 		fire_rate.start()
@@ -66,7 +71,7 @@ func walk(anim_speed : float):
 	
 	
 func run(anim_speed : float):
-	anims.play("Player_Shotgun_Run", 0.3, 1.0)
+	anims.play("Player_Shotgun_Run", 0.3, anim_speed)
 
 
 func spawn_bullet():
