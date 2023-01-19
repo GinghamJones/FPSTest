@@ -39,18 +39,23 @@ func _unhandled_input(event):
 			state = RELOADING
 			
 		if event.is_action_pressed("weapon_1"):
-			switch_weapon(weapons[0])
+			if weapons.size() > 1:
+				switch_weapon(weapons[0])
 		
 		if event.is_action_pressed("weapon_2"):
-			switch_weapon(weapons[1])
+			if weapons.size() > 1:
+				switch_weapon(weapons[1])
 
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if not is_holstered:
 		animate_weapon()
 
+		
 
 func switch_weapon(weapon):
+	if weapon == current_weapon:
+		return
 	# Hide current weapon and show new one
 	for i in weapons:
 		if i == current_weapon:
@@ -61,8 +66,7 @@ func switch_weapon(weapon):
 	current_weapon = weapon
 	is_holstered = false
 	emit_signal("weapon_changed", current_weapon)
-	print(weapons.size())
-	
+
 
 func pickup_weapon(new_weapon):
 	if weapons.has(new_weapon):
@@ -70,7 +74,6 @@ func pickup_weapon(new_weapon):
 	else:
 		var g = new_weapon
 		add_child(g)
-		print(g)
 		weapons.push_back(g)
 		switch_weapon(g)
 		emit_signal("picked_up", g.gun_name)
@@ -90,16 +93,13 @@ func animate_weapon():
 				state = MOVING
 			emit_signal("weapon_changed", current_weapon)
 		MOVING:
-			# First param in set_anim corresponds to enum state values in weapon
 			if anim_speed > 2.5:
-				current_weapon.run(1.0)
+				current_weapon.run(anim_speed)
 			elif anim_speed > 0.3:
-				current_weapon.walk(1.0)
+				current_weapon.walk(anim_speed)
 			else:
-				anim_speed = 1.0
+				#anim_speed = 1.0
 				current_weapon.idle(1.0)
-
-
 
 
 func holster_weapon():

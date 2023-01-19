@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://lknibfyx8b28"]
+[gd_scene load_steps=22 format=3 uid="uid://lknibfyx8b28"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7shlp"]
 [ext_resource type="Script" path="res://Player/WeaponHolder.gd" id="2_ia431"]
@@ -11,12 +11,11 @@
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0mabo"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_a5bjf"]
-radius = 0.014
-height = 0.03
-
 [sub_resource type="LabelSettings" id="LabelSettings_84mmo"]
 font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_l1nal"]
+font_size = 32
 
 [sub_resource type="LabelSettings" id="LabelSettings_t7g18"]
 font_size = 24
@@ -37,7 +36,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.1),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
-"values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.1)]
+"values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.3)]
 }
 
 [sub_resource type="Animation" id="Animation_177kj"]
@@ -78,134 +77,6 @@ tracks/2/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.0603297, 0.328489)]
-}
-
-[sub_resource type="Animation" id="Animation_rmftf"]
-resource_name = "LookDown"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.184, -0.288, -0.276)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerCamera/WeaponHolder:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(-0.151844, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_oxns1"]
-resource_name = "LookLeft"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.139, -0.243, -0.276)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerCamera/WeaponHolder:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, 0.261799, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_sdluu"]
-resource_name = "LookRight"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.239, -0.243, -0.276)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerCamera/WeaponHolder:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0, -0.424115, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_lo3cj"]
-resource_name = "LookUp"
-length = 0.2
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0.183875, -0.243342, -0.276208), Vector3(0.184, -0.191, -0.302)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("PlayerCamera/WeaponHolder:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.2),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, 0, 0), Vector3(0.174533, 0, 0)]
-}
-
-[sub_resource type="Animation" id="Animation_t06on"]
-resource_name = "NoADS"
-length = 0.1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Vector3(0, -0.15, -0.1), Vector3(0.184, -0.243, -0.276)]
 }
 
 [sub_resource type="Animation" id="Animation_l3dy2"]
@@ -273,7 +144,7 @@ tracks/4/keys = {
 
 [sub_resource type="Animation" id="Animation_ojqmw"]
 resource_name = "Walk"
-length = 0.6
+length = 1.2
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -281,7 +152,7 @@ tracks/0/path = NodePath("PlayerCamera:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.4, 0.6),
+"times": PackedFloat32Array(0, 0.7, 1.2),
 "transitions": PackedFloat32Array(1, 1, 1),
 "update": 0,
 "values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.499, 0.328), Vector3(0, 0.6, 0.328)]
@@ -293,7 +164,7 @@ tracks/1/path = NodePath("Footsteps")
 tracks/1/interp = 1
 tracks/1/loop_wrap = true
 tracks/1/keys = {
-"times": PackedFloat32Array(0.4),
+"times": PackedFloat32Array(0.7),
 "transitions": PackedFloat32Array(1),
 "values": [{
 "args": [&"play_random_sound"],
@@ -305,40 +176,34 @@ tracks/1/keys = {
 _data = {
 "ADS": SubResource("Animation_067aj"),
 "Crouch": SubResource("Animation_177kj"),
-"LookDown": SubResource("Animation_rmftf"),
-"LookLeft": SubResource("Animation_oxns1"),
-"LookRight": SubResource("Animation_sdluu"),
-"LookUp": SubResource("Animation_lo3cj"),
-"NoADS": SubResource("Animation_t06on"),
 "RESET": SubResource("Animation_l3dy2"),
 "Walk": SubResource("Animation_ojqmw")
 }
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_k5j8r"]
-animation = &"LookUp"
+[sub_resource type="Animation" id="Animation_xc7ua"]
+resource_name = "ADS"
+length = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("PlayerCamera/WeaponHolder:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.3)]
+}
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_cfrr1"]
-animation = &"LookRight"
+[sub_resource type="Animation" id="Animation_imnv1"]
+length = 0.001
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ry4np"]
-animation = &"LookDown"
-
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_plwm1"]
-animation = &"LookUp"
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_cr5tg"]
-
-[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_gqi2u"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_k5j8r")
-blend_point_0/pos = Vector2(0, 1)
-blend_point_1/node = SubResource("AnimationNodeAnimation_cfrr1")
-blend_point_1/pos = Vector2(0.4, 0)
-blend_point_2/node = SubResource("AnimationNodeAnimation_ry4np")
-blend_point_2/pos = Vector2(0, -0.9)
-blend_point_3/node = SubResource("AnimationNodeAnimation_plwm1")
-blend_point_3/pos = Vector2(-0.4, 0)
-blend_point_4/node = SubResource("AnimationNodeBlendSpace2D_cr5tg")
-blend_point_4/pos = Vector2(0, 1)
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fbu2s"]
+_data = {
+"ADS": SubResource("Animation_xc7ua"),
+"RESET": SubResource("Animation_imnv1")
+}
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
@@ -356,10 +221,6 @@ current = true
 [node name="WeaponHolder" type="Node3D" parent="PlayerCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.184, -0.243, -0.276)
 script = ExtResource("2_ia431")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="PlayerCamera/WeaponHolder"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.185456, 0.244941, -1.11273)
-mesh = SubResource("SphereMesh_a5bjf")
 
 [node name="Flashlight" type="SpotLight3D" parent="PlayerCamera"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.452764, -0.192701, -0.678287)
@@ -404,6 +265,33 @@ size_flags_vertical = 7
 text = "Bullets Left: "
 label_settings = SubResource("LabelSettings_84mmo")
 
+[node name="UpgradeVarsContainer" type="VBoxContainer" parent="HUD"]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 26.875
+anchor_bottom = 26.875
+offset_left = 1452.0
+offset_top = -1059.0
+offset_right = 1896.0
+offset_bottom = -864.0
+
+[node name="Speed" type="Label" parent="HUD/UpgradeVarsContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Speed:"
+label_settings = SubResource("LabelSettings_84mmo")
+
+[node name="Level" type="Label" parent="HUD/UpgradeVarsContainer"]
+layout_mode = 2
+size_flags_vertical = 7
+text = "Level:"
+label_settings = SubResource("LabelSettings_84mmo")
+
+[node name="DistanceTraveled" type="Label" parent="HUD/UpgradeVarsContainer"]
+layout_mode = 2
+text = "Distance Traveled: "
+label_settings = SubResource("LabelSettings_l1nal")
+
 [node name="UsePrompt" type="Label" parent="HUD"]
 layout_mode = 0
 offset_left = 455.0
@@ -436,12 +324,6 @@ libraries = {
 "": SubResource("AnimationLibrary_ti0qk")
 }
 
-[node name="AnimationTree" type="AnimationTree" parent="."]
-tree_root = SubResource("AnimationNodeBlendSpace2D_gqi2u")
-anim_player = NodePath("../PlayerAnims")
-parameters/blend_position = Vector2(0, 0.292576)
-parameters/4/blend_position = Vector2(0, 0)
-
 [node name="Footsteps" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.724963, 0)
 script = ExtResource("4_nustq")
@@ -461,6 +343,11 @@ bus = &"Room"
 [node name="Step4" type="AudioStreamPlayer3D" parent="Footsteps"]
 stream = ExtResource("7_nyjot")
 bus = &"Room"
+
+[node name="ADSAnim" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_fbu2s")
+}
 
 [connection signal="health_changed" from="." to="HUD" method="_on_player_health_changed"]
 [connection signal="weapon_changed" from="PlayerCamera/WeaponHolder" to="HUD" method="_on_weapon_holder_weapon_changed"]

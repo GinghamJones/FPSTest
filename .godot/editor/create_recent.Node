@@ -1,9 +1,14 @@
+AnimationPlayer
+Label
+VoxelGI
+StaticBody3D
+VBoxContainer
+Button
 MeshInstance3D
 Sprite3D
 Sprite2D
 Marker3D
 Node3D
-AnimationPlayer
 GPUParticles3D
 CPUParticles3D
 GPUParticlesCollisionBox3D
@@ -18,8 +23,6 @@ SoftBody3D
 CharacterBody3D
 SpotLight3D
 CSGBox3D
-VoxelGI
-Label
 CSGSphere3D
 AnimatableBody3D
 Decal
@@ -27,6 +30,3 @@ CSGPolygon3D
 PhysicalBone3D
 BoneAttachment3D
 Skeleton3D
-DirectionalLight3D
-WorldEnvironment
-NavigationRegion3D

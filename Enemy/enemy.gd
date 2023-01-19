@@ -231,5 +231,26 @@ func _on_head_ow_fuck(damage):
 	update_health(health)
 
 
-func _on_animation_player_animation_finished(_anim_name):
-	pass # Replace with function body.
+func _on_body_ow_fuck(damage):
+	health -= damage
+	update_health(health)
+
+
+func _on_left_leg_ow_fuck(damage):
+	health -= damage
+	update_health(health)
+
+
+func _on_right_leg_ow_fuck(damage):
+	health -= damage
+	update_health(health)
+
+
+func _on_right_arm_ow_fuck(damage):
+	health -= damage
+	update_health(health)
+
+
+func _on_left_arm_ow_fuck(damage):
+	health -= damage
+	update_health(health)

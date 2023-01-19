@@ -1,6 +1,8 @@
 extends Weapon
 
 @onready var anims : AnimationPlayer = $AnimationPlayer
+var randomizer = RandomNumberGenerator.new()
+var bullet_spread : Vector2 = Vector2(0.5, 0.2)
 
 
 func fire():
@@ -14,11 +16,9 @@ func fire():
 		is_firing = true
 		fire_rate.start()
 		anims.play("Fire")
-		var b = bullet.instantiate()
-		b.speed = bullet_speed
-		b.bullet_damage = damage
-		b.transform.basis = muzzle.transform.basis
-		muzzle.add_child(b)
+		spawn_bullet()
+		PlayerUpgrade.gun_fired()
+		
 		bullets_in_mag -= 1
 
 
@@ -34,6 +34,22 @@ func reload_weapon():
 			available_bullets -= 1
 			if available_bullets == 0:
 				break
+
+
+func spawn_bullet():
+	# Randomize angles of projectiles
+	randomizer.randomize()
+	var randomy_angle = randomizer.randf_range(-bullet_spread.x, bullet_spread.x)
+	var randomx_angle = randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
+	
+	var b : RigidBody3D = bullet.instantiate()
+	b.add_collision_exception_with(get_tree().get_nodes_in_group("Player")[0])
+	b.speed = bullet_speed
+	b.bullet_damage = damage
+	b.transform.basis = muzzle.transform.basis
+	b.rotation.x += randomx_angle
+	b.rotation.y += randomy_angle
+	muzzle.add_child(b)
 
 
 func idle(anim_speed : float):

@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var upgrade_script = get_node("/root/PlayerUpgrade")
 @onready var player = $Player
 @onready var enemy : PackedScene = preload("res://Enemy/enemy.tscn")
 var start_positions : Array 
@@ -7,13 +8,15 @@ var start_positions : Array
 func _ready():
 	randomize()
 	
+	connect("tree_entered", Callable(upgrade_script, "level_loaded"))
+	
 	for i in $StartPositions.get_children():
 		start_positions.push_back(i)
 		
 	spawn_a_bitch()
 	set_enemy_nav_points()
 	#$L2Song.play()
-
+	emit_signal("tree_entered")
 
 func _on_timer_timeout():
 	Window.print_orphan_nodes()
@@ -40,6 +43,7 @@ func spawn_a_bitch():
 
 func enemy_death():
 	spawn_a_bitch()
+	PlayerUpgrade.enemies_killed += 1
 
 	
 func set_enemy_nav_points():

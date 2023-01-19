@@ -8,21 +8,21 @@
 [ext_resource type="Script" path="res://Enemy/RightArm.gd" id="7_3vtxw"]
 [ext_resource type="Script" path="res://Enemy/LeftArm.gd" id="8_r643r"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_cgoqr"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_1bb05"]
 radius = 0.400888
 height = 2.21877
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yhghb"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8tpdo"]
 albedo_color = Color(0.231373, 0.231373, 0.231373, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_80d3b"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dbhps"]
 albedo_color = Color(0.933333, 0.0745098, 0, 1)
 metallic = 1.0
 roughness = 0.29
 emission_enabled = true
 emission = Color(0.931742, 0.0750032, 0, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kbgtq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4pxue"]
 albedo_color = Color(0.104565, 0.248398, 1, 1)
 metallic = 0.24
 roughness = 0.0
@@ -30,30 +30,30 @@ emission_enabled = true
 emission = Color(0.105882, 0.247059, 1, 1)
 emission_energy_multiplier = 4.2
 
-[sub_resource type="SphereMesh" id="SphereMesh_3dbcr"]
-material = SubResource("StandardMaterial3D_kbgtq")
+[sub_resource type="SphereMesh" id="SphereMesh_37nuf"]
+material = SubResource("StandardMaterial3D_4pxue")
 radius = 0.02
 height = 0.04
 
-[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_srl2h"]
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kb8qh"]
 points = PackedVector3Array(-0.2, 0, -0.2, 0.2, 0, -0.2, -0.2, 0, 0.2, 0.2, 0, 0.2, 5, 6, 2, -5, 6, 2, 5, 6, -2, -5, 6, -2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5guo3"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ya4e4"]
 albedo_color = Color(0.203922, 0, 0.945098, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6khf0"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ochma"]
 albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_whcrv"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bu3w8"]
 albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_v4vit"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dcj7o"]
 albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7o6jl"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hgb4b"]
 albedo_color = Color(0.431373, 0, 0.996078, 1)
 
-[sub_resource type="Animation" id="Animation_pikje"]
+[sub_resource type="Animation" id="Animation_adqkg"]
 resource_name = "Die"
 length = 1.5
 tracks/0/type = "value"
@@ -177,7 +177,7 @@ tracks/9/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 1.5708)]
 }
 
-[sub_resource type="Animation" id="Animation_540px"]
+[sub_resource type="Animation" id="Animation_3gqh0"]
 resource_name = "Equip"
 length = 0.5
 tracks/0/type = "value"
@@ -193,7 +193,7 @@ tracks/0/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 1.5708)]
 }
 
-[sub_resource type="Animation" id="Animation_pmspa"]
+[sub_resource type="Animation" id="Animation_c6s2n"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -328,7 +328,7 @@ tracks/10/keys = {
 "values": [Vector3(0, 0.821006, -0.153385)]
 }
 
-[sub_resource type="Animation" id="Animation_3nae1"]
+[sub_resource type="Animation" id="Animation_nabsi"]
 resource_name = "walk"
 length = 1.3
 loop_mode = 1
@@ -381,7 +381,7 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.454379), Vector3(0, 0, -0.411762)]
 }
 
-[sub_resource type="Animation" id="Animation_mk4la"]
+[sub_resource type="Animation" id="Animation_qpsu2"]
 resource_name = "walk_equipped"
 length = 1.3
 loop_mode = 1
@@ -434,13 +434,13 @@ tracks/3/keys = {
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.337547), Vector3(0, 0, -0.214484), Vector3(0, 0, 0)]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mcqpx"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ns72l"]
 _data = {
-"Die": SubResource("Animation_pikje"),
-"Equip": SubResource("Animation_540px"),
-"RESET": SubResource("Animation_pmspa"),
-"walk": SubResource("Animation_3nae1"),
-"walk_equipped": SubResource("Animation_mk4la")
+"Die": SubResource("Animation_adqkg"),
+"Equip": SubResource("Animation_3gqh0"),
+"RESET": SubResource("Animation_c6s2n"),
+"walk": SubResource("Animation_nabsi"),
+"walk_equipped": SubResource("Animation_qpsu2")
 }
 
 [node name="Enemy" type="CharacterBody3D" groups=["EnemyNav"]]
@@ -450,7 +450,7 @@ script = ExtResource("1_ye7w4")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.10658, 0)
-shape = SubResource("CapsuleShape3D_cgoqr")
+shape = SubResource("CapsuleShape3D_1bb05")
 
 [node name="HealthText" type="Label3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 6.72536e-09, 2.24613, 0.153858)
@@ -481,17 +481,17 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.3, 0.3, 0.3)
-material = SubResource("StandardMaterial3D_yhghb")
+material = SubResource("StandardMaterial3D_8tpdo")
 script = ExtResource("3_fma0y")
 
 [node name="Eye" type="CSGSphere3D" parent="Form/Head"]
 transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, -0.0306576, 0, -0.139995)
 radius = 0.0568933
-material = SubResource("StandardMaterial3D_80d3b")
+material = SubResource("StandardMaterial3D_dbhps")
 
 [node name="Eyeball" type="MeshInstance3D" parent="Form/Head/Eye"]
 transform = Transform3D(1, 0, 0, 0, 1, -8.35188e-23, 0, 0, 1, 0, 0.0434123, 0)
-mesh = SubResource("SphereMesh_3dbcr")
+mesh = SubResource("SphereMesh_37nuf")
 
 [node name="BitchFinder" type="RayCast3D" parent="Form/Head"]
 transform = Transform3D(-7.34108e-08, -4.86081e-09, 1, -0.0685899, 0.997645, 1.92835e-09, -0.997645, -0.0685899, -7.35137e-08, 0, -0.0210547, 0)
@@ -505,7 +505,7 @@ collision_mask = 6
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Form/Head/DetectionCone"]
 transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, -1.34068e-09, -0.0105288, -0.0306712)
-shape = SubResource("ConvexPolygonShape3D_srl2h")
+shape = SubResource("ConvexPolygonShape3D_kb8qh")
 
 [node name="Body" type="CSGBox3D" parent="Form" groups=["Enemy"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16415, 0)
@@ -513,7 +513,7 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.382572, 0.807481, 0.45541)
-material = SubResource("StandardMaterial3D_5guo3")
+material = SubResource("StandardMaterial3D_ya4e4")
 script = ExtResource("4_esmxa")
 
 [node name="LeftLegRotator" type="Node3D" parent="Form"]
@@ -525,7 +525,7 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.2, 1, 0.2)
-material = SubResource("StandardMaterial3D_6khf0")
+material = SubResource("StandardMaterial3D_ochma")
 script = ExtResource("5_ocuix")
 
 [node name="RightLegRotator" type="Node3D" parent="Form"]
@@ -537,7 +537,7 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.2, 1, 0.2)
-material = SubResource("StandardMaterial3D_whcrv")
+material = SubResource("StandardMaterial3D_bu3w8")
 script = ExtResource("6_ia3jp")
 
 [node name="RightArmRotator" type="Node3D" parent="Form"]
@@ -549,7 +549,7 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.2, 0.637738, 0.2)
-material = SubResource("StandardMaterial3D_v4vit")
+material = SubResource("StandardMaterial3D_dcj7o")
 script = ExtResource("7_3vtxw")
 
 [node name="WeaponEquip" type="Node3D" parent="Form/RightArmRotator/RightArm"]
@@ -564,12 +564,12 @@ use_collision = true
 collision_layer = 128
 collision_mask = 8
 size = Vector3(0.2, 0.668884, 0.2)
-material = SubResource("StandardMaterial3D_7o6jl")
+material = SubResource("StandardMaterial3D_hgb4b")
 script = ExtResource("8_r643r")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_mcqpx")
+"": SubResource("AnimationLibrary_ns72l")
 }
 
 [connection signal="timeout" from="RespawnTimer" to="." method="_on_timer_timeout"]
@@ -579,4 +579,8 @@ libraries = {
 [connection signal="area_entered" from="Form/Head/DetectionCone" to="." method="_on_detection_cone_area_entered"]
 [connection signal="body_entered" from="Form/Head/DetectionCone" to="." method="_on_detection_cone_body_entered"]
 [connection signal="body_exited" from="Form/Head/DetectionCone" to="." method="_on_detection_cone_body_exited"]
-[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="ow_fuck" from="Form/Body" to="." method="_on_body_ow_fuck"]
+[connection signal="ow_fuck" from="Form/LeftLegRotator/LeftLeg" to="." method="_on_left_leg_ow_fuck"]
+[connection signal="ow_fuck" from="Form/RightLegRotator/RightLeg" to="." method="_on_right_leg_ow_fuck"]
+[connection signal="ow_fuck" from="Form/RightArmRotator/RightArm" to="." method="_on_right_arm_ow_fuck"]
+[connection signal="ow_fuck" from="Form/LeftArmRotator/LeftArm" to="." method="_on_left_arm_ow_fuck"]

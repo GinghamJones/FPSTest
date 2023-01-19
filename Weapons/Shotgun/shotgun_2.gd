@@ -41,7 +41,8 @@ func fire():
 
 		for i in 10:
 			spawn_bullet()
-
+		
+		PlayerUpgrade.gun_fired()
 		bullets_in_mag -= 1
 
 
@@ -82,6 +83,7 @@ func spawn_bullet():
 		
 	# Spawn bullet and set transformation
 	var b = bullet.instantiate()
+	b.add_collision_exception_with(get_tree().get_nodes_in_group("Player")[0])
 	b.speed = bullet_speed
 	b.bullet_damage = damage
 	b.transform.basis = muzzle.transform.basis 
@@ -105,65 +107,3 @@ func _on_fire_rate_timeout():
 func _on_reload_timer_timeout():
 	is_reloading = false
 	#anim_state = IDLE
-	
-	
-## Antiquated code; states moved to weapon_holder. Delete me if new code works for a while ##
-
-#func set_anim(state, anim_speed := 1.0):
-#	if can_i_move() == true:
-#		anim_state = state
-#
-#	anims.playback_speed = anim_speed
-#
-#	match(anim_state):
-#		FIRING:
-#			anims.play("Player_Shotgun_Fire")
-#		RELOADING:
-#			anims.play("Player_Shotgun_Reload")
-#		IDLE:
-#			anims.play("Player_Shotgun_Idle")
-#		WALKING:
-#			anims.play("Player_Shotgun_Walk")
-#		RUNNING:
-#			anims.play("Player_Shotgun_Run")
-			
-
-			
-
-#func set_anim(anim_name: String, anim_speed := 1.0, xfade_time := 0.2):
-#	var last_anim : String = anims.current_animation
-#
-#	var anim_to_play = get_animation(anim_name)
-#
-#	if can_i_move() == true:
-#		if last_anim != anim_name:
-#			if anims.has_animation(anim_to_play): #and current_anim != anim_name:
-#				anims.play(anim_to_play)
-#				current_anim = anim_to_play
-#			else:
-#				print("no anim of that name")
-#	else:
-#		if is_reloading or is_firing:
-#			pass
-#		else:	
-#			anims.play(anim_name)
-#		#does_anim_loop = bool(anims.get_animation(anim_name).loop_mode)
-#
-#		anims.playback_speed = anim_speed
-#		anims.playback_default_blend_time = xfade_time
-
-
-#func get_animation(anim_name) -> String:
-#	if anim_name == "run":
-#		return "Player_Shotgun_Run"
-#	elif anim_name == "walk":
-#		return "Player_Shotgun_Walk"
-#	elif anim_name == "idle":
-#		return "Player_Shotgun_Idle"
-#	else:
-#		print("error getting anim name")
-#		return ""
-		
-
-
-
