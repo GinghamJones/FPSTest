@@ -6,14 +6,15 @@ extends CharacterBody3D
 @onready var raycast : RayCast3D = $PlayerCamera/InteractableFinder
 @onready var flashlight = $PlayerCamera/Flashlight
 @onready var weapon_holder = $PlayerCamera/WeaponHolder
+@onready var hud : Control = $HUD
 
 # Vars for mouse look
 var mouseDelta : Vector2 = Vector2()
-const LOOK_SENS : float = 0.8
+@export var look_sens : float = 0.4
 const MIN_LOOK_ANGLE : int = -90
 const MAX_LOOK_ANGLE : int = 90
-const MIN_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(-5.0), deg_to_rad(-10), 0)
-const MAX_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(5.0), deg_to_rad(10.0), 0)
+
+
 
 var kills: int = 0 :
 	get:
@@ -64,7 +65,8 @@ func _ready():
 	cur_health = max_health
 	anims.play("RESET")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	emit_signal("health_changed", cur_health)
+	hud.update_health(cur_health)
+	#emit_signal("health_changed", cur_health)
 	
 func _unhandled_input(event):
 	if event is InputEventMouseMotion and Input.MOUSE_MODE_CAPTURED:
@@ -110,24 +112,17 @@ func _unhandled_input(event):
 		toggle_cursor()
 		
 	if event.is_action_pressed("no_clip"):
-		if no_clip:
-			no_clip = false
-			set_collision_mask_value(1, true)
-			set_collision_mask_value(5, true)
-		if not no_clip:
-			no_clip = true
-			set_collision_mask_value(1, false)
-			set_collision_mask_value(5, false)
+		toggle_noclip()
 
 
 func _process(delta):
 	#Rotate camera
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * LOOK_SENS * delta
+		#mouse_look(delta)
+		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * look_sens * delta
 		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
-		rotation -= Vector3(0, mouseDelta.x, 0) * LOOK_SENS * delta
-		
-
+		rotation -= Vector3(0, mouseDelta.x, 0) * look_sens * delta
+		weapon_holder.weapon_sway(mouseDelta)
 	
 	mouseDelta = Vector2()
 
@@ -182,45 +177,14 @@ func _physics_process(delta):
 	else:
 		weapon_holder.anim_speed = 0
 
-	gun_rotation_anim()
-
 	move_and_slide()
 
 
 
-func mouse_look(delta):
-	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * LOOK_SENS * delta
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
-		rotation -= Vector3(0, mouseDelta.x, 0) * LOOK_SENS * delta
-
-
-func gun_rotation_anim():
-	# Rotate weapon_holder 
-	
-	if mouseDelta.x > 0:
-		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(-10.0), 0.009)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, -mouseDelta.x / 50, 0.009)
-	
-	elif mouseDelta.x < 0:
-		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(10), 0.009)
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, -mouseDelta.x / 50, 0.009)
-	
-	if mouseDelta.y > 0:
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(-5.0), 0.009)
-	
-	elif mouseDelta.y < 0:
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, deg_to_rad(5.0), 0.009)
-		
-
-	if mouseDelta == Vector2(0,0):
-		weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, 0.0, 0.1)
-		weapon_holder.rotation.x = lerp(weapon_holder.rotation.x, 0.0, 0.1)
-		
-
-	weapon_holder.rotation = clamp(weapon_holder.rotation, MIN_WEAPON_ROTATION, MAX_WEAPON_ROTATION)
-	#weapon_holder.rotation.y = clamp(weapon_holder.rotation.y, deg_to_rad(-10.0), deg_to_rad(10.0))
-
+func mouse_look(delta : float):
+	camera.rotation -= Vector3(mouseDelta.y, 0, 0) * look_sens * delta
+	camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
+	rotation -= Vector3(0, mouseDelta.x, 0) * look_sens * delta
 
 
 func set_anims(am_i_moving):
@@ -272,7 +236,18 @@ func set_speed(increase):
 	max_speed += increase
 	max_sprint_speed += increase
 	reduced_speed += increase
-	
+
+
+func toggle_noclip():
+	if no_clip:
+			no_clip = false
+			set_collision_mask_value(1, true)
+			set_collision_mask_value(5, true)
+	if not no_clip:
+		no_clip = true
+		set_collision_mask_value(1, false)
+		set_collision_mask_value(5, false)
+
 	
 func get_speed():
 	return speed

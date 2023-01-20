@@ -8,10 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://1bgf8g8ew8he" path="res://Weapons/MuzzleFlashes/muzzle_01.png" id="6_n6kke"]
 [ext_resource type="Texture2D" uid="uid://cjwpg0oogjald" path="res://Weapons/Smoke/smoke_03.png" id="7_sg50k"]
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_jraq5"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_aaljm"]
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_klu5i"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_4587j"]
 transparency = 3
 alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
@@ -22,11 +22,11 @@ emission_enabled = true
 emission = Color(0.772549, 0.619608, 0, 1)
 emission_energy_multiplier = 3.48
 
-[sub_resource type="QuadMesh" id="QuadMesh_wxekp"]
-material = SubResource("StandardMaterial3D_klu5i")
+[sub_resource type="QuadMesh" id="QuadMesh_cxdob"]
+material = SubResource("StandardMaterial3D_4587j")
 orientation = 0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_f5hrw"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_vbu0u"]
 direction = Vector3(0.1, 1, 0)
 spread = 74.08
 flatness = 0.56
@@ -36,14 +36,14 @@ initial_velocity_max = 0.1
 turbulence_noise_scale = 0.5
 turbulence_noise_speed = Vector3(0.117, 0.102, 0.07)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8v8wq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o16dv"]
 transparency = 1
 cull_mode = 2
 albedo_color = Color(0.694118, 0.694118, 0.694118, 1)
 albedo_texture = ExtResource("7_sg50k")
 
-[sub_resource type="QuadMesh" id="QuadMesh_nwi83"]
-material = SubResource("StandardMaterial3D_8v8wq")
+[sub_resource type="QuadMesh" id="QuadMesh_tadlp"]
+material = SubResource("StandardMaterial3D_o16dv")
 size = Vector2(0.1, 0.1)
 
 [node name="Shotgun 2" node_paths=PackedStringArray("reload_time", "fire_rate") instance=ExtResource("1_7wq7w")]
@@ -91,8 +91,8 @@ lifetime = 0.07
 one_shot = true
 visibility_aabb = AABB(-4.04688, -4, -4, 8, 8, 8)
 trail_lifetime = 1.21
-process_material = SubResource("ParticleProcessMaterial_jraq5")
-draw_pass_1 = SubResource("QuadMesh_wxekp")
+process_material = SubResource("ParticleProcessMaterial_aaljm")
+draw_pass_1 = SubResource("QuadMesh_cxdob")
 
 [node name="Smoke" type="GPUParticles3D" parent="." index="8"]
 transform = Transform3D(1, -7.10543e-15, -7.10543e-15, -7.10543e-15, 1, 0, -7.10543e-15, -6.21176e-22, 1, -3.9928e-08, 0.0936333, 0.456722)
@@ -101,8 +101,8 @@ amount = 100
 lifetime = 1.07
 one_shot = true
 transform_align = 1
-process_material = SubResource("ParticleProcessMaterial_f5hrw")
-draw_pass_1 = SubResource("QuadMesh_nwi83")
+process_material = SubResource("ParticleProcessMaterial_vbu0u")
+draw_pass_1 = SubResource("QuadMesh_tadlp")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

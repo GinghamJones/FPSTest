@@ -27,33 +27,31 @@ signal speed_changed
 
 func _process(delta):
 	if player != null:
-		current_position = player.global_position.length()
-		if previous_position != current_position:
-			distance_moved += abs(player.velocity.length() * delta)
-			hud.distance_changed(abs(player.velocity.length() * delta))
-			
-		previous_position = current_position
-		
+		var current_velocity : float = player.velocity.length() / 3
+		if current_velocity > 0.5:
+			distance_moved += abs(current_velocity * delta)
+			hud.distance_changed(abs(current_velocity * delta))
+
+
 		if distance_moved >= distance_to_levelup:
 			distance_moved = 0
 			distance_to_levelup *= 1.5
-			
+
 			speed_levels_attained += 1
 			player.set_speed(speed_levels_attained * levelup_scalar)
 			emit_signal("speed_changed", player.speed)
 
-			
+
 		if bullets_fired >= bullets_to_level:
 			bullet_level += 1
 			if player.weapon_holder.current_weapon.bullet_spread >= Vector2.ZERO:
-				player.weapon_holder.current_weapon.bullet_spread -= Vector2(0.1, 0.05)
+				player.weapon_holder.current_weapon.bullet_spread -= Vector2(0.1, 0.015)
 			print(bullet_level)
 			bullets_fired = 0
-			
+
 		if enemies_killed >= kill_ceiling:
 			enemies_killed = 0
 			player.level += 1
-			print(player.level)
 			emit_signal("level_changed", player.level)
 			if player.level >= 1:
 				for door in doors:
@@ -61,14 +59,16 @@ func _process(delta):
 						door.can_open = true
 	
 
-func level_loaded():
-	player = get_tree().get_first_node_in_group("Player")
+func game_loaded():
+	player = get_tree().get_nodes_in_group("Player")[0]
 	hud = player.get_node("HUD")
-	previous_position = player.global_position.length()
-	doors = get_tree().get_nodes_in_group("Door")
+	
 	connect("level_changed", Callable(hud, "on_level_changed"))
 	connect("speed_changed", Callable(hud, "on_speed_changed"))
 	
+	
+func level2_loaded():
+	doors = get_tree().get_nodes_in_group("Door")
 	
 func gun_fired():
 	bullets_fired += 1

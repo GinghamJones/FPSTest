@@ -22,7 +22,7 @@ func display_use_prompt(text):
 
 
 func update_health(cur_health):
-	health.set_text(cur_health)
+	health.set_text("Health: " + str(cur_health))
 	
 	
 func update_ammo():
@@ -49,3 +49,7 @@ func on_speed_changed(new_speed):
 func distance_changed(distance):
 	distance_traveled += distance
 	distance_label.set_text("Distance: " + str(distance_traveled))
+
+
+func _on_weapon_holder_picked_up():
+	pass # Replace with function body.

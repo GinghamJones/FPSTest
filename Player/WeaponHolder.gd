@@ -6,6 +6,9 @@ var is_holstered : bool = true
 var state = MOVING
 var anim_speed : float = 1.0
 
+const MIN_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(-5.0), deg_to_rad(-10), 0)
+const MAX_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(5.0), deg_to_rad(10.0), 0)
+
 enum {
 	FIRING,
 	RELOADING,
@@ -100,6 +103,33 @@ func animate_weapon():
 			else:
 				#anim_speed = 1.0
 				current_weapon.idle(1.0)
+
+
+func weapon_sway(mouseDelta):
+	# Rotate weapon_holder 
+	
+	if mouseDelta.x > 0:
+		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(-10.0), 0.009)
+		rotation.y = lerp(rotation.y, -mouseDelta.x / 50, 0.009)
+	
+	elif mouseDelta.x < 0:
+		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(10), 0.009)
+		rotation.y = lerp(rotation.y, -mouseDelta.x / 50, 0.009)
+	
+	if mouseDelta.y > 0:
+		rotation.x = lerp(rotation.x, deg_to_rad(-5.0), 0.009)
+	
+	elif mouseDelta.y < 0:
+		rotation.x = lerp(rotation.x, deg_to_rad(5.0), 0.009)
+		
+
+	if mouseDelta == Vector2(0,0):
+		rotation.y = lerp(rotation.y, 0.0, 0.1)
+		rotation.x = lerp(rotation.x, 0.0, 0.1)
+		
+
+	rotation = clamp(rotation, MIN_WEAPON_ROTATION, MAX_WEAPON_ROTATION)
+	#weapon_holder.rotation.y = clamp(weapon_holder.rotation.y, deg_to_rad(-10.0), deg_to_rad(10.0))
 
 
 func holster_weapon():

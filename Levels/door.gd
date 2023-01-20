@@ -19,15 +19,16 @@ func choose_action():
 			var randomy_angle = randomizer.randf_range(-1, 1)
 			var randomx_angle = randomizer.randf_range(-0.1, 0.1)
 			var b = bullet.instantiate()
+			get_tree().root.add_child(b)
 			b.speed = 30
 			b.bullet_damage = 1
 			b.global_position = $door2/handle.global_position
 			b.rotation.x += randomx_angle
 			b.rotation.y += randomy_angle
-			$door2/handle.add_child(b)
-		
-	
-	
+			
+			#$door2/handle.add_child(b)
+
+
 func open():
 	if anims.is_playing() == false:
 		anims.play("Open")

@@ -1,14 +1,17 @@
 extends Node3D
 
 @onready var upgrade_script = get_node("/root/PlayerUpgrade")
-@onready var player = $Player
+@onready var player = get_tree().get_nodes_in_group("Player")[0]
 @onready var enemy : PackedScene = preload("res://Enemy/enemy.tscn")
 var start_positions : Array 
 
 func _ready():
 	randomize()
 	
-	connect("tree_entered", Callable(upgrade_script, "level_loaded"))
+	connect("tree_entered", Callable(upgrade_script, "level2_loaded"))
+	
+	player.global_transform = $PlayerStart.global_transform
+
 	
 	for i in $StartPositions.get_children():
 		start_positions.push_back(i)

@@ -8,6 +8,7 @@ var randomizer = RandomNumberGenerator.new()
 @onready var smoke : GPUParticles3D = $Smoke
 var current_anim : String = ""
 var does_anim_loop : bool = false
+var bullet_spread : Vector2 = Vector2(1, 0.1)
 
 
 ## States moved to weapon_holder ## 
@@ -38,7 +39,6 @@ func fire():
 		fire_sound.play()
 		fire_rate.start()
 		#set_anim("Player_Shotgun_Fire")
-
 		for i in 10:
 			spawn_bullet()
 		
@@ -78,8 +78,8 @@ func run(anim_speed : float):
 func spawn_bullet():
 	# Randomize angles of projectiles
 	randomizer.randomize()
-	var randomy_angle = randomizer.randf_range(-1, 1)
-	var randomx_angle = randomizer.randf_range(-0.1, 0.1)
+	var randomy_angle = randomizer.randf_range(-bullet_spread.x, bullet_spread.x)
+	var randomx_angle = randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
 		
 	# Spawn bullet and set transformation
 	var b = bullet.instantiate()
