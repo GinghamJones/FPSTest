@@ -5,6 +5,7 @@ var current_weapon : Weapon = null
 var is_holstered : bool = true
 var state = MOVING
 var anim_speed : float = 1.0
+var weapon_rotation : Vector3 = Vector3.ZERO
 
 const MIN_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(-5.0), deg_to_rad(-10), 0)
 const MAX_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(5.0), deg_to_rad(10.0), 0)
@@ -20,26 +21,26 @@ signal picked_up
 
 
 func _ready():
-	var pickups = get_tree().get_nodes_in_group("Pickup")
-	for p in pickups:
-		picked_up.connect(p.weapon_picked_up)
+	pass
 
 
 func _unhandled_input(event):
 	if is_holstered:
 		pass
 	else:
-		if current_weapon.single_fire:
-			if event.is_action_pressed("fire"):
-				state = FIRING
-		else:
-			if Input.is_action_pressed("fire"):
-				state = FIRING
-		if event.is_action_released("fire"):
-			state = MOVING
+		if state != RELOADING:
+			if current_weapon.single_fire:
+				if event.is_action_pressed("fire"):
+					state = FIRING
+			else:
+				if Input.is_action_pressed("fire"):
+					state = FIRING
+			if event.is_action_released("fire"):
+				state = MOVING
 		
-		if event.is_action_pressed("reload"):
-			state = RELOADING
+		if state != FIRING:
+			if event.is_action_pressed("reload"):
+				state = RELOADING
 			
 		if event.is_action_pressed("weapon_1"):
 			if weapons.size() > 1:
@@ -53,7 +54,6 @@ func _unhandled_input(event):
 func _physics_process(_delta):
 	if not is_holstered:
 		animate_weapon()
-
 		
 
 func switch_weapon(weapon):
@@ -109,27 +109,23 @@ func weapon_sway(mouseDelta):
 	# Rotate weapon_holder 
 	
 	if mouseDelta.x > 0:
-		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(-10.0), 0.009)
-		rotation.y = lerp(rotation.y, -mouseDelta.x / 50, 0.009)
+		weapon_rotation.y = lerp(weapon_rotation.y, deg_to_rad(-10), 0.01)
 	
 	elif mouseDelta.x < 0:
-		#weapon_holder.rotation.y = lerp(weapon_holder.rotation.y, deg_to_rad(10), 0.009)
-		rotation.y = lerp(rotation.y, -mouseDelta.x / 50, 0.009)
+		weapon_rotation.y = lerp(weapon_rotation.y, deg_to_rad(10), 0.01)
 	
 	if mouseDelta.y > 0:
-		rotation.x = lerp(rotation.x, deg_to_rad(-5.0), 0.009)
+		weapon_rotation.x = lerp(weapon_rotation.x, deg_to_rad(-5.0), 0.02)
 	
 	elif mouseDelta.y < 0:
-		rotation.x = lerp(rotation.x, deg_to_rad(5.0), 0.009)
-		
+		weapon_rotation.x = lerp(weapon_rotation.x, deg_to_rad(5.0), 0.02)
 
 	if mouseDelta == Vector2(0,0):
-		rotation.y = lerp(rotation.y, 0.0, 0.1)
-		rotation.x = lerp(rotation.x, 0.0, 0.1)
-		
-
-	rotation = clamp(rotation, MIN_WEAPON_ROTATION, MAX_WEAPON_ROTATION)
-	#weapon_holder.rotation.y = clamp(weapon_holder.rotation.y, deg_to_rad(-10.0), deg_to_rad(10.0))
+		weapon_rotation.y = lerp(weapon_rotation.y, 0.0, 0.1)
+		weapon_rotation.x = lerp(weapon_rotation.x, 0.0, 0.1)
+	
+	weapon_rotation.clamp(MIN_WEAPON_ROTATION, MAX_WEAPON_ROTATION)
+	rotation = weapon_rotation
 
 
 func holster_weapon():

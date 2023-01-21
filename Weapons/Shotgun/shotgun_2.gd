@@ -25,7 +25,6 @@ var bullet_spread : Vector2 = Vector2(1, 0.1)
 func fire():
 	if bullets_in_mag == 0 or is_firing == true:
 		can_fire = false
-		#anims.connect("animation_finished")
 	else:
 		can_fire = true
 
@@ -47,7 +46,7 @@ func fire():
 
 
 func reload_weapon():
-	if bullets_in_mag == mag_size or is_firing == true:
+	if bullets_in_mag == mag_size:
 		pass
 	else:
 		anims.play("Player_Shotgun_Reload", 0.1, 1.0)

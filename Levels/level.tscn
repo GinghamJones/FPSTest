@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://vvakneaplepl"]
+[gd_scene load_steps=18 format=3 uid="uid://vvakneaplepl"]
 
 [ext_resource type="Shader" uid="uid://blkcpc4r2h81r" path="res://Levels/level.tres" id="1_cla4x"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_fpn48"]
 [ext_resource type="PackedScene" uid="uid://cvrpkwosbla6e" path="res://Weapons/Shotgun/shotgun_pickup.tscn" id="4_osty8"]
+[ext_resource type="FontFile" uid="uid://bky4ux4rokjuh" path="res://Font/Audiowide-Regular.ttf" id="5_tpuu3"]
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qfhua"]
 size = Vector2(15, 15)
@@ -43,9 +44,6 @@ process_mode = 3
 [sub_resource type="Environment" id="Environment_l3e64"]
 background_mode = 2
 sky = SubResource("Sky_fsesn")
-ssr_enabled = true
-ssao_enabled = true
-ssil_enabled = true
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 volumetric_fog_enabled = true
@@ -63,6 +61,14 @@ roughness = 0.61
 density = 0.1
 albedo = Color(1, 0.596078, 0.435294, 1)
 emission = Color(0.678431, 0.2, 0, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_nob1h"]
+font = ExtResource("5_tpuu3")
+font_size = 64
+font_color = Color(0, 0.560784, 0.262745, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 10
 
 [node name="Level" type="Node3D"]
 script = ExtResource("1_fpn48")
@@ -142,3 +148,39 @@ material = SubResource("FogMaterial_nt5an")
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(-0.99416, 0, 0.107913, 0, 1, 0, -0.107913, 0, -0.99416, -4.05277, 0.479421, 4.64513)
+
+[node name="StartPositions" type="Node3D" parent="."]
+
+[node name="Point1" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.46598, 0, -5.67963)
+
+[node name="Point2" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.92314, 0, -3.31279)
+
+[node name="Point3" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.87456, 0, 2.01376)
+
+[node name="Point4" type="Marker3D" parent="StartPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.72179, 0, 5.20603)
+
+[node name="WinText" type="Label" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -83.0
+offset_top = -39.0
+offset_right = 83.0
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Level complete
+
+Switching to Level 2..."
+label_settings = SubResource("LabelSettings_nob1h")
+horizontal_alignment = 1
+
+[node name="Timer" type="Timer" parent="."]
+process_mode = 3
+wait_time = 2.502

@@ -1,8 +1,10 @@
+Timer
+Label
 Marker3D
+Node3D
 FogVolume
 ReflectionProbe
 AnimationPlayer
-Label
 VoxelGI
 StaticBody3D
 VBoxContainer
@@ -10,13 +12,11 @@ Button
 MeshInstance3D
 Sprite3D
 Sprite2D
-Node3D
 GPUParticles3D
 CPUParticles3D
 GPUParticlesCollisionBox3D
 GPUParticlesCollisionSphere3D
 AnimationTree
-Timer
 CollisionShape3D
 Area3D
 AudioStreamPlayer

@@ -53,10 +53,7 @@ func _process(delta):
 			enemies_killed = 0
 			player.level += 1
 			emit_signal("level_changed", player.level)
-			if player.level >= 1:
-				for door in doors:
-					if door.DOOR_NUM == player.level:
-						door.can_open = true
+			
 	
 
 func game_loaded():
@@ -68,7 +65,7 @@ func game_loaded():
 	
 	
 func level2_loaded():
-	doors = get_tree().get_nodes_in_group("Door")
+	pass
 	
 func gun_fired():
 	bullets_fired += 1

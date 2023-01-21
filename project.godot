@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 PlayerUpgrade="*res://player_upgrade.gd"
+LevelManager="*res://level_manager.gd"
 
 [display]
 
@@ -140,21 +141,15 @@ no_clip={
 
 [rendering]
 
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=3
-lights_and_shadows/positional_shadow/soft_shadow_filter_quality=3
 lights_and_shadows/positional_shadow/soft_shadow_filter_quality.mobile=3
 global_illumination/gi/use_half_resolution=true
-global_illumination/voxel_gi/quality=1
 textures/default_filters/anisotropic_filtering_level=3
-environment/ssao/quality=3
-environment/ssil/quality=3
+environment/ssao/quality=1
+environment/ssil/quality=1
+anti_aliasing/screen_space_roughness_limiter/enabled=false
 textures/light_projectors/filter=4
-environment/screen_space_reflection/roughness_quality=3
-environment/subsurface_scattering/subsurface_scattering_quality=3
 global_illumination/sdfgi/probe_ray_count=2
 global_illumination/sdfgi/frames_to_converge=4
 environment/defaults/default_clear_color=Color(0.301961, 0.301961, 0.301961, 1)
-anti_aliasing/quality/msaa_3d=3
-anti_aliasing/quality/use_taa=true
 anti_aliasing/quality/use_debanding=true
 occlusion_culling/use_occlusion_culling=true

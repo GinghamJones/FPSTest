@@ -73,7 +73,7 @@ func _physics_process(delta):
 			
 			if target_reached() == true:
 				enemy_state = EnemyState.IDLE
-	
+			
 			set_movement_target(nav_points[current_nav_point].global_transform.origin)
 			var current_agent_position: Vector3 = global_transform.origin
 			var next_path_position : Vector3 = nav_agent.get_next_location()
@@ -163,6 +163,7 @@ func update_health(new_health : int):
 	
 func set_movement_target(movement_target : Vector3):
 	nav_agent.set_target_location(movement_target)
+	
 
 
 func look_somewhere(pos : Vector3):
@@ -187,7 +188,7 @@ func pickup_available(weapon):
 	current_weapon = weapon
 
 
-func get_nav_points(new_nav_points : Array):
+func set_nav_points(new_nav_points : Array):
 	nav_points = new_nav_points
 
 

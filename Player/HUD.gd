@@ -50,6 +50,3 @@ func distance_changed(distance):
 	distance_traveled += distance
 	distance_label.set_text("Distance: " + str(distance_traveled))
 
-
-func _on_weapon_holder_picked_up():
-	pass # Replace with function body.
