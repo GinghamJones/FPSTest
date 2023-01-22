@@ -33,7 +33,8 @@ var can_pickup = false
 var gun_instance : Weapon
 var aiming : bool = false
 var is_crouching : bool = false
-
+var paused : bool = false
+var m
 
 # Vars for physics
 @export var speed : float = 3.0 :
@@ -66,6 +67,10 @@ func _ready():
 	anims.play("RESET")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hud.update_health(cur_health)
+	var menu : PackedScene = load("res://Menu/settings.tscn")
+	m = menu.instantiate()
+	add_child(m)
+	m.hide()
 	#emit_signal("health_changed", cur_health)
 	
 func _unhandled_input(event):
@@ -89,9 +94,6 @@ func _unhandled_input(event):
 			flashlight.hide()
 		else:
 			flashlight.show()
-			
-	if Input.is_action_just_pressed("quit"):
-		get_tree().quit()
 		
 	if event.is_action_pressed("use"):
 		if can_pickup:
@@ -99,6 +101,14 @@ func _unhandled_input(event):
 			did_i_pickup = true
 			#emit_signal("picked_up", self)
 		do_raycast()
+	
+	if event.is_action_pressed("pause"):
+		if not paused:
+			paused = true
+			m.show()
+		else:
+			paused = false
+			m.hide()
 	
 	if event.is_action_pressed("aim"):
 		$ADSAnim.play("ADS")

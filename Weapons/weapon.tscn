@@ -1,16 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://m7xyfdg1014n"]
+[gd_scene load_steps=3 format=3 uid="uid://m7xyfdg1014n"]
 
 [ext_resource type="Script" path="res://Weapons/weapon.gd" id="1_yn22k"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_grprr"]
-transparency = 1
-clearcoat_enabled = true
-clearcoat_roughness = 0.69
-proximity_fade_enabled = true
-proximity_fade_distance = 303.51
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_qv2er"]
-material = SubResource("StandardMaterial3D_grprr")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_fme0n"]
 
 [node name="Weapon" type="Node3D"]
 script = ExtResource("1_yn22k")
@@ -29,7 +21,7 @@ one_shot = true
 
 [node name="Muzzle" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.0112924, 0, 0, 0, -4.93607e-10, 0.0112924, 0, -0.0112924, -4.93607e-10, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_qv2er")
+mesh = SubResource("CapsuleMesh_fme0n")
 skeleton = NodePath("../GunModel")
 
 [connection signal="outta_rounds" from="." to="." method="_on_outta_rounds"]

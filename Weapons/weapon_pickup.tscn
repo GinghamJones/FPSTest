@@ -4,7 +4,7 @@
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_cqnlh"]
 
-[node name="WeaponPickup" type="Node3D"]
+[node name="WeaponPickup" type="RigidBody3D"]
 script = ExtResource("1_r25fd")
 
 [node name="GunMesh" type="MeshInstance3D" parent="."]

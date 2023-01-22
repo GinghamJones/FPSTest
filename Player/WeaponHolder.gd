@@ -10,10 +10,13 @@ var weapon_rotation : Vector3 = Vector3.ZERO
 const MIN_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(-5.0), deg_to_rad(-10), 0)
 const MAX_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(5.0), deg_to_rad(10.0), 0)
 
+@onready var ar_pickup : PackedScene = preload("res://Weapons/AR/ar_pickup.tscn")
+
 enum {
 	FIRING,
 	RELOADING,
 	MOVING,
+	THROWN,
 }
 
 signal weapon_changed(current_weapon)
@@ -28,6 +31,14 @@ func _unhandled_input(event):
 	if is_holstered:
 		pass
 	else:
+		if event.is_action_pressed("throw_weapon"):
+			var a = ar_pickup.instantiate()
+			a.global_transform = current_weapon.global_transform
+			get_tree().root.add_child(a)
+			state = THROWN
+			a.throw_me()
+
+			
 		if state != RELOADING:
 			if current_weapon.single_fire:
 				if event.is_action_pressed("fire"):
@@ -85,6 +96,11 @@ func pickup_weapon(new_weapon):
 func animate_weapon():
 	#if not is_holstered:
 	match(state):
+		THROWN:
+			current_weapon.queue_free()
+			weapons.pop_back()
+			current_weapon = null
+			is_holstered = true
 		FIRING:
 			current_weapon.fire()
 			if not current_weapon.is_firing:

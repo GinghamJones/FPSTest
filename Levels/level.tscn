@@ -1,49 +1,50 @@
-[gd_scene load_steps=18 format=3 uid="uid://vvakneaplepl"]
+[gd_scene load_steps=19 format=3 uid="uid://vvakneaplepl"]
 
 [ext_resource type="Shader" uid="uid://blkcpc4r2h81r" path="res://Levels/level.tres" id="1_cla4x"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_fpn48"]
 [ext_resource type="PackedScene" uid="uid://cvrpkwosbla6e" path="res://Weapons/Shotgun/shotgun_pickup.tscn" id="4_osty8"]
 [ext_resource type="FontFile" uid="uid://bky4ux4rokjuh" path="res://Font/Audiowide-Regular.ttf" id="5_tpuu3"]
+[ext_resource type="PackedScene" uid="uid://b7jqmnn3wap" path="res://Weapons/AR/ar_pickup.tscn" id="5_vn6ha"]
 
-[sub_resource type="PlaneMesh" id="PlaneMesh_qfhua"]
+[sub_resource type="PlaneMesh" id="PlaneMesh_iuina"]
 size = Vector2(15, 15)
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee4e2"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_jo6d8"]
 render_priority = 0
 shader = ExtResource("1_cla4x")
 shader_parameter/ColorParameter = null
 
-[sub_resource type="BoxMesh" id="BoxMesh_inv4d"]
+[sub_resource type="BoxMesh" id="BoxMesh_8bqu0"]
 size = Vector3(1, 2, 2)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f73dk"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t3dqj"]
 albedo_color = Color(0.270588, 0.270588, 0.270588, 1)
 roughness = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_qkpwq"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_psq8q"]
 albedo_color = Color(0.686275, 0, 0.72549, 1)
 emission_enabled = true
 emission = Color(0.6, 0, 0.647059, 1)
 emission_energy_multiplier = 1.65
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3j1o6"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5lwfl"]
 albedo_color = Color(0.505882, 0.239216, 1, 1)
 metallic = 1.0
 roughness = 0.0
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yoi1h"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cw0yd"]
 albedo_color = Color(0.192157, 0.486275, 0, 1)
 metallic = 0.59
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_s3vf2"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_gubvv"]
 
-[sub_resource type="Sky" id="Sky_fsesn"]
-sky_material = SubResource("ProceduralSkyMaterial_s3vf2")
+[sub_resource type="Sky" id="Sky_fk1x5"]
+sky_material = SubResource("ProceduralSkyMaterial_gubvv")
 process_mode = 3
 
-[sub_resource type="Environment" id="Environment_l3e64"]
+[sub_resource type="Environment" id="Environment_h4gmy"]
 background_mode = 2
-sky = SubResource("Sky_fsesn")
+sky = SubResource("Sky_fk1x5")
 sdfgi_enabled = true
 sdfgi_use_occlusion = true
 volumetric_fog_enabled = true
@@ -52,17 +53,17 @@ adjustment_enabled = true
 adjustment_contrast = 1.31
 adjustment_saturation = 1.5
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mu42e"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7jh57"]
 albedo_color = Color(0.172549, 0.172549, 0.172549, 1)
 metallic = 0.27
 roughness = 0.61
 
-[sub_resource type="FogMaterial" id="FogMaterial_nt5an"]
+[sub_resource type="FogMaterial" id="FogMaterial_fu4gy"]
 density = 0.1
 albedo = Color(1, 0.596078, 0.435294, 1)
 emission = Color(0.678431, 0.2, 0, 1)
 
-[sub_resource type="LabelSettings" id="LabelSettings_nob1h"]
+[sub_resource type="LabelSettings" id="LabelSettings_uq8k3"]
 font = ExtResource("5_tpuu3")
 font_size = 64
 font_color = Color(0, 0.560784, 0.262745, 1)
@@ -76,75 +77,75 @@ script = ExtResource("1_fpn48")
 [node name="Floor" type="CSGMesh3D" parent="." groups=["Floor"]]
 use_collision = true
 collision_mask = 0
-mesh = SubResource("PlaneMesh_qfhua")
-material = SubResource("ShaderMaterial_ee4e2")
+mesh = SubResource("PlaneMesh_iuina")
+material = SubResource("ShaderMaterial_jo6d8")
 
 [node name="Box1" type="CSGMesh3D" parent="." groups=["Wall"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 2.88323, 0.611097, 1, 3.22522)
 use_collision = true
 collision_mask = 0
-mesh = SubResource("BoxMesh_inv4d")
-material = SubResource("StandardMaterial3D_f73dk")
+mesh = SubResource("BoxMesh_8bqu0")
+material = SubResource("StandardMaterial3D_t3dqj")
 
 [node name="Box2" type="CSGMesh3D" parent="." groups=["Wall"]]
 transform = Transform3D(-4.37114e-08, 0, -1.64914, 0, 1, 0, 1, 0, -7.20861e-08, 4.3154, 1, 1.67729)
 use_collision = true
 collision_mask = 0
-mesh = SubResource("BoxMesh_inv4d")
-material = SubResource("StandardMaterial3D_qkpwq")
+mesh = SubResource("BoxMesh_8bqu0")
+material = SubResource("StandardMaterial3D_psq8q")
 
 [node name="Box3" type="CSGMesh3D" parent="." groups=["Wall"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.75955, 1, -3.91208)
 use_collision = true
 collision_mask = 0
-mesh = SubResource("BoxMesh_inv4d")
-material = SubResource("StandardMaterial3D_3j1o6")
+mesh = SubResource("BoxMesh_8bqu0")
+material = SubResource("StandardMaterial3D_5lwfl")
 
 [node name="Box4" type="CSGMesh3D" parent="." groups=["Wall"]]
 transform = Transform3D(0.707107, 0, 1.87782, 0, 1, 0, -0.707107, 0, 1.87782, -3.48571, 1, -1.93539)
 use_collision = true
 collision_mask = 0
-mesh = SubResource("BoxMesh_inv4d")
-material = SubResource("StandardMaterial3D_yoi1h")
+mesh = SubResource("BoxMesh_8bqu0")
+material = SubResource("StandardMaterial3D_cw0yd")
 
 [node name="ShotgunPickup" parent="." instance=ExtResource("4_osty8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.99942, 0.58902, -5.54731)
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_l3e64")
+environment = SubResource("Environment_h4gmy")
 
 [node name="Wall1" type="CSGBox3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.6449, 0.776261, 0)
 use_collision = true
 collision_mask = 27
 size = Vector3(0.347627, 1.60389, 15.9661)
-material = SubResource("StandardMaterial3D_mu42e")
+material = SubResource("StandardMaterial3D_7jh57")
 
 [node name="Wall2" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.372822, 0.776261, 7.70053)
 use_collision = true
 collision_mask = 27
 size = Vector3(0.347627, 1.60389, 15.9661)
-material = SubResource("StandardMaterial3D_mu42e")
+material = SubResource("StandardMaterial3D_7jh57")
 
 [node name="Wall3" type="CSGBox3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -0.372823, 0.776261, -7.70681)
 use_collision = true
 collision_mask = 27
 size = Vector3(0.347627, 1.60389, 15.9661)
-material = SubResource("StandardMaterial3D_mu42e")
+material = SubResource("StandardMaterial3D_7jh57")
 
 [node name="Wall4" type="CSGBox3D" parent="."]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 7.65134, 0.776261, 0.0267839)
 use_collision = true
 collision_mask = 27
 size = Vector3(0.347627, 1.60389, 15.9661)
-material = SubResource("StandardMaterial3D_mu42e")
+material = SubResource("StandardMaterial3D_7jh57")
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78656, 0)
 extents = Vector3(12.373, 2.51006, 10.0953)
-material = SubResource("FogMaterial_nt5an")
+material = SubResource("FogMaterial_fu4gy")
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
 transform = Transform3D(-0.99416, 0, 0.107913, 0, 1, 0, -0.107913, 0, -0.99416, -4.05277, 0.479421, 4.64513)
@@ -178,9 +179,12 @@ grow_vertical = 2
 text = "Level complete
 
 Switching to Level 2..."
-label_settings = SubResource("LabelSettings_nob1h")
+label_settings = SubResource("LabelSettings_uq8k3")
 horizontal_alignment = 1
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 3
 wait_time = 2.502
+
+[node name="ARPickup" parent="." instance=ExtResource("5_vn6ha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.66031, 1.07926, 1.26626)

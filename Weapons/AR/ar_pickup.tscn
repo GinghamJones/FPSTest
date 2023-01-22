@@ -1,0 +1,27 @@
+[gd_scene load_steps=6 format=3 uid="uid://b7jqmnn3wap"]
+
+[ext_resource type="PackedScene" uid="uid://bm28fmgygk7n2" path="res://Weapons/weapon_pickup.tscn" id="1_iur35"]
+[ext_resource type="Script" path="res://Weapons/AR/ARPickup.gd" id="2_urgvo"]
+[ext_resource type="PackedScene" uid="uid://dfvac0kwebhrr" path="res://Weapons/AR/ar.tscn" id="3_n0chw"]
+[ext_resource type="ArrayMesh" uid="uid://cbga3ht3dxo0o" path="res://Weapons/Models/machinegun.obj" id="3_wtt8u"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_qj0d7"]
+size = Vector3(0.840845, 0.441773, 0.167311)
+
+[node name="ARPickup" groups=["Pickup"] instance=ExtResource("1_iur35")]
+collision_layer = 4
+collision_mask = 27
+script = ExtResource("2_urgvo")
+weapon_name = "AR"
+weapon = ExtResource("3_n0chw")
+
+[node name="GunMesh" parent="." index="0"]
+transform = Transform3D(-4.22051e-07, 0, -9.6554, 0, 9.6554, 0, 9.6554, 0, -4.22051e-07, 0, 0, 0)
+mesh = ExtResource("3_wtt8u")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0477766, 0.0425202)
+shape = SubResource("BoxShape3D_qj0d7")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

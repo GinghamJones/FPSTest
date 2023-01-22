@@ -5,6 +5,7 @@ extends Node3D
 @onready var start_positions : Array
 @onready var enemy : PackedScene = preload("res://Enemy/enemy.tscn")
 @onready var win_text : Label = $WinText
+var settings : PackedScene = preload("res://Menu/settings.tscn")
 
 var enemies_killed : int = 0
 

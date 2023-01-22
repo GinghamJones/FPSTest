@@ -81,11 +81,13 @@ func spawn_bullet():
 	var randomx_angle = randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
 		
 	# Spawn bullet and set transformation
-	var b = bullet.instantiate()
+#	var b = bullet.instantiate()
+	var b = ResourcePool.get_bullet()
+	b.set_who_fired_me(self)
 	b.add_collision_exception_with(get_tree().get_nodes_in_group("Player")[0])
 	b.speed = bullet_speed
 	b.bullet_damage = damage
-	b.transform.basis = muzzle.transform.basis 
+	b.transform.basis = muzzle.transform.basis
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle
 	muzzle.add_child(b)

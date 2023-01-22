@@ -29,10 +29,6 @@ func _ready():
 	spawn_a_bitch()
 
 	#$L2Song.play()
-	
-
-func _on_timer_timeout():
-	Window.print_orphan_nodes()
 
 
 func _on_l_2_song_finished():

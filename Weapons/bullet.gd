@@ -5,9 +5,10 @@ var timer: float = 0
 var hit_something: bool = false
 var bullet_damage : int
 var speed : float
+var who_fired_me 
 
 @onready var raycast : RayCast3D = $RayCast3D
-@onready var sparks : PackedScene = preload("res://sparks.tscn")
+@onready var sparks : PackedScene = preload("res://Weapons/sparks.tscn")
 @onready var blood : PackedScene = preload("res://Blood/blood_particle.tscn")
 @onready var bullet_hole : PackedScene = preload("res://Weapons/bullet_hole.tscn")
 
@@ -23,12 +24,16 @@ func _ready():
 	apply_impulse(transform.basis.z * speed, transform.basis.z)
 	
 
+func set_who_fired_me(weapon : Weapon):
+	who_fired_me = weapon
+
+
 func _process(delta):
 	apply_force(transform.basis.z * speed, transform.basis.z)
 	
 	timer += delta
 	if timer >= kill_timer:
-		queue_free()
+		ResourcePool.return_bullet(who_fired_me, self)
 
 func _on_body_entered(body):
 	if hit_something == false:
@@ -66,9 +71,12 @@ func _on_body_entered(body):
 	$Timer.start()
 	$BulletMesh.visible = false
 	$SmokeTrail.emitting = false
-	
-	
 
+
+func reset():
+	hit_something = false
+	$BulletMesh.visible = true
+	$SmokeTrail.emitting = true
 
 func _on_timer_timeout():
-	queue_free()
+	ResourcePool.return_bullet(who_fired_me, self)

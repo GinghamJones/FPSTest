@@ -11,7 +11,7 @@ class_name Weapon
 @export var single_fire : bool 
 @export var bullet_speed : float 
 
-@onready var bullet = preload("res://Weapons/bullet.tscn")
+#@onready var bullet = preload("res://Weapons/bullet.tscn")
 @onready var muzzle: MeshInstance3D = $Muzzle
 @onready var fire_sound : AudioStreamPlayer3D = $FireSound
 

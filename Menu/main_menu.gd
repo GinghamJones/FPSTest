@@ -2,9 +2,11 @@ extends Control
 #@onready var player : PackedScene = preload("res://Player/player.tscn")
 
 signal level1_start
+signal level2_start
 
 func _ready():
 	connect("level1_start", Callable(LevelManager, "level_1_pressed"))
+	connect("level2_start", Callable(LevelManager, "level_2_pressed"))
 
 
 func _on_start_button_pressed():
@@ -27,4 +29,4 @@ func _on_level_1_pressed():
 
 
 func _on_level_2_pressed():
-	get_tree().change_scene_to_file("res://Levels/level_2.tscn")
+	emit_signal("level2_start")

@@ -1,25 +1,55 @@
 extends Control
+@onready var res_menu : OptionButton = $VBoxContainer/ResolutionsMenu
 
-func _on_qhd_pressed():
-	get_tree().get_root().size = Vector2i(2560, 1440)
-	get_tree().get_root().position = Vector2i(20, 20)
 
-func _on_fhd_pressed():
-	get_tree().get_root().size = Vector2i(1920, 1080)
-	get_tree().get_root().position = Vector2i(20, 20)
+var Resolutions : Dictionary = {"2560 x 1440" : Vector2(2560, 1440),
+								"1920 x 1080" : Vector2(1920, 1080),
+								"1280 x 720" : Vector2(1280, 720),
+								"1024 x 600" : Vector2(1024, 600),}
 
-func _on_hd_pressed():
-	get_tree().get_root().size = Vector2i(1280, 720)
-	get_tree().get_root().position = Vector2i(20, 20)
+func _ready():
+	add_resolutions()
+	
+
+func add_resolutions():
+	for r in Resolutions:
+		res_menu.add_item(r)
+
 
 func _on_back_pressed():
 	get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
-	
+
+
 func _on_fs_pressed():
 	get_tree().get_root().mode = Window.MODE_FULLSCREEN
+
 
 func _on_windowed_pressed():
 	get_tree().get_root().mode = Window.MODE_WINDOWED
 
+
 func _exit_tree():
 	queue_free()
+
+
+func _on_resolutions_menu_item_selected(index):
+	var window_size = Resolutions.get(res_menu.get_item_text(index))
+	DisplayServer.window_set_size(window_size)
+	
+
+
+func _on_msaa_slider_value_changed(value):
+	get_viewport().msaa_3d = value
+	print($VBoxContainer/MSAASlider.value)
+	print(get_viewport().msaa_3d)
+
+
+
+func _on_taa_box_toggled(button_pressed):
+	get_viewport().use_taa = button_pressed
+
+
+func _on_shadow_quality_value_changed(value):
+	RenderingServer.positional_soft_shadow_filter_set_quality(value)
+	
+

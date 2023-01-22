@@ -1,4 +1,4 @@
-extends Node3D
+extends RigidBody3D
 class_name WeaponPickup
 
 @export var weapon_name : String
@@ -7,6 +7,9 @@ class_name WeaponPickup
 
 
 var on_ground = true
+
+func throw_me():
+	apply_impulse(transform.basis.z * 20, transform.basis.z)
 
 
 func weapon_picked_up(this_weapon_name):
