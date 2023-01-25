@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://b7i1nkr4pbspi"]
+[gd_scene load_steps=14 format=3 uid="uid://b7i1nkr4pbspi"]
 
 [ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_7wq7w"]
 [ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_2.gd" id="2_jv27o"]
@@ -8,12 +8,10 @@
 [ext_resource type="Texture2D" uid="uid://1bgf8g8ew8he" path="res://Weapons/MuzzleFlashes/muzzle_01.png" id="6_n6kke"]
 [ext_resource type="Texture2D" uid="uid://cjwpg0oogjald" path="res://Weapons/Smoke/smoke_03.png" id="7_sg50k"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_1pn5x"]
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_px02p"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ham6"]
 gravity = Vector3(0, 0, 0)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_p6f5g"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rv5cd"]
 transparency = 3
 alpha_hash_scale = 1.0
 alpha_antialiasing_mode = 0
@@ -24,11 +22,11 @@ emission_enabled = true
 emission = Color(0.772549, 0.619608, 0, 1)
 emission_energy_multiplier = 3.48
 
-[sub_resource type="QuadMesh" id="QuadMesh_n6tnp"]
-material = SubResource("StandardMaterial3D_p6f5g")
+[sub_resource type="QuadMesh" id="QuadMesh_nf2bu"]
+material = SubResource("StandardMaterial3D_rv5cd")
 orientation = 0
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_7ssee"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_8afmt"]
 direction = Vector3(0.1, 1, 0)
 spread = 74.08
 flatness = 0.56
@@ -38,26 +36,25 @@ initial_velocity_max = 0.1
 turbulence_noise_scale = 0.5
 turbulence_noise_speed = Vector3(0.117, 0.102, 0.07)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gac1b"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mo2bf"]
 transparency = 1
 cull_mode = 2
 albedo_color = Color(0.694118, 0.694118, 0.694118, 1)
 albedo_texture = ExtResource("7_sg50k")
 
-[sub_resource type="QuadMesh" id="QuadMesh_5q7ps"]
-material = SubResource("StandardMaterial3D_gac1b")
+[sub_resource type="QuadMesh" id="QuadMesh_hkkmd"]
+material = SubResource("StandardMaterial3D_mo2bf")
 size = Vector2(0.1, 0.1)
 
-[node name="Shotgun 2" node_paths=PackedStringArray("reload_time", "fire_rate") instance=ExtResource("1_7wq7w")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 0, -0.159551)
+[node name="Shotgun 2" instance=ExtResource("1_7wq7w")]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.104688, 0, -0.132077)
 script = ExtResource("2_jv27o")
 gun_name = "Shotgun"
 mag_size = 2
-reload_time = NodePath("ReloadTimer")
-fire_rate = NodePath("FireRate")
 damage = 5
 single_fire = true
 bullet_speed = 20.0
+bullet_spread = Vector2(0.1, 0.05)
 
 [node name="FireSound" parent="." index="0"]
 stream = ExtResource("3_vojjl")
@@ -78,15 +75,15 @@ wait_time = 0.4
 [node name="GunModel" parent="." index="4"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2093e-08, -0.461989, -0.252715)
 
-[node name="Muzzle" parent="." index="5"]
-transform = Transform3D(-0.0112924, 9.87213e-10, 4.31525e-17, 0, -4.93606e-10, 0.0112924, 9.87213e-10, 0.0112924, 4.93606e-10, -3.59432e-08, 0.0900966, 0.411141)
-mesh = SubResource("CapsuleMesh_1pn5x")
+[node name="Player_Shotgun" parent="." index="5" instance=ExtResource("5_jhu4t")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.62591e-08, -1.62961, -0.64353)
 
-[node name="Player_Shotgun" parent="." index="6" instance=ExtResource("5_jhu4t")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0977339, -1.57996, -0.714532)
+[node name="Muzzle" type="Marker3D" parent="Player_Shotgun" index="83"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110335, 1.66191, 1.13654)
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="7"]
+[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="6"]
 transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, -4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -6.95504e-08, 0.0598458, 0.795565)
+visible = false
 cast_shadow = 0
 emitting = false
 amount = 1
@@ -94,18 +91,19 @@ lifetime = 0.07
 one_shot = true
 visibility_aabb = AABB(-4.04688, -4, -4, 8, 8, 8)
 trail_lifetime = 1.21
-process_material = SubResource("ParticleProcessMaterial_px02p")
-draw_pass_1 = SubResource("QuadMesh_n6tnp")
+process_material = SubResource("ParticleProcessMaterial_3ham6")
+draw_pass_1 = SubResource("QuadMesh_nf2bu")
 
-[node name="Smoke" type="GPUParticles3D" parent="." index="8"]
+[node name="Smoke" type="GPUParticles3D" parent="." index="7"]
 transform = Transform3D(1, -7.10543e-15, -7.10543e-15, -7.10543e-15, 1, 0, -7.10543e-15, -6.21176e-22, 1, -3.9928e-08, 0.0936333, 0.456722)
+visible = false
 emitting = false
 amount = 100
 lifetime = 1.07
 one_shot = true
 transform_align = 1
-process_material = SubResource("ParticleProcessMaterial_7ssee")
-draw_pass_1 = SubResource("QuadMesh_5q7ps")
+process_material = SubResource("ParticleProcessMaterial_8afmt")
+draw_pass_1 = SubResource("QuadMesh_hkkmd")
 
 [connection signal="timeout" from="ReloadTimer" to="." method="_on_reload_timer_timeout"]
 [connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

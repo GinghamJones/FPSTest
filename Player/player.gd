@@ -99,7 +99,6 @@ func _unhandled_input(event):
 		if can_pickup:
 			weapon_holder.pickup_weapon(gun_instance)
 			did_i_pickup = true
-			#emit_signal("picked_up", self)
 		do_raycast()
 	
 	if event.is_action_pressed("pause"):
@@ -128,10 +127,10 @@ func _unhandled_input(event):
 func _process(delta):
 	#Rotate camera
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-		#mouse_look(delta)
-		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * look_sens * delta
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
-		rotation -= Vector3(0, mouseDelta.x, 0) * look_sens * delta
+		mouse_look(delta)
+#		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * look_sens * delta
+#		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
+#		rotation -= Vector3(0, mouseDelta.x, 0) * look_sens * delta
 		weapon_holder.weapon_sway(mouseDelta)
 	
 	mouseDelta = Vector2()
@@ -223,7 +222,6 @@ func pickup_available(weapon : PackedScene):
 	use_text.text = "Press E to pick up " + gun_instance.gun_name
 	use_text.show()
 	can_pickup = true
-	#what_to_pickup = gun_instance
 
 
 func pickup_not_available():

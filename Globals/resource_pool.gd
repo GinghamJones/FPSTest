@@ -18,8 +18,9 @@ var bullet_iter : int = 0
 func _ready():
 	for i in 200:
 		var b = bullet.instantiate()
+		b.set_physics_process(false)
 		bullets.push_back(b)
-	print(bullets.size())
+
 
 #	for i in 5:
 #		var e = enemy.instantiate()
@@ -29,15 +30,17 @@ func _ready():
 
 func get_bullet():
 	var b = bullets[0]
+	#b.reset()
 	bullets.pop_front()
-	print("Fired " + str(b))
-	b.reset()
 	return b
 
 func return_bullet(cur_gun, cur_bullet):
+	cur_bullet.set_physics_process(false)
 	cur_gun.muzzle.remove_child(cur_bullet)
+	cur_bullet.rotation = Vector3.ZERO
 	bullets.push_back(cur_bullet)
-	print("Returned bullet " + str(bullets[0]))
+	
+
 	
 	
 

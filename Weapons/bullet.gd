@@ -5,7 +5,8 @@ var timer: float = 0
 var hit_something: bool = false
 var bullet_damage : int
 var speed : float
-var who_fired_me 
+var who_fired_me : Weapon
+var collision_exception 
 
 @onready var raycast : RayCast3D = $RayCast3D
 @onready var sparks : PackedScene = preload("res://Weapons/sparks.tscn")
@@ -18,65 +19,90 @@ signal hit_wall(position)
 
 
 func _ready():
-	timer = 0
-	
 	set_as_top_level(true)
-	apply_impulse(transform.basis.z * speed, transform.basis.z)
+	#apply_impulse(transform.basis.z * speed, transform.basis.z)
+
+
+func _physics_process(delta):
+	apply_force(transform.basis.z * speed, transform.basis.z)
 	
+	timer += delta
+	if timer >= kill_timer:
+		return_home()
+
+func _on_body_entered(body):
+	if hit_something == false:
+		if body.is_in_group("Wall"):
+			if raycast.get_collider() != null:
+				do_sparks()
+				do_bull_hole()
+
+		if body.is_in_group("Floor"):
+			if raycast.get_collider() != null:
+				do_sparks()
+				
+		if body.is_in_group("Enemy"):
+			if raycast.get_collider() != null:
+				do_blood_stuff(body)
+
+		hit_something = true
+		$Timer.start()
+		$BulletMesh.visible = false
+		$SmokeTrail.emitting = false
+
 
 func set_who_fired_me(weapon : Weapon):
 	who_fired_me = weapon
 
 
-func _process(delta):
-	apply_force(transform.basis.z * speed, transform.basis.z)
-	
-	timer += delta
-	if timer >= kill_timer:
-		ResourcePool.return_bullet(who_fired_me, self)
-
-func _on_body_entered(body):
-	if hit_something == false:
-		if body.is_in_group("Wall") or body.is_in_group("Floor"):
-			# Do spark stuff
-			var s = sparks.instantiate()
-			if raycast.get_collider() != null:
-				raycast.get_collider().add_child(s)
-				s.global_transform.origin = $SparkRotHelper.global_transform.origin
-				s.global_rotation = $SparkRotHelper.global_rotation
-				s.emitting = true
-		
-			# Do bull hole
-				var hole = bullet_hole.instantiate()
-				raycast.get_collider().add_child(hole)
-				hole.global_transform.origin = raycast.get_collision_point()
-				if raycast.get_collider().is_in_group("Wall"):
-					hole.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.UP)
-				if raycast.get_collider().is_in_group("Floor"):
-					hole.rotation = Vector3(77, 0, 0)
-	
-		if body.is_in_group("Enemy"):
-			body.owie(bullet_damage)
-			var blood_instance = blood.instantiate()
-		
-			if raycast.get_collider() != null:
-				raycast.get_collider().add_child(blood_instance)
-				blood_instance.global_transform.origin = $SparkRotHelper.global_transform.origin
-				blood_instance.global_rotation = $SparkRotHelper.global_rotation
-				blood_instance.emitting = true
-		
-		
-	
-	hit_something = true
-	$Timer.start()
-	$BulletMesh.visible = false
-	$SmokeTrail.emitting = false
+func do_sparks():
+	var s = sparks.instantiate()
+	raycast.get_collider().add_child(s)
+	s.global_transform.origin = $SparkRotHelper.global_transform.origin
+	s.global_rotation = $SparkRotHelper.global_rotation
+	s.emitting = true
 
 
+func do_bull_hole():
+	var hole = bullet_hole.instantiate()
+	raycast.get_collider().add_child(hole)
+	hole.global_transform.origin = raycast.get_collision_point()
+	if raycast.get_collision_normal() == Vector3.DOWN:
+		hole.rotation_degrees.x = 90
+	elif raycast.get_collision_normal() != Vector3.UP:
+		hole.look_at(raycast.get_collision_point() + raycast.get_collision_normal(), Vector3.UP)
+
+
+func do_blood_stuff(body):
+	body.owie(bullet_damage)
+	var blood_instance = blood.instantiate()
+	raycast.get_collider().add_child(blood_instance)
+	blood_instance.global_transform.origin = $SparkRotHelper.global_transform.origin
+	blood_instance.global_rotation = $SparkRotHelper.global_rotation
+	blood_instance.emitting = true
+
+	
 func reset():
 	hit_something = false
+	timer = 0
+	bullet_damage = who_fired_me.damage
+	speed = who_fired_me.bullet_speed
+
+	collision_exception = get_tree().get_nodes_in_group(who_fired_me.gun_owner)[0]
+	add_collision_exception_with(collision_exception)
+	set_physics_process(true)
 	$BulletMesh.visible = true
 	$SmokeTrail.emitting = true
+	apply_impulse(transform.basis.z * speed, transform.basis.z)
+	
 
-func _on_timer_timeout():
+func return_home():
+	remove_collision_exception_with(collision_exception)
 	ResourcePool.return_bullet(who_fired_me, self)
+	
+	
+func _on_timer_timeout():
+	return_home()
+	
+
+

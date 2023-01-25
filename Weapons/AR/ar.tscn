@@ -1,9 +1,13 @@
-[gd_scene load_steps=12 format=3 uid="uid://dfvac0kwebhrr"]
+[gd_scene load_steps=13 format=3 uid="uid://dfvac0kwebhrr"]
 
 [ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_oafsd"]
 [ext_resource type="Script" path="res://Weapons/AR/ar.gd" id="2_hosw1"]
 [ext_resource type="AudioStream" uid="uid://bvfdsbohbqq0u" path="res://Weapons/Glock_Fire6_Close Mics.wav" id="3_d3g0y"]
 [ext_resource type="ArrayMesh" uid="uid://cbga3ht3dxo0o" path="res://Weapons/Models/machinegun.obj" id="3_u602b"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_2w1f4"]
+radius = 0.01
+height = 0.05
 
 [sub_resource type="Animation" id="Animation_8kp5c"]
 resource_name = "Fire"
@@ -183,27 +187,28 @@ _data = {
 "Walking": SubResource("Animation_jverv")
 }
 
-[node name="AR" node_paths=PackedStringArray("reload_time", "fire_rate") instance=ExtResource("1_oafsd")]
+[node name="AR" instance=ExtResource("1_oafsd")]
 script = ExtResource("2_hosw1")
 gun_name = "AR"
 mag_size = 30
-reload_time = NodePath("ReloadTimer")
-fire_rate = NodePath("FireRate")
 damage = 10
 bullet_speed = 20.0
+bullet_spread = Vector2(0.2, 0.1)
 
 [node name="FireSound" parent="." index="0"]
 stream = ExtResource("3_d3g0y")
+panning_strength = 0.34
 bus = &"Room"
 
 [node name="GunModel" parent="." index="3"]
 transform = Transform3D(-6.7108, 0, -5.86677e-07, 0, 6.71081, 0, 5.86677e-07, 0, -6.7108, 0, 0, 0)
 mesh = ExtResource("3_u602b")
 
-[node name="Muzzle" parent="." index="4"]
-transform = Transform3D(0.0112924, 0, 0, 0, -4.93606e-10, 0.0112924, 0, -0.0112924, -4.93606e-10, -0.00259878, 0.0373728, -0.300561)
+[node name="Muzzle" type="MeshInstance3D" parent="GunModel" index="0"]
+transform = Transform3D(0.195, 0, 0, 0, 0.195, 0, 0, 0, 0.195, -3.70769e-09, 0.00635372, 0.042411)
+mesh = SubResource("CapsuleMesh_2w1f4")
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
 libraries = {
 "": SubResource("AnimationLibrary_r43w2")
 }

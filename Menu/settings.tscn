@@ -3,11 +3,11 @@
 [ext_resource type="Script" path="res://Menu/settings.gd" id="1_wrvo1"]
 [ext_resource type="FontFile" uid="uid://bky4ux4rokjuh" path="res://Font/Audiowide-Regular.ttf" id="2_3oycn"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_epcyt"]
+[sub_resource type="LabelSettings" id="LabelSettings_l0fwp"]
 font = ExtResource("2_3oycn")
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_igl85"]
+[sub_resource type="LabelSettings" id="LabelSettings_b7ny6"]
 font_size = 32
 
 [node name="Settings" type="Control"]
@@ -27,7 +27,7 @@ offset_top = 117.0
 offset_right = 259.0
 offset_bottom = 173.0
 text = "Resolution:"
-label_settings = SubResource("LabelSettings_epcyt")
+label_settings = SubResource("LabelSettings_l0fwp")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 0
@@ -42,7 +42,7 @@ theme_override_fonts/font = ExtResource("2_3oycn")
 
 [node name="MSAASlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
-max_value = 4.0
+max_value = 3.0
 tick_count = 1
 ticks_on_borders = true
 
@@ -71,7 +71,7 @@ offset_top = 436.0
 offset_right = 251.0
 offset_bottom = 484.0
 text = "Window mode:"
-label_settings = SubResource("LabelSettings_igl85")
+label_settings = SubResource("LabelSettings_b7ny6")
 
 [node name="FS" type="Button" parent="."]
 layout_mode = 0

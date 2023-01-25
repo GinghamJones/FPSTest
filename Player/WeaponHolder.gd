@@ -6,6 +6,7 @@ var is_holstered : bool = true
 var state = MOVING
 var anim_speed : float = 1.0
 var weapon_rotation : Vector3 = Vector3.ZERO
+var already_got_weapon : bool = false
 
 const MIN_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(-5.0), deg_to_rad(-10), 0)
 const MAX_WEAPON_ROTATION : Vector3 = Vector3(deg_to_rad(5.0), deg_to_rad(10.0), 0)
@@ -80,17 +81,20 @@ func switch_weapon(weapon):
 	current_weapon = weapon
 	is_holstered = false
 	emit_signal("weapon_changed", current_weapon)
+	print(current_weapon.gun_owner)
 
 
 func pickup_weapon(new_weapon):
-	if weapons.has(new_weapon):
-		pass
-	else:
-		var g = new_weapon
-		add_child(g)
-		weapons.push_back(g)
-		switch_weapon(g)
-		emit_signal("picked_up", g.gun_name)
+	for w in weapons:
+		if w.gun_name == new_weapon.gun_name:
+			return
+
+	var g = new_weapon
+	g.gun_owner = "Player"
+	add_child(g)
+	weapons.push_back(g)
+	switch_weapon(g)
+	emit_signal("picked_up", g.gun_name)
 		
 
 func animate_weapon():

@@ -1,15 +1,16 @@
+Marker3D
+MeshInstance3D
+Node3D
 HSlider
 CheckBox
 OptionButton
 MenuButton
 Sprite3D
-Node3D
 CollisionShape3D
 RigidBody3D
 CSGBox3D
 Timer
 Label
-Marker3D
 FogVolume
 ReflectionProbe
 AnimationPlayer
@@ -17,7 +18,6 @@ VoxelGI
 StaticBody3D
 VBoxContainer
 Button
-MeshInstance3D
 Sprite2D
 GPUParticles3D
 CPUParticles3D

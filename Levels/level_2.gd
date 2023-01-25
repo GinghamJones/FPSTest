@@ -10,6 +10,7 @@ func _ready():
 	randomize()
 	
 	get_tree().paused = false
+	
 	# Use 'tree entered' to tell upgrade script level was loaded
 	connect("tree_entered", Callable(upgrade_script, "level2_loaded"))
 	emit_signal("tree_entered")
@@ -45,8 +46,6 @@ func spawn_a_bitch():
 	set_enemy_nav_points(new_enemy)
 	
 	new_enemy.connect("im_dead_af", Callable(self, "enemy_death"))
-#	await new_enemy.im_dead_af
-#	enemy_death()
 
 
 func enemy_death():

@@ -32,7 +32,6 @@ func _process(delta):
 			distance_moved += abs(current_velocity * delta)
 			hud.distance_changed(abs(current_velocity * delta))
 
-
 		if distance_moved >= distance_to_levelup:
 			distance_moved = 0
 			distance_to_levelup *= 1.5
@@ -45,7 +44,7 @@ func _process(delta):
 		if bullets_fired >= bullets_to_level:
 			bullet_level += 1
 			if player.weapon_holder.current_weapon.bullet_spread >= Vector2.ZERO:
-				player.weapon_holder.current_weapon.bullet_spread -= Vector2(0.1, 0.015)
+				player.weapon_holder.current_weapon.bullet_spread -= Vector2(0.02, 0.01)
 			print(bullet_level)
 			bullets_fired = 0
 
@@ -53,7 +52,7 @@ func _process(delta):
 			enemies_killed = 0
 			player.level += 1
 			emit_signal("level_changed", player.level)
-			
+
 	
 
 func game_loaded():

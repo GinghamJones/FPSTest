@@ -1,26 +1,12 @@
 extends Weapon
 
 
-var randomizer = RandomNumberGenerator.new()
 @onready var anims = $Player_Shotgun/AnimationPlayer
 @onready var reload_sound = $Reload
 @onready var muzzle_flash : GPUParticles3D = $MuzzleFlash
 @onready var smoke : GPUParticles3D = $Smoke
-var current_anim : String = ""
-var does_anim_loop : bool = false
-var bullet_spread : Vector2 = Vector2(1, 0.1)
+@onready var muzzle : Marker3D = $Player_Shotgun/Muzzle
 
-
-## States moved to weapon_holder ## 
-#enum {
-#	FIRING,
-#	RELOADING,
-#	IDLE,
-#	WALKING,
-#	RUNNING,
-#}
-
-#var anim_state = IDLE
 
 func fire():
 	if bullets_in_mag == 0 or is_firing == true:
@@ -34,10 +20,9 @@ func fire():
 		muzzle_flash.emitting = true
 		smoke.emitting = true
 		
-		#set_anim(FIRING, 1.0)
 		fire_sound.play()
 		fire_rate.start()
-		#set_anim("Player_Shotgun_Fire")
+
 		for i in 10:
 			spawn_bullet()
 		
@@ -50,11 +35,8 @@ func reload_weapon():
 		pass
 	else:
 		anims.play("Player_Shotgun_Reload", 0.1, 1.0)
-		#set_anim(RELOADING, 1.0)
 		is_reloading = true
 		reload_time.start()
-		#set_anim("Player_Shotgun_Reload")
-		#reload_sound.play()
 		while bullets_in_mag < mag_size:
 			bullets_in_mag += 1
 			available_bullets -= 1
@@ -76,21 +58,18 @@ func run(anim_speed : float):
 
 func spawn_bullet():
 	# Randomize angles of projectiles
-	randomizer.randomize()
-	var randomy_angle = randomizer.randf_range(-bullet_spread.x, bullet_spread.x)
-	var randomx_angle = randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
+	spread_randomizer.randomize()
+	var randomy_angle = spread_randomizer.randf_range(-bullet_spread.x, bullet_spread.x)
+	var randomx_angle = spread_randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
 		
 	# Spawn bullet and set transformation
-#	var b = bullet.instantiate()
-	var b = ResourcePool.get_bullet()
+	var b : RigidBody3D = ResourcePool.get_bullet()
 	b.set_who_fired_me(self)
-	b.add_collision_exception_with(get_tree().get_nodes_in_group("Player")[0])
-	b.speed = bullet_speed
-	b.bullet_damage = damage
-	b.transform.basis = muzzle.transform.basis
+	b.position = muzzle.position + Vector3(0, -1.63, 0)
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle
 	muzzle.add_child(b)
+	b.reset()
 
 
 func can_i_move():

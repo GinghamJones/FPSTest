@@ -10,27 +10,27 @@
 [ext_resource type="AudioStream" uid="uid://bclxupwx44qnp" path="res://Sounds/- 01 Start - _walking_(4).mp3" id="6_brmo0"]
 [ext_resource type="AudioStream" uid="uid://cah4uwbpf67do" path="res://Sounds/- 01 Start - _walking_(5).mp3" id="7_nyjot"]
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bqlya"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_e0gkh"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_rf0go"]
+[sub_resource type="LabelSettings" id="LabelSettings_h8p7r"]
 font = ExtResource("4_5s74u")
 font_size = 30
 
-[sub_resource type="LabelSettings" id="LabelSettings_hlxyk"]
+[sub_resource type="LabelSettings" id="LabelSettings_n04l0"]
 font = ExtResource("4_5s74u")
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_rt51h"]
+[sub_resource type="LabelSettings" id="LabelSettings_iwvuq"]
 font = ExtResource("4_5s74u")
 font_size = 32
 
-[sub_resource type="LabelSettings" id="LabelSettings_px032"]
+[sub_resource type="LabelSettings" id="LabelSettings_clj2d"]
 font_size = 24
 
-[sub_resource type="LabelSettings" id="LabelSettings_mmm4e"]
+[sub_resource type="LabelSettings" id="LabelSettings_1lf4t"]
 font_size = 24
 
-[sub_resource type="Animation" id="Animation_6i3q5"]
+[sub_resource type="Animation" id="Animation_q8k4g"]
 resource_name = "ADS"
 length = 0.1
 tracks/0/type = "value"
@@ -46,7 +46,7 @@ tracks/0/keys = {
 "values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.3)]
 }
 
-[sub_resource type="Animation" id="Animation_crrg6"]
+[sub_resource type="Animation" id="Animation_rd8ba"]
 resource_name = "Crouch"
 length = 0.1
 tracks/0/type = "value"
@@ -86,7 +86,7 @@ tracks/2/keys = {
 "values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.0603297, 0.328489)]
 }
 
-[sub_resource type="Animation" id="Animation_yogkg"]
+[sub_resource type="Animation" id="Animation_n0lrc"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -149,7 +149,7 @@ tracks/4/keys = {
 "values": [Vector3(0, 0.6, 0.328489)]
 }
 
-[sub_resource type="Animation" id="Animation_oxoc2"]
+[sub_resource type="Animation" id="Animation_8p7oa"]
 resource_name = "Walk"
 length = 1.2
 tracks/0/type = "value"
@@ -179,15 +179,15 @@ tracks/1/keys = {
 }]
 }
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mrdqh"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ere25"]
 _data = {
-"ADS": SubResource("Animation_6i3q5"),
-"Crouch": SubResource("Animation_crrg6"),
-"RESET": SubResource("Animation_yogkg"),
-"Walk": SubResource("Animation_oxoc2")
+"ADS": SubResource("Animation_q8k4g"),
+"Crouch": SubResource("Animation_rd8ba"),
+"RESET": SubResource("Animation_n0lrc"),
+"Walk": SubResource("Animation_8p7oa")
 }
 
-[sub_resource type="Animation" id="Animation_ndng2"]
+[sub_resource type="Animation" id="Animation_dfv5p"]
 resource_name = "ADS"
 length = 0.1
 tracks/0/type = "value"
@@ -203,13 +203,13 @@ tracks/0/keys = {
 "values": [Vector3(0.184, -0.243, -0.276), Vector3(0, -0.15, -0.3)]
 }
 
-[sub_resource type="Animation" id="Animation_cj8e1"]
+[sub_resource type="Animation" id="Animation_3q04k"]
 length = 0.001
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dvb5e"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_30bm5"]
 _data = {
-"ADS": SubResource("Animation_ndng2"),
-"RESET": SubResource("Animation_cj8e1")
+"ADS": SubResource("Animation_dfv5p"),
+"RESET": SubResource("Animation_3q04k")
 }
 
 [node name="Player" type="CharacterBody3D" groups=["Player"]]
@@ -219,7 +219,7 @@ collision_mask = 85
 script = ExtResource("1_7shlp")
 
 [node name="PlayerCollision" type="CollisionShape3D" parent="."]
-shape = SubResource("CapsuleShape3D_bqlya")
+shape = SubResource("CapsuleShape3D_e0gkh")
 
 [node name="PlayerCamera" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0.328489)
@@ -258,19 +258,19 @@ offset_bottom = -924.0
 layout_mode = 2
 size_flags_vertical = 7
 text = "Health"
-label_settings = SubResource("LabelSettings_rf0go")
+label_settings = SubResource("LabelSettings_h8p7r")
 
 [node name="Ammo" type="Label" parent="HUD/StatsContainer"]
 layout_mode = 2
 size_flags_vertical = 7
 text = "Ammo"
-label_settings = SubResource("LabelSettings_rf0go")
+label_settings = SubResource("LabelSettings_h8p7r")
 
 [node name="BulletsLeft" type="Label" parent="HUD/StatsContainer"]
 layout_mode = 2
 size_flags_vertical = 7
 text = "Bullets Left: "
-label_settings = SubResource("LabelSettings_rf0go")
+label_settings = SubResource("LabelSettings_h8p7r")
 
 [node name="UpgradeVarsContainer" type="VBoxContainer" parent="HUD"]
 layout_mode = 0
@@ -285,18 +285,18 @@ offset_bottom = -864.0
 layout_mode = 2
 size_flags_vertical = 7
 text = "Speed:"
-label_settings = SubResource("LabelSettings_rf0go")
+label_settings = SubResource("LabelSettings_h8p7r")
 
 [node name="Level" type="Label" parent="HUD/UpgradeVarsContainer"]
 layout_mode = 2
 size_flags_vertical = 7
 text = "Level:"
-label_settings = SubResource("LabelSettings_rf0go")
+label_settings = SubResource("LabelSettings_h8p7r")
 
 [node name="DistanceTraveled" type="Label" parent="HUD/UpgradeVarsContainer"]
 layout_mode = 2
 text = "Distance : "
-label_settings = SubResource("LabelSettings_hlxyk")
+label_settings = SubResource("LabelSettings_n04l0")
 
 [node name="UsePrompt" type="Label" parent="HUD"]
 layout_mode = 0
@@ -305,7 +305,7 @@ offset_top = 272.0
 offset_right = 686.0
 offset_bottom = 320.0
 text = "Press E to pick up"
-label_settings = SubResource("LabelSettings_rt51h")
+label_settings = SubResource("LabelSettings_iwvuq")
 
 [node name="WeaponContainer" type="HBoxContainer" parent="HUD"]
 layout_mode = 0
@@ -319,16 +319,16 @@ offset_bottom = -9.0
 [node name="PistolLabel" type="Label" parent="HUD/WeaponContainer"]
 layout_mode = 2
 text = "1: Pistol"
-label_settings = SubResource("LabelSettings_px032")
+label_settings = SubResource("LabelSettings_clj2d")
 
 [node name="ShotgunLabel" type="Label" parent="HUD/WeaponContainer"]
 layout_mode = 2
 text = "2: Shotgun"
-label_settings = SubResource("LabelSettings_mmm4e")
+label_settings = SubResource("LabelSettings_1lf4t")
 
 [node name="PlayerAnims" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_mrdqh")
+"": SubResource("AnimationLibrary_ere25")
 }
 
 [node name="Footsteps" type="Node3D" parent="."]
@@ -353,7 +353,7 @@ bus = &"Room"
 
 [node name="ADSAnim" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_dvb5e")
+"": SubResource("AnimationLibrary_30bm5")
 }
 
 [connection signal="weapon_changed" from="PlayerCamera/WeaponHolder" to="HUD" method="_on_weapon_holder_weapon_changed"]

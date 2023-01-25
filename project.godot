@@ -34,6 +34,10 @@ export/convert_text_resources_to_binary=true
 version_control/plugin_name="GitPlugin"
 version_control/autoload_on_startup=true
 
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/monitor_overlay/plugin.cfg")
+
 [gui]
 
 theme/default_font_antialiasing=2
