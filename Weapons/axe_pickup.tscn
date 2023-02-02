@@ -1,0 +1,29 @@
+[gd_scene load_steps=7 format=3 uid="uid://c6dmejd01inof"]
+
+[ext_resource type="PackedScene" uid="uid://bm28fmgygk7n2" path="res://Weapons/weapon_pickup.tscn" id="1_q240o"]
+[ext_resource type="Script" path="res://Weapons/axe_pickup.gd" id="2_ytr4a"]
+[ext_resource type="PackedScene" uid="uid://cujuftaxj2g7f" path="res://Weapons/axe.tscn" id="3_p8twa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7nrlt"]
+albedo_color = Color(0.792157, 0, 0.196078, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_1kqew"]
+material = SubResource("StandardMaterial3D_7nrlt")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_r1ocg"]
+
+[node name="AxePickup" instance=ExtResource("1_q240o")]
+collision_layer = 4
+script = ExtResource("2_ytr4a")
+weapon_name = "Axe"
+weapon = ExtResource("3_p8twa")
+
+[node name="GunMesh" parent="." index="0"]
+transform = Transform3D(0.383141, 0, 0, 0, 0.383141, 0, 0, 0, 0.383141, 0, 0, 0)
+mesh = SubResource("BoxMesh_1kqew")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
+shape = SubResource("BoxShape3D_r1ocg")
+
+[connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
+[connection signal="body_exited" from="Area3D" to="." method="_on_area_3d_body_exited"]

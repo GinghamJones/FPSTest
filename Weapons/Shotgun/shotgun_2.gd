@@ -9,6 +9,7 @@ extends Weapon
 
 
 func fire():
+	print(gun_owner)
 	if bullets_in_mag == 0 or is_firing == true:
 		can_fire = false
 	else:
@@ -64,7 +65,7 @@ func spawn_bullet():
 		
 	# Spawn bullet and set transformation
 	var b : RigidBody3D = ResourcePool.get_bullet()
-	b.set_who_fired_me(self)
+	b.set_what_fired_me(self)
 	b.position = muzzle.position + Vector3(0, -1.63, 0)
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle

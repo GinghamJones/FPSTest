@@ -79,8 +79,10 @@ func _unhandled_input(event):
 	
 	if event.is_action_pressed("sprint"):
 		is_sprinting = true
+		weapon_holder.is_sprinting = true
 	if event.is_action_released("sprint"):
 		is_sprinting = false
+		weapon_holder.is_sprinting = false
 		
 	if event.is_action_pressed("crouch"):
 		anims.play("Crouch")
@@ -122,15 +124,18 @@ func _unhandled_input(event):
 		
 	if event.is_action_pressed("no_clip"):
 		toggle_noclip()
+		
+	if event.is_action_pressed("save_game"):
+		SaveLoad.save_game()
+		
+	if event.is_action_pressed("load_game"):
+		SaveLoad.load_game()
 
 
 func _process(delta):
 	#Rotate camera
 	if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
 		mouse_look(delta)
-#		camera.rotation -= Vector3(mouseDelta.y, 0, 0) * look_sens * delta
-#		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(MIN_LOOK_ANGLE), deg_to_rad(MAX_LOOK_ANGLE))
-#		rotation -= Vector3(0, mouseDelta.x, 0) * look_sens * delta
 		weapon_holder.weapon_sway(mouseDelta)
 	
 	mouseDelta = Vector2()
@@ -167,7 +172,7 @@ func _physics_process(delta):
 	if direction.dot(hvel) > 0:
 		if is_sprinting:
 			new_accel = sprint_accel
-		else:	
+		else:
 			new_accel = accel
 	else:
 		if is_sprinting:
@@ -180,7 +185,6 @@ func _physics_process(delta):
 	velocity.x = hvel.x
 	velocity.z = hvel.z
 	
-	#if velocity != old_velocity:
 	if not aiming:
 		set_anims(input_dir)
 	else:
@@ -203,7 +207,7 @@ func set_anims(am_i_moving):
 		
 	if am_i_moving != Vector2.ZERO:
 		anims.play("Walk")
-		anims.playback_speed = anim_speed
+		anims.speed_scale = anim_speed
 
 	else:
 		anims.stop()
@@ -214,9 +218,15 @@ func toggle_cursor():
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	else:
 		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		
+
+func take_damage(new_damage):
+	cur_health -= new_damage
+	emit_signal("health_changed")
 
 
 func pickup_available(weapon : PackedScene):
+	# Get weapon scene from pickup and prepare gun_instance for WeaponHolder to receive. See "use" in unhandled input above
 	did_i_pickup = false
 	gun_instance = weapon.instantiate()
 	use_text.text = "Press E to pick up " + gun_instance.gun_name
@@ -256,6 +266,23 @@ func toggle_noclip():
 		set_collision_mask_value(1, false)
 		set_collision_mask_value(5, false)
 
+
+func save():
+	var save_dict = {
+		"filename" : "res://Player/player.tscn",
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+		"pos_z" : position.z,
+		"current_health" : cur_health,
+		"speed" : speed,
+		"max_speed" : max_speed,
+		"max_sprint_speed" : max_sprint_speed,
+		"reduced_speed" : reduced_speed,
+	}
 	
+	return save_dict
+
+
 func get_speed():
 	return speed

@@ -1,0 +1,110 @@
+[gd_scene load_steps=8 format=3 uid="uid://cujuftaxj2g7f"]
+
+[ext_resource type="Script" path="res://Weapons/axe.gd" id="1_5t5ry"]
+[ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="3_c8ba2"]
+[ext_resource type="PackedScene" uid="uid://cypvmwtckg2r5" path="res://Weapons/axe.glb" id="3_xpod7"]
+
+[sub_resource type="Animation" id="Animation_4cmvd"]
+resource_name = "Fire"
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(-0.940732, 1.50098, -1.37881), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_3kv87"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hqp5w"]
+resource_name = "Walk"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -0.059, 0), Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.0901637, 0.0716109, 0), Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_yvbhr"]
+_data = {
+"Fire": SubResource("Animation_4cmvd"),
+"RESET": SubResource("Animation_3kv87"),
+"Walk": SubResource("Animation_hqp5w")
+}
+
+[node name="Axe" instance=ExtResource("3_c8ba2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+script = ExtResource("1_5t5ry")
+gun_name = "Axe"
+damage = 25
+single_fire = true
+
+[node name="FireRate" parent="." index="2"]
+wait_time = 0.4
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="4"]
+libraries = {
+"": SubResource("AnimationLibrary_yvbhr")
+}
+
+[node name="axe" parent="." index="5" instance=ExtResource("3_xpod7")]
+transform = Transform3D(-0.013887, -3.18608e-10, -6.37216e-10, -3.18608e-10, 0.013887, -6.37216e-10, 6.37216e-10, -6.37216e-10, -0.013887, -0.00143123, 0.0688907, 0.0468095)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="." index="6"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0310925, 0.229971, 0.0477548)
+light_color = Color(0.85098, 0, 0.156863, 1)
+light_energy = 0.249
+shadow_enabled = true
+omni_range = 0.219
+
+[connection signal="timeout" from="FireRate" to="." method="_on_fire_rate_timeout"]

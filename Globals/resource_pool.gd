@@ -20,6 +20,8 @@ func _ready():
 		var b = bullet.instantiate()
 		b.set_physics_process(false)
 		bullets.push_back(b)
+		
+		#b.hide()
 
 
 #	for i in 5:
@@ -37,6 +39,7 @@ func get_bullet():
 func return_bullet(cur_gun, cur_bullet):
 	cur_bullet.set_physics_process(false)
 	cur_gun.muzzle.remove_child(cur_bullet)
+	get_tree().root.add_child(cur_bullet)
 	cur_bullet.rotation = Vector3.ZERO
 	bullets.push_back(cur_bullet)
 	

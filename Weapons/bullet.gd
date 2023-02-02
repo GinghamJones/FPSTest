@@ -5,7 +5,7 @@ var timer: float = 0
 var hit_something: bool = false
 var bullet_damage : int
 var speed : float
-var who_fired_me : Weapon
+var what_fired_me : Weapon
 var collision_exception 
 
 @onready var raycast : RayCast3D = $RayCast3D
@@ -51,8 +51,8 @@ func _on_body_entered(body):
 		$SmokeTrail.emitting = false
 
 
-func set_who_fired_me(weapon : Weapon):
-	who_fired_me = weapon
+func set_what_fired_me(weapon : Weapon):
+	what_fired_me = weapon
 
 
 func do_sparks():
@@ -85,12 +85,13 @@ func do_blood_stuff(body):
 func reset():
 	hit_something = false
 	timer = 0
-	bullet_damage = who_fired_me.damage
-	speed = who_fired_me.bullet_speed
+	bullet_damage = what_fired_me.damage
+	speed = what_fired_me.bullet_speed
 
-	collision_exception = get_tree().get_nodes_in_group(who_fired_me.gun_owner)[0]
+	collision_exception = get_tree().get_nodes_in_group(what_fired_me.gun_owner)[0]
 	add_collision_exception_with(collision_exception)
 	set_physics_process(true)
+	show()
 	$BulletMesh.visible = true
 	$SmokeTrail.emitting = true
 	apply_impulse(transform.basis.z * speed, transform.basis.z)
@@ -98,7 +99,8 @@ func reset():
 
 func return_home():
 	remove_collision_exception_with(collision_exception)
-	ResourcePool.return_bullet(who_fired_me, self)
+	hide()
+	ResourcePool.return_bullet(what_fired_me, self)
 	
 	
 func _on_timer_timeout():

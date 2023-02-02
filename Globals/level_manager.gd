@@ -13,7 +13,9 @@ func _ready():
 	
 
 func level_1_pressed():
-	get_tree().change_scene_to_packed(level1)
+	level1.instantiate()
+	get_tree().change_scene_to_file("res://Levels/level.tscn")
+	#get_tree().change_scene_to_packed(level1)
 	get_tree().root.add_child(player)
 	PlayerUpgrade.game_loaded()
 	

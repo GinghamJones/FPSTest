@@ -9,11 +9,13 @@ extends CharacterBody3D
 @onready var bitch_finder = $Form/Head/BitchFinder
 @onready var detection_area : Area3D = $Form/Head/DetectionCone
 @onready var nav_agent = $NavigationAgent3D
-@onready var shotgun : PackedScene = preload("res://Weapons/Shotgun/shotgun_2.tscn")
 @onready var anims : AnimationPlayer = $AnimationPlayer
-@onready var weapon_equipper : Node3D = $Form/RightArmRotator/RightArm/WeaponEquip
 
-@onready var bullet = preload("res://Weapons/bullet.tscn")
+# Load limbs for death destruction
+@onready var head_limb : PackedScene = preload("res://Enemy/head_limb.tscn")
+@onready var arm_limb : PackedScene = preload("res://Enemy/arm_limb.tscn")
+@onready var leg_limb : PackedScene = preload("res://Enemy/leg_limb.tscn")
+@onready var body_limb : PackedScene = preload("res://Enemy/head_limb.tscn")
 
 var current_nav_point : int = 0
 var nav_points : Array = []
@@ -27,11 +29,6 @@ var target
 var health : int = 100
 var max_health : int = 100
 var start_pos 
-var random_spread = RandomNumberGenerator.new()
-var bullet_speed = 2
-var bullet_damage = 1
-var weapon_equipped : bool = false
-var current_weapon
 var player_in_view : bool = false
 
 enum EnemyState {
@@ -39,7 +36,6 @@ enum EnemyState {
 	SEARCHING,
 	FOLLOWING,
 	ATTACKING,
-	PICKUP_FOUND,
 	DEAD,
 }
 
@@ -63,36 +59,32 @@ func _physics_process(delta):
 			if idle_timer.is_stopped() == true:
 				idle_timer.start()
 			rotation.y += 2 * delta
-		
-#			if is_player_spotted():
-#				enemy_state = EnemyState.FOLLOWING
 				
 		EnemyState.SEARCHING:
-#			if is_player_spotted():
-#				enemy_state = EnemyState.FOLLOWING
-			
 			if target_reached() == true:
 				enemy_state = EnemyState.IDLE
 			
 			set_movement_target(nav_points[current_nav_point].global_transform.origin)
+			print(nav_points[current_nav_point])
 			var current_agent_position: Vector3 = global_transform.origin
-			var next_path_position : Vector3 = nav_agent.get_next_location()
+			var next_path_position : Vector3 = nav_agent.get_next_path_position()
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * search_speed
 			set_velocity(new_velocity)
 			
 			# Make enemy look at current direction
-			look_somewhere(nav_points[current_nav_point].global_transform.origin)
+			rotation.y = new_rotation()
+			#look_somewhere(nav_points[current_nav_point].global_transform.origin)
 			
 		EnemyState.FOLLOWING:
 			var current_agent_position: Vector3 = global_transform.origin
 			
 			if current_agent_position.distance_to(player.global_transform.origin) > 10:
 				enemy_state = EnemyState.SEARCHING
-			elif current_agent_position.distance_to(player.global_transform.origin) < 3:
+			elif current_agent_position.distance_to(player.global_transform.origin) < 1:
 				enemy_state = EnemyState.ATTACKING
 			
 			set_movement_target(player.global_transform.origin)
-			var next_path_position: Vector3 = nav_agent.get_next_location()
+			var next_path_position: Vector3 = nav_agent.get_next_path_position()
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * follow_speed
 			set_velocity(new_velocity)
 			
@@ -106,53 +98,72 @@ func _physics_process(delta):
 					enemy_state = EnemyState.FOLLOWING
 			velocity = Vector3.ZERO
 			
-			look_somewhere(player.global_transform.origin)
+			if anims.current_animation != "Attack":
+				anims.play("Attack")
+			if ($Form/RightArmRotator/RightArm.global_transform.origin.is_equal_approx(player.global_transform.origin)):
+				player.take_damage(5.0)
 			
-			if weapon_equipped:
-				if current_weapon.bullets_in_mag == 0:
-					current_weapon.reload_weapon()
-				else:	
-					if fire_timer.is_stopped() == true and bitch_finder.get_collider() == player:
-						fire_timer.start()
-						current_weapon.fire()
-		
-		EnemyState.PICKUP_FOUND:
-			if target_reached():
-				velocity = Vector3.ZERO
-			if weapon_equipped == true:
-				enemy_state = EnemyState.SEARCHING
+			look_somewhere(player.global_transform.origin)
 		
 		EnemyState.DEAD:
 			die()
 	
-	if enemy_state != EnemyState.DEAD:
-		# Add the gravity.
-		if not is_on_floor():
-			velocity.y -= gravity * delta
+	# Add the gravity.
+	if not is_on_floor():
+		velocity.y -= gravity * delta
 
-		# Handle Jump.
-		if Input.is_action_just_pressed("ui_accept") and is_on_floor():
-			velocity.y = jump_velocity
+	# Handle Jump.
+	if Input.is_action_just_pressed("ui_accept") and is_on_floor():
+		velocity.y = jump_velocity
 
-		if velocity != Vector3.ZERO:
-			if not weapon_equipped:
-				anims.play("walk")
-			else:
-				anims.play("walk_equipped")
-		else:
-			anims.play("RESET")
-		
-		move_and_slide()
+	if velocity != Vector3.ZERO:
+		anims.play("walk")
+	else:
+		anims.play("RESET")
+	
+	move_and_slide()
+
+
+func new_rotation() -> float:
+	if velocity.length() > 0:
+		return atan2(velocity.x, -velocity.z)
+	else:
+		return rotation.y
 
 
 func die():
-#	timer.start()
-	anims.play("Die")
-	set_physics_process(false)
-	set_collision_layer_value(5, false)
-	await anims.animation_finished
-	emit_signal("im_dead_af")
+	var head : RigidBody3D = head_limb.instantiate()
+	head.global_transform = $Form/Head.global_transform
+	get_tree().root.add_child(head)
+	head.apply_impulse(-transform.basis.z * 2, transform.basis.z)
 	
+	var body : RigidBody3D = body_limb.instantiate()
+	body.global_transform = $Form/Body.global_transform
+	get_tree().root.add_child(body)
+	body.apply_impulse(transform.basis.z * 8, transform.basis.z)
+	
+	var left_arm : RigidBody3D = arm_limb.instantiate()
+	left_arm.global_transform = $Form/LeftArmRotator/LeftArm.global_transform
+	get_tree().root.add_child(left_arm)
+	left_arm.apply_impulse(-transform.basis.z * 4, transform.basis.z)
+	
+	var right_arm : RigidBody3D = arm_limb.instantiate()
+	right_arm.global_transform = $Form/RightArmRotator/RightArm.global_transform
+	get_tree().root.add_child(right_arm)
+	right_arm.apply_impulse(transform.basis.z * 4, transform.basis.z)
+	
+	var right_leg : RigidBody3D = leg_limb.instantiate()
+	right_leg.global_transform = $Form/RightLegRotator/RightLeg.global_transform
+	get_tree().root.add_child(right_leg)
+	right_leg.apply_impulse(-transform.basis.z * 5, transform.basis.z)
+	
+	var left_leg : RigidBody3D = leg_limb.instantiate()
+	left_leg.global_transform = $Form/LeftLegRotator/LeftLeg.global_transform
+	get_tree().root.add_child(left_leg)
+	left_leg.apply_impulse(transform.basis.z * 5, transform.basis.z)
+	
+	emit_signal("im_dead_af")
+	queue_free()
 
 
 func update_health(new_health : int):
@@ -162,14 +173,13 @@ func update_health(new_health : int):
 	
 	
 func set_movement_target(movement_target : Vector3):
-	nav_agent.set_target_location(movement_target)
+	nav_agent.set_target_position(movement_target)
 	
 
 
 func look_somewhere(pos : Vector3):
 		eye.look_at(pos, Vector3.UP)
 		rotate_y(deg_to_rad(eye.rotation.y * turn_speed))
-		weapon_equipper.rotate_z(deg_to_rad(eye.rotation.z * turn_speed))
 		
 
 func target_reached() -> bool:
@@ -181,12 +191,18 @@ func target_reached() -> bool:
 	return false	
 
 
-func pickup_available(weapon):
-	weapon_equipper.add_child(weapon)
-	anims.play("Equip")
-	weapon_equipped = true
-	current_weapon = weapon
-
+func save():
+	var save_dict = {
+		"filename" : "res://Enemy/enemy.tscn",
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+		"pos_z" : position.z,
+		"current_health" : health,
+		"target_position" : nav_agent.get_final_position()
+	}
+	
+	return save_dict
 
 func set_nav_points(new_nav_points : Array):
 	nav_points = new_nav_points
@@ -219,12 +235,6 @@ func _on_detection_cone_body_exited(body):
 	if body.is_in_group("Player"):
 		player_in_view = false
 		enemy_state = EnemyState.SEARCHING
-
-
-func _on_detection_cone_area_entered(area):
-	if area.is_in_group("pickup"):
-		enemy_state = EnemyState.PICKUP_FOUND
-		set_movement_target(area.global_position)
 
 
 func _on_head_ow_fuck(damage):

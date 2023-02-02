@@ -14,6 +14,9 @@ class_name Weapon
 @onready var fire_rate : Timer = $FireRate
 @onready var fire_sound : AudioStreamPlayer3D = $FireSound
 
+# Var to hold pickup PackedScene for when thrown
+@export var pickup_scene : PackedScene
+
 var bullets_in_mag : int
 var available_bullets : int
 var gun_owner : String

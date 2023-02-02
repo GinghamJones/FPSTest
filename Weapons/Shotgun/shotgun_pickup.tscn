@@ -9,7 +9,7 @@
 size = Vector3(1.57184, 0.262517, 0.142284)
 
 [node name="ShotgunPickup" groups=["Pickup"] instance=ExtResource("1_73noo")]
-collision_layer = 4
+collision_layer = 0
 collision_mask = 9
 script = ExtResource("2_nnxt8")
 weapon_name = "Shotgun"
@@ -20,7 +20,10 @@ transform = Transform3D(-1.77848e-08, 0, -0.406869, 0, 0.406869, 0, 0.406869, 0,
 mesh = ExtResource("2_2xwe4")
 
 [node name="Area3D" parent="." index="1" groups=["pickup"]]
-collision_mask = 19
+collision_mask = 18
+
+[node name="CollisionShape3D" parent="Area3D" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." index="2"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.0887635, 0)

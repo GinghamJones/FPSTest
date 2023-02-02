@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://Weapons/bullet.gd" id="1_kt1l4"]
 [ext_resource type="Texture2D" uid="uid://cjwpg0oogjald" path="res://Weapons/Smoke/smoke_03.png" id="2_487h7"]
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_k01y8"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_f5aq2"]
 albedo_color = Color(0.137255, 0.0823529, 0.027451, 1)
 metallic = 1.0
 roughness = 0.0
@@ -11,37 +11,37 @@ emission_enabled = true
 emission = Color(0.341176, 0.309804, 0.129412, 1)
 emission_energy_multiplier = 0.22
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_gg33q"]
-material = SubResource("StandardMaterial3D_k01y8")
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_va6s8"]
+material = SubResource("StandardMaterial3D_f5aq2")
 radius = 0.01
 height = 0.1
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ossed"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_6e43b"]
 margin = 0.1
 radius = 0.01
 height = 0.1
 
-[sub_resource type="Curve" id="Curve_u6vjv"]
+[sub_resource type="Curve" id="Curve_4pd35"]
 max_value = 5.0
 _data = [Vector2(0, 0.281818), 0.0, 0.0, 0, 0, Vector2(1, 0.954545), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_pvemb"]
-curve = SubResource("Curve_u6vjv")
+[sub_resource type="CurveTexture" id="CurveTexture_fubkd"]
+curve = SubResource("Curve_4pd35")
 
-[sub_resource type="Curve" id="Curve_b0f5g"]
+[sub_resource type="Curve" id="Curve_srv8n"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(0.136364, 0), 0.0, 0.0, 0, 0]
 point_count = 2
 
-[sub_resource type="CurveTexture" id="CurveTexture_4mbux"]
-curve = SubResource("Curve_b0f5g")
+[sub_resource type="CurveTexture" id="CurveTexture_k47cb"]
+curve = SubResource("Curve_srv8n")
 
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_820pa"]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_64bw1"]
 spread = 2.87
 gravity = Vector3(0, 0, 0)
 initial_velocity_min = 0.05
 initial_velocity_max = 0.05
-scale_curve = SubResource("CurveTexture_pvemb")
+scale_curve = SubResource("CurveTexture_fubkd")
 color = Color(0.376471, 0.376471, 0.376471, 1)
 hue_variation_min = 0.47
 hue_variation_max = 0.47
@@ -50,18 +50,18 @@ turbulence_noise_strength = 0.86
 turbulence_noise_scale = 4.97
 turbulence_influence_min = 0.02
 turbulence_influence_max = 0.02
-turbulence_influence_over_life = SubResource("CurveTexture_4mbux")
+turbulence_influence_over_life = SubResource("CurveTexture_k47cb")
 sub_emitter_keep_velocity = true
 attractor_interaction_enabled = false
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_q6k4p"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tf25v"]
 transparency = 1
 cull_mode = 2
 albedo_texture = ExtResource("2_487h7")
 proximity_fade_enabled = true
 
-[sub_resource type="QuadMesh" id="QuadMesh_w41y6"]
-material = SubResource("StandardMaterial3D_q6k4p")
+[sub_resource type="QuadMesh" id="QuadMesh_m4vh5"]
+material = SubResource("StandardMaterial3D_tf25v")
 size = Vector2(0.25, 0.25)
 orientation = 0
 
@@ -78,20 +78,20 @@ script = ExtResource("1_kt1l4")
 
 [node name="BulletMesh" type="MeshInstance3D" parent="."]
 transform = Transform3D(1.91069e-15, 4.37114e-08, 1, 1, -4.37114e-08, 0, 4.37114e-08, 1, -4.37114e-08, 0, 0, 0)
-mesh = SubResource("CapsuleMesh_gg33q")
+mesh = SubResource("CapsuleMesh_va6s8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(2.97241, 0, 0, 0, -1.29928e-07, 2.97241, 0, -2.97241, -1.29928e-07, 0, -8.29715e-05, 0.000323791)
-shape = SubResource("CapsuleShape3D_ossed")
+shape = SubResource("CapsuleShape3D_6e43b")
 
 [node name="SmokeTrail" type="GPUParticles3D" parent="."]
 transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
 amount = 30
-speed_scale = 1.42
+speed_scale = 8.61
 randomness = 0.34
 trail_lifetime = 2.09
-process_material = SubResource("ParticleProcessMaterial_820pa")
-draw_pass_1 = SubResource("QuadMesh_w41y6")
+process_material = SubResource("ParticleProcessMaterial_64bw1")
+draw_pass_1 = SubResource("QuadMesh_m4vh5")
 
 [node name="RayCast3D" type="RayCast3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 0, -0.0468646)
