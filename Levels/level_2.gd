@@ -12,7 +12,7 @@ func _ready():
 	
 	# Use 'tree entered' to tell upgrade script level was loaded
 	connect("tree_entered", Callable(PlayerUpgrade, "level2_loaded"))
-	emit_signal("tree_entered")
+	#emit_signal("tree_entered")
 	
 	# Place player in world
 	player.global_transform = $PlayerStart.global_transform
@@ -50,6 +50,7 @@ func spawn_a_bitch():
 func enemy_death():
 	spawn_a_bitch()
 	PlayerUpgrade.enemies_killed += 1
+	enemies_killed += 1
 	if enemies_killed >= 3:
 		$frame/door.can_open = true
 

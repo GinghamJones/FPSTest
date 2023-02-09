@@ -1,6 +1,6 @@
 extends CharacterBody3D
 
-@onready var player = get_tree().get_nodes_in_group("Player")[0]
+@onready var player : CharacterBody3D
 @onready var h_text = $HealthText
 @onready var timer = $RespawnTimer
 @onready var idle_timer = $IdleTimer
@@ -22,14 +22,14 @@ var nav_points : Array = []
 var target
 
 @export var search_speed = 2.0
-@export var follow_speed = 3.0
+@export var follow_speed = 6.0
 @export var jump_velocity = 4.5
 @export var turn_speed = 2
 
 var health : int = 100
 var max_health : int = 100
 var start_pos 
-var player_in_view : bool = false
+#var player_in_view : bool = false
 
 enum EnemyState {
 	IDLE,
@@ -49,8 +49,7 @@ signal im_dead_af
 func _ready():
 	update_health(health)
 	start_pos = global_transform
-	#im_dead_af.connect(get_tree().root.get_node("Level2").enemy_death())
-	
+
 
 func _physics_process(delta):
 	match enemy_state:
@@ -64,35 +63,34 @@ func _physics_process(delta):
 			if target_reached() == true:
 				enemy_state = EnemyState.IDLE
 			
-			set_movement_target(nav_points[current_nav_point].global_transform.origin)
-			print(nav_points[current_nav_point])
-			var current_agent_position: Vector3 = global_transform.origin
+			nav_agent.set_target_position(nav_points[current_nav_point].global_position)
+			#set_movement_target(nav_points[current_nav_point].global_transform.origin)
+			var current_agent_position: Vector3 = global_position
 			var next_path_position : Vector3 = nav_agent.get_next_path_position()
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * search_speed
 			set_velocity(new_velocity)
 			
 			# Make enemy look at current direction
-			rotation.y = new_rotation()
-			#look_somewhere(nav_points[current_nav_point].global_transform.origin)
+			look_somewhere(next_path_position)
 			
 		EnemyState.FOLLOWING:
-			var current_agent_position: Vector3 = global_transform.origin
+			var current_agent_position: Vector3 = global_position
 			
-			if current_agent_position.distance_to(player.global_transform.origin) > 10:
+			if current_agent_position.distance_to(player.global_position) > 10:
 				enemy_state = EnemyState.SEARCHING
-			elif current_agent_position.distance_to(player.global_transform.origin) < 1:
+			elif current_agent_position.distance_to(player.global_position) < 2:
 				enemy_state = EnemyState.ATTACKING
 			
-			set_movement_target(player.global_transform.origin)
+			nav_agent.set_target_position(player.global_position)
 			var next_path_position: Vector3 = nav_agent.get_next_path_position()
 			var new_velocity : Vector3 = (next_path_position - current_agent_position).normalized() * follow_speed
 			set_velocity(new_velocity)
 			
-			look_somewhere(player.global_transform.origin)
+			look_somewhere(player.global_position)
 			
 		EnemyState.ATTACKING:
-			if global_transform.origin.distance_to(player.global_transform.origin) > 3:
-				if player_in_view == false:
+			if global_position.distance_to(player.global_position) > 3:
+				if player != null:
 					enemy_state = EnemyState.SEARCHING
 				else:
 					enemy_state = EnemyState.FOLLOWING
@@ -100,11 +98,9 @@ func _physics_process(delta):
 			
 			if anims.current_animation != "Attack":
 				anims.play("Attack")
-			if ($Form/RightArmRotator/RightArm.global_transform.origin.is_equal_approx(player.global_transform.origin)):
-				player.take_damage(5.0)
-			
-			look_somewhere(player.global_transform.origin)
-		
+
+			look_somewhere(player.global_position)
+
 		EnemyState.DEAD:
 			die()
 	
@@ -119,7 +115,8 @@ func _physics_process(delta):
 	if velocity != Vector3.ZERO:
 		anims.play("walk")
 	else:
-		anims.play("RESET")
+		if enemy_state != EnemyState.ATTACKING:
+			anims.play("RESET")
 	
 	move_and_slide()
 
@@ -129,6 +126,54 @@ func new_rotation() -> float:
 		return atan2(velocity.x, -velocity.z)
 	else:
 		return rotation.y
+
+
+func update_health(new_health : int):
+	h_text.set_text("My owwie meter: " + str(new_health))
+	if health <= 0:
+		enemy_state = EnemyState.DEAD
+
+
+# Unnecessary function for pitiful one liner. Delete if not needed
+func set_movement_target(movement_target : Vector3):
+	nav_agent.set_target_position(movement_target)
+
+
+func look_somewhere(pos : Vector3):
+		eye.look_at(pos, Vector3.UP)
+		rotate_y(deg_to_rad(eye.rotation.y * turn_speed))
+
+
+func target_reached() -> bool:
+	if nav_agent.is_target_reached():
+		current_nav_point += 1
+		if current_nav_point > 3:
+			current_nav_point = 0
+		return true
+	return false	
+
+
+func save():
+	var save_dict = {
+		"filename" : "res://Enemy/enemy.tscn",
+		"parent" : get_parent().get_path(),
+		"pos_x" : position.x,
+		"pos_y" : position.y,
+		"pos_z" : position.z,
+		"current_health" : health,
+		"target_position" : nav_agent.get_final_position()
+	}
+	
+	return save_dict
+
+
+func set_nav_points(new_nav_points : Array):
+	nav_points = new_nav_points
+	
+	
+func smack_a_bitch():
+	if ($Form/RightArmRotator/RightArm.global_transform.origin.length() - player.global_transform.origin.length() < 2):
+		player.take_damage(5.0)
 
 
 func die():
@@ -166,48 +211,6 @@ func die():
 	queue_free()
 
 
-func update_health(new_health : int):
-	h_text.set_text("My owwie meter: " + str(new_health))
-	if health <= 0:
-		enemy_state = EnemyState.DEAD
-	
-	
-func set_movement_target(movement_target : Vector3):
-	nav_agent.set_target_position(movement_target)
-	
-
-
-func look_somewhere(pos : Vector3):
-		eye.look_at(pos, Vector3.UP)
-		rotate_y(deg_to_rad(eye.rotation.y * turn_speed))
-		
-
-func target_reached() -> bool:
-	if nav_agent.is_target_reached():
-		current_nav_point += 1
-		if current_nav_point > 3:
-			current_nav_point = 0
-		return true
-	return false	
-
-
-func save():
-	var save_dict = {
-		"filename" : "res://Enemy/enemy.tscn",
-		"parent" : get_parent().get_path(),
-		"pos_x" : position.x,
-		"pos_y" : position.y,
-		"pos_z" : position.z,
-		"current_health" : health,
-		"target_position" : nav_agent.get_final_position()
-	}
-	
-	return save_dict
-
-func set_nav_points(new_nav_points : Array):
-	nav_points = new_nav_points
-
-
 func _on_idle_timer_timeout():
 	enemy_state = EnemyState.SEARCHING
 
@@ -227,13 +230,17 @@ func _on_form_ow_fuck(damage):
 
 func _on_detection_cone_body_entered(body):
 	if body.is_in_group("Player"):
-		player_in_view = true
+		#player_in_view = true
+		print("player entered")
+		player = body
 		enemy_state = EnemyState.FOLLOWING
 
 
 func _on_detection_cone_body_exited(body):
 	if body.is_in_group("Player"):
-		player_in_view = false
+		player = null
+		print("player exited")
+		#player_in_view = false
 		enemy_state = EnemyState.SEARCHING
 
 

@@ -48,7 +48,8 @@ var m
 @export var max_sprint_speed: float = 7.5
 @export var sprint_accel : float = 7
 var is_sprinting : bool = false
-var animation_speed_modifier : float = 0.4
+@export var animation_speed_modifier : float = 0.4
+var step_time : float = 1.0
 
 
 
@@ -130,6 +131,15 @@ func _unhandled_input(event):
 		
 	if event.is_action_pressed("load_game"):
 		SaveLoad.load_game()
+		
+	if event.is_action_pressed("change_camera"):
+		var c : Camera3D = get_tree().get_first_node_in_group("Camera")
+		if camera.current == true:
+			camera.clear_current(false)
+			c.make_current()
+		else:
+			c.clear_current()
+			camera.make_current()
 
 
 func _process(delta):
@@ -180,9 +190,16 @@ func _physics_process(delta):
 		else:
 			new_accel = friction
 	
+#	step_time -= 0.05
+#	print(step_time)
+#	if step_time <= 0.8:
+#		step_time = 1.1
+#	else:
+#		step_time = 1.0
 	
 	hvel = hvel.lerp(target, new_accel * delta)
-	velocity.x = hvel.x
+	
+	velocity.x = hvel.x 
 	velocity.z = hvel.z
 	
 	if not aiming:
@@ -221,8 +238,12 @@ func toggle_cursor():
 		
 
 func take_damage(new_damage):
+	
 	cur_health -= new_damage
-	emit_signal("health_changed")
+	hud.update_health(cur_health)
+	$DamageTimer.start()
+	await $DamageTimer.timeout
+	#emit_signal("health_changed")
 
 
 func pickup_available(weapon : PackedScene):
@@ -265,7 +286,7 @@ func toggle_noclip():
 		no_clip = true
 		set_collision_mask_value(1, false)
 		set_collision_mask_value(5, false)
-
+		
 
 func save():
 	var save_dict = {

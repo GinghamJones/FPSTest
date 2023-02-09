@@ -6,6 +6,7 @@ extends Weapon
 @onready var muzzle_flash : GPUParticles3D = $MuzzleFlash
 @onready var smoke : GPUParticles3D = $Smoke
 @onready var muzzle : Marker3D = $Player_Shotgun/Muzzle
+@onready var bullet : PackedScene = preload("res://Weapons/bullet.tscn")
 
 
 func fire():
@@ -64,7 +65,8 @@ func spawn_bullet():
 	var randomx_angle = spread_randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
 		
 	# Spawn bullet and set transformation
-	var b : RigidBody3D = ResourcePool.get_bullet()
+	var b : RigidBody3D = bullet.instantiate()
+	#var b : RigidBody3D = ResourcePool.get_bullet()
 	b.set_what_fired_me(self)
 	b.position = muzzle.position + Vector3(0, -1.63, 0)
 	b.rotation.x += randomx_angle

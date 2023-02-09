@@ -1,0 +1,31 @@
+[gd_scene load_steps=7 format=3 uid="uid://btvbfasxf1kxb"]
+
+[ext_resource type="Texture2D" uid="uid://btjftibx50qk3" path="res://Textures/Evyn Wood/Floor_Industrial_Diffuse.png" id="1_rh03n"]
+[ext_resource type="Texture2D" uid="uid://btfpom18bg8uj" path="res://Textures/Evyn Wood/Floor_Industrial_Metallic.png" id="2_f25dr"]
+[ext_resource type="Texture2D" uid="uid://ctebv110l4jap" path="res://Textures/Evyn Wood/Floor_Industrial_Normal.png" id="3_pd4ww"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vvnke"]
+albedo_texture = ExtResource("1_rh03n")
+metallic = 1.0
+metallic_texture = ExtResource("2_f25dr")
+normal_enabled = true
+normal_texture = ExtResource("3_pd4ww")
+uv1_scale = Vector3(0.338, 0.338, 0.338)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_845rw"]
+material = SubResource("StandardMaterial3D_vvnke")
+size = Vector3(0.3, 5.75, 4.7)
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_lrli8"]
+points = PackedVector3Array(0.15, 2.5, 2.375, -0.15, 2.5, 2.375, 0.15, -2.5, 2.375, 0.15, 2.5, -2.375, -0.15, 2.5, -2.375, -0.15, -2.5, 2.375, 0.15, -2.5, -2.375, -0.15, -2.5, -2.375)
+
+[node name="Door2" type="RigidBody3D"]
+collision_layer = 64
+collision_mask = 26
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_845rw")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_lrli8")

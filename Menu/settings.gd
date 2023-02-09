@@ -51,5 +51,10 @@ func _on_taa_box_toggled(button_pressed):
 
 func _on_shadow_quality_value_changed(value):
 	RenderingServer.positional_soft_shadow_filter_set_quality(value)
-	
 
+
+func _on_check_box_pressed():
+	if DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_ENABLED:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
+	if DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_DISABLED:
+		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)

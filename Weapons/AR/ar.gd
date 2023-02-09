@@ -2,6 +2,7 @@ extends Weapon
 
 @onready var anims : AnimationPlayer = $AnimationPlayer
 @onready var muzzle : MeshInstance3D = $GunModel/Muzzle
+@onready var bullet : PackedScene = preload("res://Weapons/bullet.tscn")
 
 
 func fire():
@@ -41,7 +42,8 @@ func spawn_bullet():
 	var randomy_angle = spread_randomizer.randf_range(-bullet_spread.x, bullet_spread.x)
 	var randomx_angle = spread_randomizer.randf_range(-bullet_spread.y, bullet_spread.y)
 	
-	var b : RigidBody3D = ResourcePool.get_bullet()
+	var b : RigidBody3D = bullet.instantiate()
+	#var b : RigidBody3D = ResourcePool.get_bullet()
 	b.set_what_fired_me(self)
 	b.position = muzzle.position
 	b.rotation.x += randomx_angle

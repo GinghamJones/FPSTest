@@ -28,7 +28,8 @@ func _physics_process(delta):
 	
 	timer += delta
 	if timer >= kill_timer:
-		return_home()
+		#return_home()
+		queue_free()
 
 func _on_body_entered(body):
 	if hit_something == false:
@@ -90,7 +91,7 @@ func reset():
 
 	collision_exception = get_tree().get_nodes_in_group(what_fired_me.gun_owner)[0]
 	add_collision_exception_with(collision_exception)
-	set_physics_process(true)
+	#set_physics_process(true)
 	show()
 	$BulletMesh.visible = true
 	$SmokeTrail.emitting = true
@@ -104,7 +105,8 @@ func return_home():
 	
 	
 func _on_timer_timeout():
-	return_home()
+	#return_home()
+	queue_free()
 	
 
 

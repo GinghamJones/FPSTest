@@ -1,0 +1,213 @@
+[gd_scene load_steps=26 format=3 uid="uid://bl6f8o3ql0br6"]
+
+[ext_resource type="Script" path="res://Levels/level_3.gd" id="1_2avwe"]
+[ext_resource type="Shader" path="res://Water.gdshader" id="2_ahq4l"]
+[ext_resource type="Texture2D" uid="uid://dqwqslvxfxpp2" path="res://Textures/marble 23/marble 23_diffuse.png" id="3_qagln"]
+[ext_resource type="Texture2D" uid="uid://omviadel0s2u" path="res://Textures/marble 23/marble 23_ao.png" id="4_oqueu"]
+[ext_resource type="Texture2D" uid="uid://ded07wp4wkw6o" path="res://Textures/marble 23/Marble 23_metallic.png" id="5_x81wb"]
+[ext_resource type="Texture2D" uid="uid://dm6bio5mqccxu" path="res://Textures/marble 23/marble 23_normal.png" id="6_6bng2"]
+[ext_resource type="Texture2D" uid="uid://crq4bk1hleb2a" path="res://Textures/marble 23/Marble 23_smoothness.png" id="7_jf12j"]
+[ext_resource type="PackedScene" uid="uid://btvbfasxf1kxb" path="res://Levels/door_2.tscn" id="8_k2wjb"]
+[ext_resource type="PackedScene" uid="uid://cvrpkwosbla6e" path="res://Weapons/Shotgun/shotgun_pickup.tscn" id="9_1ghy1"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_3pv61"]
+size = Vector2(20, 20)
+subdivide_width = 200
+subdivide_depth = 200
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_2sed2"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_grs4a"]
+seamless = true
+as_normal_map = true
+bump_strength = 8.4
+noise = SubResource("FastNoiseLite_2sed2")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_i81av"]
+noise_type = 3
+seed = 10
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rakle"]
+seamless = true
+as_normal_map = true
+bump_strength = 7.5
+noise = SubResource("FastNoiseLite_i81av")
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_oj3k5"]
+noise_type = 3
+fractal_type = 2
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_gpkl2"]
+seamless = true
+as_normal_map = true
+bump_strength = 8.2
+noise = SubResource("FastNoiseLite_oj3k5")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7l1pm"]
+render_priority = 0
+shader = ExtResource("2_ahq4l")
+shader_parameter/albedo = Color(0, 0.180392, 0.909804, 1)
+shader_parameter/albedo2 = Color(0.639216, 0.392157, 1, 1)
+shader_parameter/metallic = 0.0
+shader_parameter/roughness = 0.02
+shader_parameter/wave_direction = Vector2(2, 0)
+shader_parameter/wave_direction2 = Vector2(0, 1)
+shader_parameter/time_scale = 0.025
+shader_parameter/noise_scale = 10.0
+shader_parameter/height_scale = 0.15
+shader_parameter/color_deep = Color(0, 0, 1, 1)
+shader_parameter/color_shallow = Color(0.145098, 0.380392, 1, 1)
+shader_parameter/beers_law = 2.0
+shader_parameter/depth_offset = -0.75
+shader_parameter/texture_normal = SubResource("NoiseTexture2D_grs4a")
+shader_parameter/texture_normal2 = SubResource("NoiseTexture2D_rakle")
+shader_parameter/wave = SubResource("NoiseTexture2D_gpkl2")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ytm8e"]
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.517647, 0.490196, 0.419608, 1)
+albedo_texture = ExtResource("3_qagln")
+metallic = 1.0
+metallic_texture = ExtResource("5_x81wb")
+roughness = 0.49
+roughness_texture = ExtResource("7_jf12j")
+normal_enabled = true
+normal_scale = 0.32
+normal_texture = ExtResource("6_6bng2")
+ao_enabled = true
+ao_light_affect = 1.0
+ao_texture = ExtResource("4_oqueu")
+uv1_scale = Vector3(0.247, 0.247, 0.247)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_5sf5a"]
+material = SubResource("StandardMaterial3D_ytm8e")
+size = Vector3(20, 0.3, 20)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vgeit"]
+data = PackedVector3Array(-10, 0.15, 10, 10, 0.15, 10, -10, -0.15, 10, 10, 0.15, 10, 10, -0.15, 10, -10, -0.15, 10, 10, 0.15, -10, -10, 0.15, -10, 10, -0.15, -10, -10, 0.15, -10, -10, -0.15, -10, 10, -0.15, -10, 10, 0.15, 10, 10, 0.15, -10, 10, -0.15, 10, 10, 0.15, -10, 10, -0.15, -10, 10, -0.15, 10, -10, 0.15, -10, -10, 0.15, 10, -10, -0.15, -10, -10, 0.15, 10, -10, -0.15, 10, -10, -0.15, -10, 10, 0.15, 10, -10, 0.15, 10, 10, 0.15, -10, -10, 0.15, 10, -10, 0.15, -10, 10, 0.15, -10, -10, -0.15, 10, 10, -0.15, 10, -10, -0.15, -10, 10, -0.15, 10, 10, -0.15, -10, -10, -0.15, -10)
+
+[sub_resource type="BoxMesh" id="BoxMesh_8kv8v"]
+size = Vector3(20, 8, 0.3)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_dt1x3"]
+data = PackedVector3Array(-10, 4, 0.15, 10, 4, 0.15, -10, -4, 0.15, 10, 4, 0.15, 10, -4, 0.15, -10, -4, 0.15, 10, 4, -0.15, -10, 4, -0.15, 10, -4, -0.15, -10, 4, -0.15, -10, -4, -0.15, 10, -4, -0.15, 10, 4, 0.15, 10, 4, -0.15, 10, -4, 0.15, 10, 4, -0.15, 10, -4, -0.15, 10, -4, 0.15, -10, 4, -0.15, -10, 4, 0.15, -10, -4, -0.15, -10, 4, 0.15, -10, -4, 0.15, -10, -4, -0.15, 10, 4, 0.15, -10, 4, 0.15, 10, 4, -0.15, -10, 4, 0.15, -10, 4, -0.15, 10, 4, -0.15, -10, -4, 0.15, 10, -4, 0.15, -10, -4, -0.15, 10, -4, 0.15, 10, -4, -0.15, -10, -4, -0.15)
+
+[sub_resource type="BoxMesh" id="BoxMesh_uw8js"]
+size = Vector3(0.3, 8, 5)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_1m3sa"]
+data = PackedVector3Array(-0.15, 4, 2.5, 0.15, 4, 2.5, -0.15, -4, 2.5, 0.15, 4, 2.5, 0.15, -4, 2.5, -0.15, -4, 2.5, 0.15, 4, -2.5, -0.15, 4, -2.5, 0.15, -4, -2.5, -0.15, 4, -2.5, -0.15, -4, -2.5, 0.15, -4, -2.5, 0.15, 4, 2.5, 0.15, 4, -2.5, 0.15, -4, 2.5, 0.15, 4, -2.5, 0.15, -4, -2.5, 0.15, -4, 2.5, -0.15, 4, -2.5, -0.15, 4, 2.5, -0.15, -4, -2.5, -0.15, 4, 2.5, -0.15, -4, 2.5, -0.15, -4, -2.5, 0.15, 4, 2.5, -0.15, 4, 2.5, 0.15, 4, -2.5, -0.15, 4, 2.5, -0.15, 4, -2.5, 0.15, 4, -2.5, -0.15, -4, 2.5, 0.15, -4, 2.5, -0.15, -4, -2.5, 0.15, -4, 2.5, 0.15, -4, -2.5, -0.15, -4, -2.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_udoy6"]
+size = Vector3(0.3, 2, 9.5)
+
+[node name="Level3" type="Node3D"]
+script = ExtResource("1_2avwe")
+
+[node name="Geometry" type="Node3D" parent="."]
+
+[node name="Water" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, -1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 8, 0)
+cast_shadow = 0
+mesh = SubResource("PlaneMesh_3pv61")
+skeleton = NodePath("../..")
+surface_material_override/0 = SubResource("ShaderMaterial_7l1pm")
+
+[node name="Floor" type="MeshInstance3D" parent="Geometry"]
+mesh = SubResource("BoxMesh_5sf5a")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Floor"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vgeit")
+
+[node name="Wall1" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.93515, -9.85519)
+mesh = SubResource("BoxMesh_8kv8v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dt1x3")
+
+[node name="Wall2" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.93515, 9.8209)
+mesh = SubResource("BoxMesh_8kv8v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dt1x3")
+
+[node name="Wall3" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -9.85566, 3.93515, -0.328274)
+mesh = SubResource("BoxMesh_8kv8v")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/Wall3"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Wall3/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_dt1x3")
+
+[node name="DoorWall1" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.84164, 3.91352, 7.18278)
+mesh = SubResource("BoxMesh_uw8js")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/DoorWall1"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/DoorWall1/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1m3sa")
+
+[node name="DoorWall2" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.84164, 3.92382, -7.18743)
+mesh = SubResource("BoxMesh_uw8js")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Geometry/DoorWall2"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/DoorWall2/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_1m3sa")
+
+[node name="DoorWallTop" type="MeshInstance3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.84352, 6.90323, 0.0078789)
+mesh = SubResource("BoxMesh_udoy6")
+
+[node name="Door2" parent="Geometry" instance=ExtResource("8_k2wjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.85007, 3.04402, 2.32724)
+mass = 22.64
+continuous_cd = true
+contact_monitor = true
+
+[node name="LeftDoorHinge" type="HingeJoint3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 9.79854, 3.24577, -4.68089)
+node_a = NodePath("../DoorWall2/StaticBody3D")
+node_b = NodePath("../Door3")
+angular_limit/enable = true
+angular_limit/lower = -1.62316
+
+[node name="RightDoorHinge" type="HingeJoint3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 9.79854, 3.24577, 4.7517)
+node_a = NodePath("../DoorWall1/StaticBody3D")
+node_b = NodePath("../Door2")
+angular_limit/enable = true
+angular_limit/lower = -1.62316
+
+[node name="Door3" parent="Geometry" instance=ExtResource("8_k2wjb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.85007, 3.04402, -2.38616)
+mass = 68.97
+continuous_cd = true
+contact_monitor = true
+
+[node name="PlayerStart" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.510011, 0)
+
+[node name="ShotgunPickup" parent="." instance=ExtResource("9_1ghy1")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.41006, 0.766459, -4.9766)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.77511, 0.559563)
+light_color = Color(0.666667, 0.407843, 0.282353, 1)
+light_energy = 5.725
+omni_range = 41.71

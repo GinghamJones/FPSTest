@@ -19,9 +19,6 @@ var bullet_level : int = 0
 var kill_ceiling : int = 3
 var enemies_killed : int = 0
 
-var doors 
-
-
 signal level_changed
 signal speed_changed
 
@@ -61,10 +58,7 @@ func game_loaded():
 	
 	connect("level_changed", Callable(hud, "on_level_changed"))
 	connect("speed_changed", Callable(hud, "on_speed_changed"))
-	
-	
-func level2_loaded():
-	pass
+
 	
 func gun_fired():
 	bullets_fired += 1
