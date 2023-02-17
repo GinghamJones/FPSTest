@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://vvakneaplepl"]
+[gd_scene load_steps=21 format=3 uid="uid://vvakneaplepl"]
 
 [ext_resource type="Shader" uid="uid://blkcpc4r2h81r" path="res://Levels/level.tres" id="1_cla4x"]
 [ext_resource type="Script" path="res://Levels/level.gd" id="1_fpn48"]
@@ -76,6 +76,9 @@ albedo_color = Color(0.172549, 0.172549, 0.172549, 1)
 metallic = 0.27
 roughness = 0.61
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_7u3b1"]
+size = Vector3(15.0871, 5.80842, 15.4749)
+
 [node name="Level" type="Node3D"]
 script = ExtResource("1_fpn48")
 
@@ -84,7 +87,7 @@ environment = SubResource("Environment_yrsak")
 
 [node name="FogVolume" type="FogVolume" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.78656, 0)
-extents = Vector3(12.373, 2.51006, 10.0953)
+size = Vector3(24.746, 5.02012, 20.1906)
 material = SubResource("FogMaterial_4e5pp")
 
 [node name="PlayerSpawn" type="Marker3D" parent="."]
@@ -201,3 +204,11 @@ use_collision = true
 collision_mask = 27
 size = Vector3(0.347627, 1.60389, 15.9661)
 material = SubResource("StandardMaterial3D_eym2v")
+
+[node name="Area3D" type="Area3D" parent="."]
+audio_bus_override = true
+audio_bus_name = &"Level1"
+reverb_bus_name = &"Level1"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_7u3b1")

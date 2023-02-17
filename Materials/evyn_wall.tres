@@ -1,0 +1,12 @@
+[gd_resource type="StandardMaterial3D" load_steps=3 format=3 uid="uid://c7fajjskeef5y"]
+
+[ext_resource type="Texture2D" uid="uid://brb1garr47ljn" path="res://Textures/Evyn Wall/Level_1_Wall_Diffuse_1K.png" id="1_xb84b"]
+[ext_resource type="Texture2D" uid="uid://cfq2ts8dtvm7d" path="res://Textures/Evyn Wall/Level_1_Wall_Normal_1K.png" id="2_tv3y8"]
+
+[resource]
+albedo_color = Color(0.454902, 0.258824, 1, 1)
+albedo_texture = ExtResource("1_xb84b")
+normal_enabled = true
+normal_texture = ExtResource("2_tv3y8")
+uv1_scale = Vector3(0.271, 0.271, 0.271)
+uv1_triplanar = true

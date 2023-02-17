@@ -22,7 +22,7 @@ var nav_points : Array = []
 var target
 
 @export var search_speed = 2.0
-@export var follow_speed = 6.0
+@export var follow_speed = 4.0
 @export var jump_velocity = 4.5
 @export var turn_speed = 2
 
@@ -63,7 +63,8 @@ func _physics_process(delta):
 			if target_reached() == true:
 				enemy_state = EnemyState.IDLE
 			
-			nav_agent.set_target_position(nav_points[current_nav_point].global_position)
+			if nav_points.size() > 0:
+				nav_agent.set_target_position(nav_points[current_nav_point].global_position)
 			#set_movement_target(nav_points[current_nav_point].global_transform.origin)
 			var current_agent_position: Vector3 = global_position
 			var next_path_position : Vector3 = nav_agent.get_next_path_position()
@@ -90,7 +91,7 @@ func _physics_process(delta):
 			
 		EnemyState.ATTACKING:
 			if global_position.distance_to(player.global_position) > 3:
-				if player != null:
+				if player == null:
 					enemy_state = EnemyState.SEARCHING
 				else:
 					enemy_state = EnemyState.FOLLOWING
@@ -147,7 +148,7 @@ func look_somewhere(pos : Vector3):
 func target_reached() -> bool:
 	if nav_agent.is_target_reached():
 		current_nav_point += 1
-		if current_nav_point > 3:
+		if current_nav_point >= nav_points.size():
 			current_nav_point = 0
 		return true
 	return false	
@@ -216,9 +217,10 @@ func _on_idle_timer_timeout():
 
 
 func _on_navigation_agent_3d_path_changed():
-	if enemy_state != EnemyState.DEAD:
+	if enemy_state != EnemyState.DEAD and nav_points.size() > 0:
 		target = nav_points[current_nav_point]
-
+	else:
+		pass
 
 func _on_form_ow_fuck(damage):
 	health -= damage

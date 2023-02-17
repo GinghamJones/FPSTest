@@ -268,7 +268,8 @@ func do_raycast():
 	if raycast.is_colliding():
 		if raycast.get_collider().is_in_group("Door"):
 			raycast.get_collider().choose_action()
-			
+		if raycast.get_collider().has_method("use"):
+			raycast.get_collider().use()
 
 func set_speed(increase):
 	speed += increase
