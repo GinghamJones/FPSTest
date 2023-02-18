@@ -33,6 +33,7 @@ func open():
 	if anims.is_playing() == false:
 		anims.play("Open")
 		is_open = true
+		LevelManager.level2_complete()
 	
 func close():
 	if anims.is_playing() == false:

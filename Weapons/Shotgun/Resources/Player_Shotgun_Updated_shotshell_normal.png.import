@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dl4vnlnr72dtm"
-path.s3tc="res://.godot/imported/Player_Shotgun_Updated_shotshell_normal.png-3e585061dcd1b492ca50e7a61d4cde20.s3tc.ctex"
+path.s3tc="res://.godot/imported/Player_Shotgun_Updated_shotshell_normal.png-7d38bd344080e6d74a2a80a29427d062.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Weapons/Shotgun/Player_Shotgun_Updated_shotshell_normal.png"
-dest_files=["res://.godot/imported/Player_Shotgun_Updated_shotshell_normal.png-3e585061dcd1b492ca50e7a61d4cde20.s3tc.ctex"]
+source_file="res://Weapons/Shotgun/Resources/Player_Shotgun_Updated_shotshell_normal.png"
+dest_files=["res://.godot/imported/Player_Shotgun_Updated_shotshell_normal.png-7d38bd344080e6d74a2a80a29427d062.s3tc.ctex"]
 
 [params]
 

@@ -1,0 +1,170 @@
+[gd_scene load_steps=20 format=3 uid="uid://cngr7fbbq7dji"]
+
+[ext_resource type="Script" path="res://Enemy/rangedenemy.gd" id="1_n34cr"]
+[ext_resource type="Script" path="res://Enemy/Head.gd" id="2_f6j6i"]
+[ext_resource type="Script" path="res://Enemy/Body.gd" id="3_tx182"]
+[ext_resource type="Script" path="res://Enemy/LeftLeg.gd" id="4_d1hnu"]
+[ext_resource type="Script" path="res://Enemy/RightLeg.gd" id="5_uvy2a"]
+[ext_resource type="Script" path="res://Enemy/RightArm.gd" id="6_k3dx5"]
+[ext_resource type="PackedScene" uid="uid://b7i1nkr4pbspi" path="res://Weapons/Shotgun/shotgun_2.tscn" id="7_pytee"]
+[ext_resource type="Script" path="res://Enemy/LeftArm.gd" id="8_qelsn"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_teaf4"]
+size = Vector3(12.6673, 3.55415, 14.3274)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o0b6q"]
+albedo_color = Color(0.231373, 0.231373, 0.231373, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8vhny"]
+albedo_color = Color(0.933333, 0.0745098, 0, 1)
+metallic = 1.0
+roughness = 0.29
+emission_enabled = true
+emission = Color(0.931742, 0.0750032, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2vpxk"]
+albedo_color = Color(0.104565, 0.248398, 1, 1)
+metallic = 0.24
+roughness = 0.0
+emission_enabled = true
+emission = Color(0.105882, 0.247059, 1, 1)
+emission_energy_multiplier = 4.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_l6oke"]
+material = SubResource("StandardMaterial3D_2vpxk")
+radius = 0.02
+height = 0.04
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_cwkox"]
+albedo_color = Color(0.203922, 0, 0.945098, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_h513y"]
+albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_eu0wk"]
+albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8l80c"]
+albedo_color = Color(0.432997, 0.00188923, 0.995624, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_t00cg"]
+albedo_color = Color(0.431373, 0, 0.996078, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_3jeke"]
+radius = 0.422921
+
+[node name="Rangedenemy" type="CharacterBody3D" groups=["EnemyNav"]]
+collision_layer = 16
+collision_mask = 3
+script = ExtResource("1_n34cr")
+
+[node name="DetectionArea" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.41847, 0)
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea"]
+shape = SubResource("BoxShape3D_teaf4")
+
+[node name="Form" type="Node3D" parent="."]
+transform = Transform3D(1.31134e-07, 0, -1, 0, 1, 0, 1, 0, 1.31134e-07, 0, 0.263098, 0)
+
+[node name="Head" type="CSGBox3D" parent="Form" groups=["Enemy"]]
+transform = Transform3D(-3.61999e-06, 0, -1, 0, 1, 0, 1, 0, -3.61999e-06, 0, 1.71774, 0)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.3, 0.3, 0.3)
+material = SubResource("StandardMaterial3D_o0b6q")
+script = ExtResource("2_f6j6i")
+
+[node name="Eye" type="CSGSphere3D" parent="Form/Head"]
+transform = Transform3D(1, -4.37114e-08, -4.37114e-08, 4.37114e-08, -4.37114e-08, 1, -4.37114e-08, -1, -4.37114e-08, -0.0306576, 0, -0.139995)
+radius = 0.0568933
+material = SubResource("StandardMaterial3D_8vhny")
+
+[node name="Eyeball" type="MeshInstance3D" parent="Form/Head/Eye"]
+transform = Transform3D(1, 0, 0, 0, 1, -8.35188e-23, 0, 0, 1, 0, 0.0434123, 0)
+mesh = SubResource("SphereMesh_l6oke")
+
+[node name="BitchFinder" type="RayCast3D" parent="Form/Head"]
+transform = Transform3D(-7.34108e-08, -4.86081e-09, 1, -0.0685899, 0.997645, 1.92835e-09, -0.997645, -0.0685899, -7.35137e-08, 0, -0.0210547, 0)
+target_position = Vector3(10, 0, 0)
+collision_mask = 3
+
+[node name="Body" type="CSGBox3D" parent="Form" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.16415, 0)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.382572, 0.807481, 0.45541)
+material = SubResource("StandardMaterial3D_cwkox")
+script = ExtResource("3_tx182")
+
+[node name="LeftLegRotator" type="Node3D" parent="Form"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.821006, -0.153385)
+
+[node name="LeftLeg" type="CSGBox3D" parent="Form/LeftLegRotator" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.552771, 0.0128016)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("StandardMaterial3D_h513y")
+script = ExtResource("4_d1hnu")
+
+[node name="RightLegRotator" type="Node3D" parent="Form"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.774477, 0.16354)
+
+[node name="RightLeg" type="CSGBox3D" parent="Form/RightLegRotator" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.506242, -0.0340455)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.2, 1, 0.2)
+material = SubResource("StandardMaterial3D_eu0wk")
+script = ExtResource("5_uvy2a")
+
+[node name="RightArmRotator" type="Node3D" parent="Form"]
+transform = Transform3D(0.18925, -0.981929, -1.07165e-09, 0.981929, 0.18925, -1.67306e-08, 1.66311e-08, 2.11398e-09, 1, 0, 1.449, 0.332166)
+
+[node name="RightArm" type="CSGBox3D" parent="Form/RightArmRotator" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.309366, 0.000503629)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.2, 0.637738, 0.2)
+material = SubResource("StandardMaterial3D_8l80c")
+script = ExtResource("6_k3dx5")
+
+[node name="Shotgun2" parent="Form/RightArmRotator/RightArm" instance=ExtResource("7_pytee")]
+transform = Transform3D(-0.19763, 0.978287, 0.0624248, -0.0123611, 0.0611887, -0.99805, -0.980199, -0.198017, -3.952e-08, -0.104688, 1.49012e-08, -0.132077)
+
+[node name="LeftArmRotator" type="Node3D" parent="Form"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4631, -0.334152)
+
+[node name="LeftArm" type="CSGBox3D" parent="Form/LeftArmRotator" groups=["Enemy"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.33489, -0.00271657)
+use_collision = true
+collision_layer = 128
+collision_mask = 8
+size = Vector3(0.2, 0.668884, 0.2)
+material = SubResource("StandardMaterial3D_t00cg")
+script = ExtResource("8_qelsn")
+
+[node name="GeneralCol" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.01784, 0)
+shape = SubResource("CapsuleShape3D_3jeke")
+
+[node name="FireTimer" type="Timer" parent="."]
+wait_time = 2.419
+one_shot = true
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="ow_fuck" from="Form/Head" to="." method="_on_head_ow_fuck"]
+[connection signal="ow_fuck" from="Form/Body" to="." method="_on_body_ow_fuck"]
+[connection signal="ow_fuck" from="Form/LeftLegRotator/LeftLeg" to="." method="_on_left_leg_ow_fuck"]
+[connection signal="ow_fuck" from="Form/RightLegRotator/RightLeg" to="." method="_on_right_leg_ow_fuck"]
+[connection signal="ow_fuck" from="Form/RightArmRotator/RightArm" to="." method="_on_right_arm_ow_fuck"]
+[connection signal="ow_fuck" from="Form/LeftArmRotator/LeftArm" to="." method="_on_left_arm_ow_fuck"]
+[connection signal="timeout" from="FireTimer" to="." method="_on_fire_timer_timeout"]

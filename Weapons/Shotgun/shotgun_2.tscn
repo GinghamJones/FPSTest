@@ -46,7 +46,7 @@ albedo_texture = ExtResource("7_sg50k")
 material = SubResource("StandardMaterial3D_mo2bf")
 size = Vector2(0.1, 0.1)
 
-[node name="Shotgun 2" instance=ExtResource("1_7wq7w")]
+[node name="Shotgun2" instance=ExtResource("1_7wq7w")]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.104688, 0, -0.132077)
 script = ExtResource("2_jv27o")
 gun_name = "Shotgun"
@@ -60,7 +60,6 @@ bullet_spread = Vector2(0.1, 0.05)
 stream = ExtResource("3_vojjl")
 volume_db = -7.046
 max_db = -6.71
-bus = &"Room"
 attenuation_filter_cutoff_hz = 16000.0
 
 [node name="Reload" type="AudioStreamPlayer3D" parent="." index="1"]

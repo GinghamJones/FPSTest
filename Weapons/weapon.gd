@@ -19,7 +19,7 @@ class_name Weapon
 
 var bullets_in_mag : int
 var available_bullets : int
-var gun_owner : String
+var gun_owner : CharacterBody3D
 var spread_randomizer = RandomNumberGenerator.new()
 
 var can_fire : bool = true

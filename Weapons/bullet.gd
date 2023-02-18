@@ -45,6 +45,10 @@ func _on_body_entered(body):
 		if body.is_in_group("Enemy"):
 			if raycast.get_collider() != null:
 				do_blood_stuff(body)
+		
+		if body.is_in_group("Player"):
+			if raycast.get_collider() != null:
+				body.take_damage(bullet_damage)
 
 		hit_something = true
 		$Timer.start()
@@ -88,8 +92,10 @@ func reset():
 	timer = 0
 	bullet_damage = what_fired_me.damage
 	speed = what_fired_me.bullet_speed
-
-	collision_exception = get_tree().get_nodes_in_group(what_fired_me.gun_owner)[0]
+	
+	if what_fired_me.gun_owner == null:
+		printerr("the fuck?")
+	collision_exception = what_fired_me.gun_owner
 	add_collision_exception_with(collision_exception)
 	#set_physics_process(true)
 	show()

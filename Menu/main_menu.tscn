@@ -30,6 +30,14 @@ theme_override_font_sizes/font_size = 36
 text = "Start"
 icon_alignment = 1
 
+[node name="LevelSelButton" type="Button" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_fonts/font = ExtResource("2_4am4v")
+theme_override_font_sizes/font_size = 36
+text = "Level Seclect"
+icon_alignment = 1
+
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -80,6 +88,7 @@ text = "Level 3
 "
 
 [connection signal="pressed" from="VBoxContainer/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="VBoxContainer/LevelSelButton" to="." method="_on_level_sel_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
 [connection signal="pressed" from="Level1" to="." method="_on_level_1_pressed"]

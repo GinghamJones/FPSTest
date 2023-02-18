@@ -58,7 +58,8 @@ func _physics_process(delta):
 			if idle_timer.is_stopped() == true:
 				idle_timer.start()
 			rotation.y += 2 * delta
-				
+		
+		# Rename to patrolling
 		EnemyState.SEARCHING:
 			if target_reached() == true:
 				enemy_state = EnemyState.IDLE
@@ -226,14 +227,13 @@ func _on_form_ow_fuck(damage):
 	health -= damage
 	update_health(health)
 		
-	if health <= 0:
-		enemy_state = EnemyState.DEAD
+#	if health <= 0:
+#		enemy_state = EnemyState.DEAD
 
 
 func _on_detection_cone_body_entered(body):
 	if body.is_in_group("Player"):
 		#player_in_view = true
-		print("player entered")
 		player = body
 		enemy_state = EnemyState.FOLLOWING
 
@@ -241,7 +241,6 @@ func _on_detection_cone_body_entered(body):
 func _on_detection_cone_body_exited(body):
 	if body.is_in_group("Player"):
 		player = null
-		print("player exited")
 		#player_in_view = false
 		enemy_state = EnemyState.SEARCHING
 

@@ -10,7 +10,7 @@ size = Vector3(0.383, 0.807, 0.455)
 [sub_resource type="BoxShape3D" id="BoxShape3D_18261"]
 size = Vector3(0.383, 0.807, 0.455)
 
-[node name="BodyLimb" type="RigidBody3D"]
+[node name="BodyLimb" type="RigidBody3D" groups=["Limb"]]
 collision_layer = 128
 collision_mask = 11
 contact_monitor = true

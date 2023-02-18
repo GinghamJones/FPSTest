@@ -10,7 +10,7 @@ size = Vector3(0.2, 0.6, 0.2)
 [sub_resource type="BoxShape3D" id="BoxShape3D_fh1tq"]
 size = Vector3(0.2, 0.6, 0.2)
 
-[node name="ArmLimb" type="RigidBody3D"]
+[node name="ArmLimb" type="RigidBody3D" groups=["Limb"]]
 collision_layer = 128
 collision_mask = 11
 mass = 0.09

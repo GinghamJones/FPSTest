@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://w73bh07ggdr8"
-path.s3tc="res://.godot/imported/Player_Shotgun_Updated_arm.png-e7d7a0e3feafba2e257b0e288ddcee07.s3tc.ctex"
+uid="uid://ctf7fucgsv6c2"
+path.s3tc="res://.godot/imported/Player_Shotgun_Updated_shotshell_metal.png-40d9538734ac26572b659af14653ba39.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Weapons/Shotgun/Player_Shotgun_Updated_arm.png"
-dest_files=["res://.godot/imported/Player_Shotgun_Updated_arm.png-e7d7a0e3feafba2e257b0e288ddcee07.s3tc.ctex"]
+source_file="res://Weapons/Shotgun/Resources/Player_Shotgun_Updated_shotshell_metal.png"
+dest_files=["res://.godot/imported/Player_Shotgun_Updated_shotshell_metal.png-40d9538734ac26572b659af14653ba39.s3tc.ctex"]
 
 [params]
 

@@ -35,10 +35,15 @@ offset_left = 297.0
 offset_top = 109.0
 offset_right = 688.0
 offset_bottom = 310.0
+theme_override_constants/separation = 8
 
 [node name="ResolutionsMenu" type="OptionButton" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3oycn")
+
+[node name="MSAAText" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "MSAA"
 
 [node name="MSAASlider" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
@@ -50,6 +55,10 @@ ticks_on_borders = true
 layout_mode = 2
 theme_override_fonts/font = ExtResource("2_3oycn")
 text = "Use TAA"
+
+[node name="ShadowText" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Shadow Quality: "
 
 [node name="ShadowQuality" type="HSlider" parent="VBoxContainer"]
 layout_mode = 2
@@ -87,9 +96,9 @@ text = "Fullscreen"
 
 [node name="Windowed" type="Button" parent="."]
 layout_mode = 0
-offset_left = 310.0
+offset_left = 303.0
 offset_top = 549.0
-offset_right = 682.0
+offset_right = 683.0
 offset_bottom = 607.0
 text = "Windowed"
 

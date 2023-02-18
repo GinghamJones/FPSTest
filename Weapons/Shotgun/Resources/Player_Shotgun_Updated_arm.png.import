@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bikmt5ff8srep"
-path.s3tc="res://.godot/imported/Player_Shotgun_Updated_arm_normal.png-74caec05f45e37293264fa630b618381.s3tc.ctex"
+uid="uid://w73bh07ggdr8"
+path.s3tc="res://.godot/imported/Player_Shotgun_Updated_arm.png-26c37b263f2e554e7115da7b229fb849.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Weapons/Shotgun/Player_Shotgun_Updated_arm_normal.png"
-dest_files=["res://.godot/imported/Player_Shotgun_Updated_arm_normal.png-74caec05f45e37293264fa630b618381.s3tc.ctex"]
+source_file="res://Weapons/Shotgun/Resources/Player_Shotgun_Updated_arm.png"
+dest_files=["res://.godot/imported/Player_Shotgun_Updated_arm.png-26c37b263f2e554e7115da7b229fb849.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=1
+compress/normal_map=0
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=1
-roughness/src_normal="res://Weapons/Shotgun/Player_Shotgun_Updated_arm_normal.png"
+roughness/mode=0
+roughness/src_normal=""
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

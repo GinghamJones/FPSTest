@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://ctf7fucgsv6c2"
-path.s3tc="res://.godot/imported/Player_Shotgun_Updated_shotshell_metal.png-88b61441ef15debf4f72dcc551d846ca.s3tc.ctex"
+uid="uid://dfmn1roigim3q"
+path.s3tc="res://.godot/imported/Player_Shotgun_Updated_shotgunnormal.png-2d5f4904aef83409c31baa7f64e94f07.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://Weapons/Shotgun/Player_Shotgun_Updated_shotshell_metal.png"
-dest_files=["res://.godot/imported/Player_Shotgun_Updated_shotshell_metal.png-88b61441ef15debf4f72dcc551d846ca.s3tc.ctex"]
+source_file="res://Weapons/Shotgun/Resources/Player_Shotgun_Updated_shotgunnormal.png"
+dest_files=["res://.godot/imported/Player_Shotgun_Updated_shotgunnormal.png-2d5f4904aef83409c31baa7f64e94f07.s3tc.ctex"]
 
 [params]
 
@@ -20,12 +20,12 @@ compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/hdr_compression=1
-compress/normal_map=0
+compress/normal_map=1
 compress/channel_pack=0
 mipmaps/generate=true
 mipmaps/limit=-1
-roughness/mode=0
-roughness/src_normal=""
+roughness/mode=1
+roughness/src_normal="res://Weapons/Shotgun/Player_Shotgun_Updated_shotgunnormal.png"
 process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false

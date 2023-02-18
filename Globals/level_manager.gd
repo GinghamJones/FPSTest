@@ -22,7 +22,14 @@ func level_1_pressed():
 	
 	
 func level1_complete():
+	remove_limbs()
 	get_tree().change_scene_to_packed(level2)
+	
+	
+func level2_complete():
+	remove_limbs()
+	get_tree().change_scene_to_packed(level3)
+	
 
 func level_2_pressed():
 	get_tree().change_scene_to_packed(level2)
@@ -34,3 +41,9 @@ func level_3_pressed():
 	get_tree().change_scene_to_packed(level3)
 	get_tree().root.add_child(player)
 	PlayerUpgrade.game_loaded()
+
+
+func remove_limbs():
+	var gored_limbs : Array = get_tree().get_nodes_in_group("Limb")
+	for limb in gored_limbs:
+		limb.queue_free()

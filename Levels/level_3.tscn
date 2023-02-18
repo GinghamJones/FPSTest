@@ -222,10 +222,13 @@ emission = Color(0.235294, 0.235294, 0.235294, 1)
 script = ExtResource("1_2avwe")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.15481, 5.71393, 0.559563)
-light_color = Color(0.666667, 0.407843, 0.282353, 1)
-light_energy = 5.725
-omni_range = 41.71
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.877, 5.71393, 0.559563)
+light_color = Color(0.937255, 0, 0.121569, 1)
+light_energy = 6.086
+light_volumetric_fog_energy = 0.052
+shadow_enabled = true
+omni_range = 11.217
+omni_attenuation = 0.840896
 
 [node name="elevator" parent="." instance=ExtResource("10_p8l0k")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.3073, 2.38419e-07, -0.0500801)
@@ -489,8 +492,30 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.527364, 0.0572269, -0.6334
 [node name="NavPoint" type="Marker3D" parent="Geometry/Box"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.493685, 0, -0.170186)
 
+[node name="ElevatorInstructions" type="Label3D" parent="Geometry"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 18.8424, 2.31512, -0.0500801)
+shaded = true
+alpha_cut = 2
+texture_filter = 0
+modulate = Color(0.92549, 0.92549, 0.92549, 1)
+outline_modulate = Color(0, 0.443137, 0.756863, 1)
+text = "Look at floor and 
+press use"
+font_size = 27
+
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.2698, 4.65083, 0.606)
+light_energy = 2.289
+light_volumetric_fog_energy = 5.939
+shadow_enabled = true
+distance_fade_enabled = true
+spot_range = 2.047
+spot_attenuation = 1.07177
+spot_angle = 29.3
+spot_angle_attenuation = 0.933033
+
+[node name="SpotLight3D7" type="SpotLight3D" parent="."]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 17.239, 2.38056, -0.397859)
 light_energy = 2.289
 light_volumetric_fog_energy = 5.939
 shadow_enabled = true
@@ -528,6 +553,7 @@ environment = SubResource("Environment_ogk8g")
 
 [node name="SpotLight3D4" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.59039, 24.2934, -2.06381)
+visible = false
 light_energy = 5.939
 light_indirect_energy = 2.718
 shadow_enabled = true
@@ -536,6 +562,7 @@ spot_angle = 31.1181
 
 [node name="SpotLight3D5" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 7.59039, 24.2934, 5.59659)
+visible = false
 light_energy = 5.939
 light_indirect_energy = 2.718
 shadow_enabled = true
@@ -555,6 +582,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 18.457, 7.90845, 0)
 size = Vector3(2, 21.8028, 2)
 material = SubResource("FogMaterial_iiegu")
 
+[connection signal="animation_finished" from="elevator/StaticBody3D/ElevatorMove" to="." method="_on_elevator_move_animation_finished"]
+[connection signal="animation_started" from="elevator/StaticBody3D/ElevatorMove" to="." method="_on_elevator_move_animation_started"]
 [connection signal="body_entered" from="BoxStartCol" to="." method="_on_box_start_col_body_entered"]
 
 [editable path="Geometry/Box"]

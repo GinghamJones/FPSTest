@@ -85,7 +85,7 @@ func pickup_weapon(new_weapon):
 			return
 
 	var g = new_weapon
-	g.gun_owner = "Player"
+	g.gun_owner = get_parent().get_parent()
 	add_child(g)
 	weapons.push_back(g)
 	switch_weapon(g)

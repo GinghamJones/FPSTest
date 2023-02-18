@@ -45,14 +45,16 @@ func spawn_a_bitch():
 	set_enemy_nav_points(new_enemy)
 	
 	new_enemy.connect("im_dead_af", Callable(self, "enemy_death"))
-
+ 
 
 func enemy_death():
-	spawn_a_bitch()
-	PlayerUpgrade.enemies_killed += 1
-	enemies_killed += 1
 	if enemies_killed >= 3:
 		$frame/door.can_open = true
+	if enemies_killed < 3:
+		spawn_a_bitch()
+	PlayerUpgrade.enemies_killed += 1
+	enemies_killed += 1
+	
 
 	
 func set_enemy_nav_points(new_enemy):

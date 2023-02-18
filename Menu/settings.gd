@@ -1,5 +1,6 @@
 extends Control
 @onready var res_menu : OptionButton = $VBoxContainer/ResolutionsMenu
+@onready var msaa_text : Label = $VBoxContainer/MSAAText
 
 
 var Resolutions : Dictionary = {"2560 x 1440" : Vector2(2560, 1440),
@@ -37,12 +38,9 @@ func _on_resolutions_menu_item_selected(index):
 	DisplayServer.window_set_size(window_size)
 	
 
-
 func _on_msaa_slider_value_changed(value):
 	get_viewport().msaa_3d = value
-	print($VBoxContainer/MSAASlider.value)
-	print(get_viewport().msaa_3d)
-
+	msaa_text.set_text("MSAA     " + str(get_viewport().msaa_3d))
 
 
 func _on_taa_box_toggled(button_pressed):
@@ -51,6 +49,7 @@ func _on_taa_box_toggled(button_pressed):
 
 func _on_shadow_quality_value_changed(value):
 	RenderingServer.positional_soft_shadow_filter_set_quality(value)
+	$VBoxContainer/ShadowText.set_text("Shadow Quality: " + str(ProjectSettings.get_setting("Positional Soft Shadow Filter Quality")))
 
 
 func _on_check_box_pressed():

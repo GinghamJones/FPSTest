@@ -12,9 +12,7 @@ func _ready():
 
 
 func _on_start_button_pressed():
-	$Level1.visible = true
-	$Level2.visible = true
-	$Level3.visible = true
+	emit_signal("level1_start")
 
 
 func _on_settings_button_pressed():
@@ -40,3 +38,9 @@ func _on_level_2_pressed():
 
 func _on_level_3_pressed():
 	emit_signal("level3_start")
+
+
+func _on_level_sel_button_pressed() -> void:
+	$Level1.visible = true
+	$Level2.visible = true
+	$Level3.visible = true

@@ -1,11 +1,15 @@
+Label3D
+Label
+Button
+CollisionShape3D
+Area3D
+CharacterBody3D
 VoxelGI
 FogVolume
 SpotLight3D
 WorldEnvironment
 NavigationRegion3D
 Marker3D
-CollisionShape3D
-Area3D
 StaticBody3D
 AnimationPlayer
 AnimationTree
@@ -24,9 +28,6 @@ OptionButton
 MenuButton
 Sprite3D
 CSGBox3D
-Label
 ReflectionProbe
 VBoxContainer
-Button
 Sprite2D
-CPUParticles3D

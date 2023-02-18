@@ -10,7 +10,6 @@ extends Weapon
 
 
 func fire():
-	print(gun_owner)
 	if bullets_in_mag == 0 or is_firing == true:
 		can_fire = false
 	else:
@@ -24,10 +23,10 @@ func fire():
 		
 		fire_sound.play()
 		fire_rate.start()
-
+		
 		for i in 10:
 			spawn_bullet()
-		
+
 		PlayerUpgrade.gun_fired()
 		bullets_in_mag -= 1
 

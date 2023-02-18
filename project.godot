@@ -39,7 +39,7 @@ version_control/autoload_on_startup=true
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/monitor_overlay/plugin.cfg")
+enabled=PackedStringArray("res://addons/monitor_overlay/plugin.cfg", "res://addons/script-name-on-top/plugin.cfg")
 
 [gui]
 
