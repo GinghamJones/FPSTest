@@ -1,9 +1,7 @@
-[gd_scene load_steps=14 format=3 uid="uid://b7i1nkr4pbspi"]
+[gd_scene load_steps=12 format=3 uid="uid://b7i1nkr4pbspi"]
 
-[ext_resource type="PackedScene" uid="uid://m7xyfdg1014n" path="res://Weapons/weapon.tscn" id="1_7wq7w"]
 [ext_resource type="Script" path="res://Weapons/Shotgun/shotgun_2.gd" id="2_jv27o"]
 [ext_resource type="AudioStream" uid="uid://luvduyi2mf0f" path="res://Weapons/Shotgun/Shotgun_Blast-Jim_Rogers-1914772763.mp3" id="3_vojjl"]
-[ext_resource type="AudioStream" uid="uid://c2um3ugx3s646" path="res://Weapons/Shotgun/shotgun-reload-old_school-RA_The_Sun_God-580332022.mp3" id="5_gjx00"]
 [ext_resource type="PackedScene" uid="uid://b1fgv5kw5nj3t" path="res://Weapons/Shotgun/Player_Shotgun.glb" id="5_jhu4t"]
 [ext_resource type="Texture2D" uid="uid://1bgf8g8ew8he" path="res://Weapons/MuzzleFlashes/muzzle_01.png" id="6_n6kke"]
 [ext_resource type="Texture2D" uid="uid://cjwpg0oogjald" path="res://Weapons/Smoke/smoke_03.png" id="7_sg50k"]
@@ -46,41 +44,43 @@ albedo_texture = ExtResource("7_sg50k")
 material = SubResource("StandardMaterial3D_mo2bf")
 size = Vector2(0.1, 0.1)
 
-[node name="Shotgun2" instance=ExtResource("1_7wq7w")]
+[node name="Shotgun2" type="Node3D"]
 transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.104688, 0, -0.132077)
 script = ExtResource("2_jv27o")
 gun_name = "Shotgun"
 mag_size = 2
 damage = 5
 single_fire = true
-bullet_speed = 20.0
+bullet_speed = 10.0
 bullet_spread = Vector2(0.1, 0.05)
 
-[node name="FireSound" parent="." index="0"]
+[node name="FireSound" type="AudioStreamPlayer3D" parent="."]
 stream = ExtResource("3_vojjl")
 volume_db = -7.046
 max_db = -6.71
+panning_strength = 0.3
 attenuation_filter_cutoff_hz = 16000.0
 
-[node name="Reload" type="AudioStreamPlayer3D" parent="." index="1"]
-stream = ExtResource("5_gjx00")
+[node name="Reload" type="AudioStreamPlayer3D" parent="."]
 
-[node name="ReloadTimer" parent="." index="2"]
+[node name="ReloadTimer" type="Timer" parent="."]
 wait_time = 2.4
+one_shot = true
 
-[node name="FireRate" parent="." index="3"]
+[node name="FireRate" type="Timer" parent="."]
 wait_time = 0.4
+one_shot = true
 
-[node name="GunModel" parent="." index="4"]
+[node name="GunModel" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.2093e-08, -0.461989, -0.252715)
 
-[node name="Player_Shotgun" parent="." index="5" instance=ExtResource("5_jhu4t")]
+[node name="Player_Shotgun" parent="." instance=ExtResource("5_jhu4t")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.62591e-08, -1.62961, -0.64353)
 
-[node name="Muzzle" type="Marker3D" parent="Player_Shotgun" index="83"]
+[node name="Muzzle" type="Marker3D" parent="Player_Shotgun"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.110335, 1.66191, 1.13654)
 
-[node name="MuzzleFlash" type="GPUParticles3D" parent="." index="6"]
+[node name="MuzzleFlash" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, -8.74228e-08, 8.74228e-08, 8.74228e-08, -4.37114e-08, -1, 8.74228e-08, 1, -4.37114e-08, -6.95504e-08, 0.0598458, 0.795565)
 visible = false
 cast_shadow = 0
@@ -93,7 +93,7 @@ trail_lifetime = 1.21
 process_material = SubResource("ParticleProcessMaterial_3ham6")
 draw_pass_1 = SubResource("QuadMesh_nf2bu")
 
-[node name="Smoke" type="GPUParticles3D" parent="." index="7"]
+[node name="Smoke" type="GPUParticles3D" parent="."]
 transform = Transform3D(1, -7.10543e-15, -7.10543e-15, -7.10543e-15, 1, 0, -7.10543e-15, -6.21176e-22, 1, -3.9928e-08, 0.0936333, 0.456722)
 visible = false
 emitting = false

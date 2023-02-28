@@ -35,7 +35,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_fonts/font = ExtResource("2_4am4v")
 theme_override_font_sizes/font_size = 36
-text = "Level Seclect"
+text = "Level Select"
 icon_alignment = 1
 
 [node name="SettingsButton" type="Button" parent="VBoxContainer"]

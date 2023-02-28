@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://lknibfyx8b28"]
+[gd_scene load_steps=25 format=3 uid="uid://lknibfyx8b28"]
 
 [ext_resource type="Script" path="res://Player/player.gd" id="1_7shlp"]
 [ext_resource type="Script" path="res://Player/WeaponHolder.gd" id="2_ia431"]
@@ -86,6 +86,34 @@ tracks/2/keys = {
 "values": [Vector3(0, 0.6, 0.328489), Vector3(0, 0.0603297, 0.328489)]
 }
 
+[sub_resource type="Animation" id="Animation_4b40x"]
+resource_name = "Die"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 1.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1, 0), Vector3(0, 1, 0.335631), Vector3(0, 1, 0.336), Vector3(0, 0.50271, 1.48567)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.3, 1.1),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(0, 0, 0), Vector3(1.5708, 0, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_6wwms"]
 length = 0.001
 tracks/0/type = "value"
@@ -148,6 +176,30 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector3(0, 0.6, 0.328489)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath(".:position")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1, 0)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath(".:rotation")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
 
 [sub_resource type="Animation" id="Animation_s0rtw"]
 resource_name = "Walk"
@@ -183,6 +235,7 @@ tracks/1/keys = {
 _data = {
 "ADS": SubResource("Animation_nc300"),
 "Crouch": SubResource("Animation_wnptr"),
+"Die": SubResource("Animation_4b40x"),
 "RESET": SubResource("Animation_6wwms"),
 "Walk": SubResource("Animation_s0rtw")
 }

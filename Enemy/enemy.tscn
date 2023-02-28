@@ -409,6 +409,23 @@ tracks/3/keys = {
 "update": 0,
 "values": [Vector3(0, 0, 0), Vector3(0, 0, 0.454379), Vector3(0, 0, -0.411762)]
 }
+tracks/4/type = "method"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath(".")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.6, 1.1),
+"transitions": PackedFloat32Array(1, 1),
+"values": [{
+"args": [],
+"method": &"spawn_left_foot_particle"
+}, {
+"args": [],
+"method": &"spawn_right_foot_particle"
+}]
+}
 
 [sub_resource type="Animation" id="Animation_w5134"]
 resource_name = "walk_equipped"

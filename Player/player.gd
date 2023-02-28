@@ -7,6 +7,7 @@ extends CharacterBody3D
 @onready var flashlight = $PlayerCamera/Flashlight
 @onready var weapon_holder = $PlayerCamera/WeaponHolder
 @onready var hud : Control = $HUD
+@onready var menu : PackedScene = preload("res://Menu/settings.tscn")
 
 # Vars for mouse look
 var mouseDelta : Vector2 = Vector2()
@@ -30,11 +31,9 @@ var no_clip : bool = false
 
 var did_i_pickup : bool = false
 var can_pickup = false
-var gun_instance : Weapon
+var pickup : WeaponPickup
 var aiming : bool = false
 var is_crouching : bool = false
-var paused : bool = false
-var m
 
 # Vars for physics
 @export var speed : float = 3.0 :
@@ -61,6 +60,7 @@ var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 
 signal picked_up(player)
 signal health_changed(health)
+signal game_fuckin_over
 
 func _ready():
 	use_text.hide()
@@ -68,10 +68,10 @@ func _ready():
 	anims.play("RESET")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	hud.update_health(cur_health)
-	var menu : PackedScene = load("res://Menu/settings.tscn")
-	m = menu.instantiate()
-	add_child(m)
-	m.hide()
+#	var menu : PackedScene = load("res://Menu/settings.tscn")
+#	m = menu.instantiate()
+#	add_child(m)
+#	m.hide()
 	#emit_signal("health_changed", cur_health)
 	
 func _unhandled_input(event):
@@ -100,17 +100,15 @@ func _unhandled_input(event):
 		
 	if event.is_action_pressed("use"):
 		if can_pickup:
-			weapon_holder.pickup_weapon(gun_instance)
+			weapon_holder.pickup_weapon(pickup)
 			did_i_pickup = true
 		do_raycast()
 	
 	if event.is_action_pressed("pause"):
-		if not paused:
-			paused = true
-			m.show()
-		else:
-			paused = false
-			m.hide()
+		toggle_cursor()
+		var m = menu.instantiate()
+		add_child(m)
+		get_tree().paused = true
 	
 	if event.is_action_pressed("aim"):
 		$ADSAnim.play("ADS")
@@ -119,9 +117,6 @@ func _unhandled_input(event):
 	if event.is_action_released("aim"):
 		$ADSAnim.play_backwards("ADS")
 		aiming = false
-		
-	if event.is_action_pressed("toggle_cursor"):
-		toggle_cursor()
 		
 	if event.is_action_pressed("no_clip"):
 		toggle_noclip()
@@ -241,16 +236,28 @@ func take_damage(new_damage):
 	
 	cur_health -= new_damage
 	hud.update_health(cur_health)
+	if cur_health < 0:
+		die()
 	$DamageTimer.start()
 	await $DamageTimer.timeout
 	#emit_signal("health_changed")
 
 
-func pickup_available(weapon : PackedScene):
+func die():
+	set_physics_process(false)
+	set_process(false)
+	anims.play("Die")
+	#game_fuckin_over.connect(Callable(LevelManager, "game_over"))
+	await anims.animation_finished
+	emit_signal("game_fuckin_over")
+	
+
+func pickup_available(pickup : WeaponPickup):
 	# Get weapon scene from pickup and prepare gun_instance for WeaponHolder to receive. See "use" in unhandled input above
 	did_i_pickup = false
-	gun_instance = weapon.instantiate()
-	use_text.text = "Press E to pick up " + gun_instance.gun_name
+	var g = pickup.weapon.instantiate()
+	pickup = g
+	use_text.text = "Press E to pick up " + pickup.gun_name
 	use_text.show()
 	can_pickup = true
 

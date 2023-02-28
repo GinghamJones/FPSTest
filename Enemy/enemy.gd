@@ -10,6 +10,7 @@ extends CharacterBody3D
 @onready var detection_area : Area3D = $Form/Head/DetectionCone
 @onready var nav_agent = $NavigationAgent3D
 @onready var anims : AnimationPlayer = $AnimationPlayer
+@onready var walk_particle : PackedScene = preload("res://footstep_particle.tscn")
 
 # Load limbs for death destruction
 @onready var head_limb : PackedScene = preload("res://Enemy/head_limb.tscn")
@@ -209,9 +210,24 @@ func die():
 	get_tree().root.add_child(left_leg)
 	left_leg.apply_impulse(transform.basis.z * 5, transform.basis.z)
 	
-	emit_signal("im_dead_af")
+	emit_signal("im_dead_af", self)
 	queue_free()
 
+
+func spawn_left_foot_particle():
+	var p = walk_particle.instantiate()
+	add_child(p)
+	p.global_position = $Form/LeftLegRotator/LeftLeg.global_position - Vector3(0, 0.5, 0)
+	p.set_as_top_level(true)
+	p.emitting = true
+	
+func spawn_right_foot_particle():
+	var p = walk_particle.instantiate()
+	add_child(p)
+	p.global_position = $Form/RightLegRotator/RightLeg.global_position - Vector3(0, 0.5, 0)
+	p.set_as_top_level(true)
+	p.emitting = true
+	
 
 func _on_idle_timer_timeout():
 	enemy_state = EnemyState.SEARCHING

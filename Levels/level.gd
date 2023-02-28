@@ -1,5 +1,6 @@
 extends Node3D
 
+@onready var bullet = preload("res://Weapons/bullet.tscn")
 @onready var player : CharacterBody3D = get_tree().get_nodes_in_group("Player")[0]
 @onready var player_start : Marker3D = $PlayerSpawn
 @onready var start_positions : Array
@@ -14,6 +15,9 @@ signal level1_complete
 func _ready():
 	randomize()
 	win_text.hide()
+	var b = bullet.instantiate()
+	add_child(b)
+	b.global_position = Vector3(100, 100, 100)
 	
 	connect("level1_complete", Callable(LevelManager, "level1_complete"))
 

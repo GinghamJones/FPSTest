@@ -11,6 +11,13 @@ var Resolutions : Dictionary = {"2560 x 1440" : Vector2(2560, 1440),
 func _ready():
 	add_resolutions()
 	
+	
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("pause"):
+		get_tree().paused = false
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+		get_viewport().set_input_as_handled()
+		queue_free()
 
 func add_resolutions():
 	for r in Resolutions:
@@ -22,7 +29,7 @@ func _on_back_pressed():
 
 
 func _on_fs_pressed():
-	get_tree().get_root().mode = Window.MODE_FULLSCREEN
+	get_tree().get_root().mode = Window.MODE_EXCLUSIVE_FULLSCREEN
 
 
 func _on_windowed_pressed():
@@ -57,3 +64,7 @@ func _on_check_box_pressed():
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_DISABLED)
 	if DisplayServer.window_get_vsync_mode() == DisplayServer.VSYNC_DISABLED:
 		DisplayServer.window_set_vsync_mode(DisplayServer.VSYNC_ENABLED)
+
+
+func _on_quit_pressed() -> void:
+	get_tree().quit()

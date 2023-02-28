@@ -13,5 +13,5 @@ func throw_me():
 
 
 func weapon_picked_up(this_weapon_name):
-	if this_weapon_name == weapon_name:
-		queue_free()
+	#if this_weapon_name == weapon_name:
+	queue_free()

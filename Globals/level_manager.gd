@@ -47,3 +47,9 @@ func remove_limbs():
 	var gored_limbs : Array = get_tree().get_nodes_in_group("Limb")
 	for limb in gored_limbs:
 		limb.queue_free()
+		
+
+func game_over():
+	get_tree().get_first_node_in_group("Player").queue_free()
+	get_tree().change_scene_to_file("res://Menu/main_menu.tscn")
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

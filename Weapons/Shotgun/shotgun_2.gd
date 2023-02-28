@@ -66,12 +66,16 @@ func spawn_bullet():
 	# Spawn bullet and set transformation
 	var b : RigidBody3D = bullet.instantiate()
 	#var b : RigidBody3D = ResourcePool.get_bullet()
-	b.set_what_fired_me(self)
-	b.position = muzzle.position + Vector3(0, -1.63, 0)
+	
+	#b.set_what_fired_me(self)
+	b.transform = muzzle.transform
+	b.position += Vector3(0, -1.63, 0)
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle
 	muzzle.add_child(b)
-	b.reset()
+	b.prepare(self)
+	
+
 
 
 func can_i_move():

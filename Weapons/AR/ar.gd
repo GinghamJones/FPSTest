@@ -44,12 +44,12 @@ func spawn_bullet():
 	
 	var b : RigidBody3D = bullet.instantiate()
 	#var b : RigidBody3D = ResourcePool.get_bullet()
-	b.set_what_fired_me(self)
+	#b.set_what_fired_me(self)
 	b.position = muzzle.position
 	b.rotation.x += randomx_angle
 	b.rotation.y += randomy_angle
 	muzzle.add_child(b)
-	b.reset()
+	b.prepare(self)
 
 
 func idle(anim_speed : float):

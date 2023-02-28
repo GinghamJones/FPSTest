@@ -28,11 +28,8 @@ func _unhandled_input(event):
 		pass
 	else:
 		if event.is_action_pressed("throw_weapon"):
-			var p = current_weapon.pickup_scene.instantiate()
-			p.global_transform = current_weapon.global_transform
-			get_tree().root.add_child(p)
+			ObjectManager.spawn_weapon_pickup(current_weapon.gun_name, current_weapon.global_transform)
 			state = THROWN
-			p.throw_me()
 
 			
 		if state != RELOADING:

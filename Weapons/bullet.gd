@@ -20,7 +20,8 @@ signal hit_wall(position)
 
 func _ready():
 	set_as_top_level(true)
-	#apply_impulse(transform.basis.z * speed, transform.basis.z)
+	apply_impulse(transform.basis.z * speed, transform.basis.z)
+	#set_physics_process(false)
 
 
 func _physics_process(delta):
@@ -87,27 +88,29 @@ func do_blood_stuff(body):
 	blood_instance.emitting = true
 
 	
-func reset():
+func prepare(gun : Weapon):
+	what_fired_me = gun
 	hit_something = false
 	timer = 0
 	bullet_damage = what_fired_me.damage
 	speed = what_fired_me.bullet_speed
 	
-	if what_fired_me.gun_owner == null:
-		printerr("the fuck?")
-	collision_exception = what_fired_me.gun_owner
-	add_collision_exception_with(collision_exception)
+	#collision_exception = what_fired_me.gun_owner
+	add_collision_exception_with(what_fired_me.gun_owner)
 	#set_physics_process(true)
 	show()
 	$BulletMesh.visible = true
 	$SmokeTrail.emitting = true
+
 	apply_impulse(transform.basis.z * speed, transform.basis.z)
 	
 
 func return_home():
-	remove_collision_exception_with(collision_exception)
+	remove_collision_exception_with(what_fired_me.gun_owner)
 	hide()
-	ResourcePool.return_bullet(what_fired_me, self)
+	set_physics_process(false)
+	global_position = Vector3(100, 100, 100)
+	ResourcePool.return_bullet()
 	
 	
 func _on_timer_timeout():

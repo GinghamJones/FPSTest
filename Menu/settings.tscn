@@ -102,6 +102,14 @@ offset_right = 683.0
 offset_bottom = 607.0
 text = "Windowed"
 
+[node name="Quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 303.0
+offset_top = 1018.0
+offset_right = 509.0
+offset_bottom = 1047.0
+text = "Quit"
+
 [connection signal="item_selected" from="VBoxContainer/ResolutionsMenu" to="." method="_on_resolutions_menu_item_selected"]
 [connection signal="value_changed" from="VBoxContainer/MSAASlider" to="." method="_on_msaa_slider_value_changed"]
 [connection signal="toggled" from="VBoxContainer/TAABox" to="." method="_on_taa_box_toggled"]
@@ -110,3 +118,4 @@ text = "Windowed"
 [connection signal="pressed" from="Back" to="." method="_on_back_pressed"]
 [connection signal="pressed" from="FS" to="." method="_on_fs_pressed"]
 [connection signal="pressed" from="Windowed" to="." method="_on_windowed_pressed"]
+[connection signal="pressed" from="Quit" to="." method="_on_quit_pressed"]

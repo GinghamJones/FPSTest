@@ -204,13 +204,12 @@ script = ExtResource("2_hosw1")
 gun_name = "AR"
 mag_size = 30
 damage = 10
-bullet_speed = 20.0
+bullet_speed = 8.0
 bullet_spread = Vector2(0.2, 0.1)
 
 [node name="FireSound" parent="." index="0"]
 stream = ExtResource("3_d3g0y")
 panning_strength = 0.34
-bus = &"Room"
 
 [node name="GunModel" parent="." index="3"]
 transform = Transform3D(-6.7108, 0, -5.86677e-07, 0, 6.71081, 0, 5.86677e-07, 0, -6.7108, 0, 0, 0)

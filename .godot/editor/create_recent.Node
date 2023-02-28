@@ -1,6 +1,8 @@
+GPUParticles3D
+Button
+Weapon
 Label3D
 Label
-Button
 CollisionShape3D
 Area3D
 CharacterBody3D
@@ -21,7 +23,6 @@ Node3D
 Timer
 Camera3D
 CheckBox
-GPUParticles3D
 DirectionalLight3D
 HSlider
 OptionButton
@@ -29,5 +30,3 @@ MenuButton
 Sprite3D
 CSGBox3D
 ReflectionProbe
-VBoxContainer
-Sprite2D
